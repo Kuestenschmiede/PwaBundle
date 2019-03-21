@@ -1,0 +1,9 @@
+services:
+  con4gis_pwa_manifest:
+    class: con4gis\PwaBundle\Classes\Services\ManifestCreationService
+    public: true
+    arguments: ['%contao.web_dir%']
+
+  con4gis_pwa_service_worker:
+    class: con4gis\PwaBundle\Classes\Services\ServiceWorkerCreationService
+    public: true

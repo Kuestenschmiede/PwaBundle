@@ -1,0 +1,45 @@
+{
+    "name": "con4gis/pwa-bundle",
+    "type": "contao-bundle",
+    "description": "Adds PWA functionality to a contao application.",
+    "keywords": ["con4gis", "Progressive Web App", "contao", "c4g", "PWA"],
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Kuestenschmiede GmbH Software & Design",
+            "homepage": "https://kuestenschmiede.de",
+            "role": "Operator"
+        }
+    ],
+    "support": {
+        "email": "support@con4gis.org"
+    },
+    "require": {
+        "con4gis/core": "^3.2",
+        "contao/core-bundle": "^4.7"
+    },
+    "conflict": {
+        "contao/core": "*",
+        "contao/manager-plugin": "<2.0 || >=3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "con4gis\\PwaBundle\\": ""
+        },
+        "classmap": [
+            "Resources/contao/"
+        ],
+        "exclude-from-classmap": [
+            "Resources/contao/config/",
+            "Resources/contao/dca/",
+            "Resources/contao/languages/",
+            "Resources/contao/templates/"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "extra": {
+        "contao-manager-plugin": "con4gis\\PwaBundle\\ContaoManager\\Plugin"
+    }
+}
