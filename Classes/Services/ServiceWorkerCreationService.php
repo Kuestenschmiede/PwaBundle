@@ -28,6 +28,7 @@ class ServiceWorkerCreationService
     
     public function createServiceWorker(PwaConfiguration $pwaConfiguration, PageModel $pageRoot)
     {
+        // TODO geht aktuell nur eine ebene tief
         $childPages = PageModel::findPublishedByPid($pageRoot->id);
         $arrPagenames = [];
         foreach ($childPages as $childPage) {
@@ -42,10 +43,6 @@ class ServiceWorkerCreationService
     private function createServiceWorkerFile($arrPages, $cacheName)
     {
         $writer = new ServiceWorkerFileWriter();
-        $writer->createCachingCode($arrPages, $cacheName);
-        $writer->createFetchCode($cacheName);
-        $content = $writer->getStrContent();
-        // TODO service worker dateiname über konfiguration holen
-        file_put_contents($this->webPath . "/sw.js",$content);
+        $writer->createServiceWorkerFile($arrPages, $cacheName, $this->webPath);
     }
 }

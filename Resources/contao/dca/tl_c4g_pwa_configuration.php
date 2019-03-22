@@ -87,7 +87,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,shortName,description,themeColor,backgroundColor,display,icon192,icon512;',
+        'default'   =>  '{data_legend},name,shortName,description,themeColor,backgroundColor,display,orientation,offlinePage,icon192,icon512,serviceWorkerGen;',
     ),
     
     //Fields
@@ -142,6 +142,23 @@ $GLOBALS['TL_DCA'][$strName] = array
             'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
         ),
     
+        'orientation' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['orientation'],
+            'default'           => '0',
+            'inputType'         => 'select',
+            'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback', 'getOrientationOptions'],
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
+        ),
+    
+        'offlinePage' => array
+        (
+            'label'                   => $GLOBALS['TL_LANG'][$strName]['offlinePage'],
+            'exclude'                 => true,
+            'inputType'               => 'pageTree',
+            'eval'                    => ['fieldType'=>'radio'],
+        ),
+    
         'icon192' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['icon192'],
@@ -158,6 +175,15 @@ $GLOBALS['TL_DCA'][$strName] = array
             'inputType'         => 'fileTree',
             'save_callback'     => ['con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback', 'binToUuid'],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
+        ),
+    
+        'serviceWorkerGen' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['serviceWorkerGen'],
+            'default'           => '0',
+            'inputType'         => 'select',
+            'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback', 'getServiceWorkerOptions'],
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
         ),
     )
 );

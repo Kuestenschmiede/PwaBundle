@@ -25,6 +25,18 @@ class PwaConfiguration extends BaseEntity
     const PWA_DISPLAY_MINIMAL_UI = 3;
     const PWA_DISPLAY_BROWSER    = 4;
     
+    const PWA_ORIENTATION_ANY = 1;
+    const PWA_ORIENTATION_NATURAL = 2;
+    const PWA_ORIENTATION_LANDSCAPE = 3;
+    const PWA_ORIENTATION_LANDSCAPE_PRIMARY = 4;
+    const PWA_ORIENTATION_LANDSCAPE_SECONDARY = 5;
+    const PWA_ORIENTATION_PORTRAIT = 6;
+    const PWA_ORIENTATION_PORTRAIT_PRIMARY = 7;
+    const PWA_ORIENTATION_PORTRAIT_SECONDARY = 8;
+    
+    const PWA_SERVICE_WORKER_GENERATE = 1;
+    const PWA_SERVICE_WORKER_CUSTOM = 2;
+    
     /**
      * @var int
      * @ORM\Id
@@ -58,6 +70,18 @@ class PwaConfiguration extends BaseEntity
     private $display = 0;
     
     /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $orientation = 0;
+    
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $offlinePage = 0;
+    
+    /**
      * @var string
      * @ORM\Column(type="string")
      */
@@ -77,15 +101,21 @@ class PwaConfiguration extends BaseEntity
     
     /**
      * @var string
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $icon192 = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $icon512 = null;
+    
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $serviceWorkerGen = 0;
     
     /**
      * @return int
@@ -168,6 +198,38 @@ class PwaConfiguration extends BaseEntity
     }
     
     /**
+     * @return int
+     */
+    public function getOrientation(): int
+    {
+        return $this->orientation;
+    }
+    
+    /**
+     * @param int $orientation
+     */
+    public function setOrientation(int $orientation): void
+    {
+        $this->orientation = $orientation;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getOfflinePage(): int
+    {
+        return $this->offlinePage;
+    }
+    
+    /**
+     * @param int $offlinePage
+     */
+    public function setOfflinePage(int $offlinePage): void
+    {
+        $this->offlinePage = $offlinePage;
+    }
+    
+    /**
      * @return string
      */
     public function getBackgroundColor(): string
@@ -245,5 +307,21 @@ class PwaConfiguration extends BaseEntity
     public function setIcon512(string $icon512): void
     {
         $this->icon512 = $icon512;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getServiceWorkerGen(): int
+    {
+        return $this->serviceWorkerGen;
+    }
+    
+    /**
+     * @param int $serviceWorkerGen
+     */
+    public function setServiceWorkerGen(int $serviceWorkerGen): void
+    {
+        $this->serviceWorkerGen = $serviceWorkerGen;
     }
 }

@@ -15,11 +15,22 @@ namespace con4gis\PwaBundle\Classes\ServiceWorker;
  */
 class ServiceWorkerFileWriter
 {
+    
+    // TODO class als service bereitstellen
+    // TODO webPath injecten
     /**
      * Current content of the writing buffer.
      * @var string
      */
     private $strContent = "";
+    
+    public function createServiceWorkerFile($fileNames, $cacheName, $webPath)
+    {
+        $this->createCachingCode($fileNames, $cacheName);
+        $this->createFetchCode($cacheName);
+        // TODO service worker dateiname über konfiguration holen
+        file_put_contents($webPath . "/sw.js",$this->strContent);
+    }
     
     /**
      * Creates an event listener on the install event for the service worker and caches all given file names.
@@ -45,6 +56,7 @@ class ServiceWorkerFileWriter
      */
     public function createFetchCode($cacheName)
     {
+        // TODO das endsWith und entsprechendes cache.match muss dynamisch generiert werden
         $this->strContent .= <<< JS
 self.addEventListener('fetch', event => {
 	event.respondWith(
