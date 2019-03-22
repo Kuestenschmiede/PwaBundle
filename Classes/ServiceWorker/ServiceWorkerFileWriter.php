@@ -30,6 +30,7 @@ class ServiceWorkerFileWriter
     {
         $this->strContent .= "self.addEventListener('install', event => event.waitUntil(\n";
         $this->strContent .= "\tcaches.open('" . $cacheName . "').then(cache => {\n";
+        $this->strContent .= "\t\tcache.add('/');\n";
         foreach ($fileNames as $fileName) {
             $this->strContent .= "\t\tcache.add('" . $fileName . "');\n";
         }
@@ -45,13 +46,23 @@ class ServiceWorkerFileWriter
     public function createFetchCode($cacheName)
     {
         $this->strContent .= <<< JS
-self.addEventListener('fetch', event => event.respondWith(
-  caches.open("$cacheName")
-  // if requested url match the cache entry, serve from cache
-    .then(cache => cache.match(event.request))
-    // if not, fire a request for the requested resource
-    .then(response => response || fetch(event.request))
-));
+self.addEventListener('fetch', event => {
+	event.respondWith(
+        caches.open("$cacheName")
+        // if requested url match the cache entry, serve from cache
+        .then(cache => {
+            if (event.request.url.endsWith('/landing.html')) {
+                return cache.match('landing.html');
+            } else if (event.request.url.endsWith('/second.html')) {
+                return cache.match('second.html');
+            }
+        })
+        // if not, fire a request for the requested resource
+        .then(function(response) {
+            return response || fetch(event.request)
+      })
+	);
+});
 JS;
     }
     
