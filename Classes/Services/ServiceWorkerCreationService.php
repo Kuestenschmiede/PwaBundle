@@ -9,13 +9,43 @@
 namespace con4gis\PwaBundle\Classes\Services;
 
 
+use con4gis\PwaBundle\Classes\ServiceWorker\ServiceWorkerFileWriter;
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 use Contao\PageModel;
 
 class ServiceWorkerCreationService
 {
+    private $webPath = "";
+    
+    /**
+     * ServiceWorkerCreationService constructor.
+     * @param string $webPath
+     */
+    public function __construct(string $webPath)
+    {
+        $this->webPath = $webPath;
+    }
+    
     public function createServiceWorker(PwaConfiguration $pwaConfiguration, PageModel $pageRoot)
     {
+        $childPages = PageModel::findPublishedByPid($pageRoot->id);
+        $arrPagenames = [];
+        foreach ($childPages as $childPage) {
+            // TODO Abfragen, ob html Suffix angehängt werden muss oder nicht
+            $arrPagenames[] = $childPage->alias . ".html";
+        }
+        $version = 1;
+        $cacheName = 'pwa-con4gis-v' . $version;
+        $this->createServiceWorkerFile($arrPagenames, $cacheName);
+    }
     
+    private function createServiceWorkerFile($arrPages, $cacheName)
+    {
+        $writer = new ServiceWorkerFileWriter();
+        $writer->createCachingCode($arrPages, $cacheName);
+        $writer->createFetchCode($cacheName);
+        $content = $writer->getStrContent();
+        // TODO service worker dateiname über konfiguration holen
+        file_put_contents($this->webPath . "/sw.js",$content);
     }
 }

@@ -33,21 +33,21 @@ class ManifestCreationService
             "name" => "",
             "short_name" => "",
             "description" => "",
-            "scope" => "/",
-            "start_url" => "/",
+            "scope" => ".",
+            "start_url" => ".",
             "display" => "",
             "background_color" => "",
             "theme_color" => "",
             "icons" => [],
             "serviceworker" => [
-                "src" => "sw.js",
+                "src" => "/sw.js",
                 "scope" => ".",
                 "update_via_cache" => "none"
             ]
         ];
         $manifestJson = $this->parseFromConfiguration($jsonTemplate, $pwaConfiguration);
         $path = $this->webPath . '/manifest.webmanifest';
-        file_put_contents($path, json_encode($manifestJson));
+        $this->writeManifestFile($path, $manifestJson);
     }
     
     private function parseFromConfiguration($arrJson, PwaConfiguration $configuration)
@@ -93,5 +93,10 @@ class ManifestCreationService
             default:
                 return "browser";
         }
+    }
+    
+    private function writeManifestFile($path, $arrData)
+    {
+        file_put_contents($path, json_encode($arrData, JSON_PRETTY_PRINT));
     }
 }

@@ -7,3 +7,4 @@ services:
   con4gis_pwa_service_worker:
     class: con4gis\PwaBundle\Classes\Services\ServiceWorkerCreationService
     public: true
+    arguments: ['%contao.web_dir%']
