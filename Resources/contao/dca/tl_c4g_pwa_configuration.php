@@ -15,6 +15,9 @@
 /**
  * Table tl_c4g_pwa_configuration
  */
+
+use con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback;
+
 $strName = 'tl_c4g_pwa_configuration';
 
 $GLOBALS['TL_DCA'][$strName] = array
@@ -138,7 +141,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['display'],
             'default'           => '0',
             'inputType'         => 'select',
-            'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback', 'getDisplayOptions'],
+            'options_callback'  => [PwaConfigurationCallback::class, 'getDisplayOptions'],
             'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
         ),
     
@@ -147,7 +150,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['orientation'],
             'default'           => '0',
             'inputType'         => 'select',
-            'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback', 'getOrientationOptions'],
+            'options_callback'  => [PwaConfigurationCallback::class, 'getOrientationOptions'],
             'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
         ),
     
@@ -164,7 +167,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['icon192'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => ['con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback', 'binToUuid'],
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
         ),
     
@@ -173,7 +176,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['icon512'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => ['con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback', 'binToUuid'],
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
         ),
     
@@ -182,7 +185,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['serviceWorkerGen'],
             'default'           => '0',
             'inputType'         => 'select',
-            'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback', 'getServiceWorkerOptions'],
+            'options_callback'  => [PwaConfigurationCallback::class, 'getServiceWorkerOptions'],
             'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
         ),
     )

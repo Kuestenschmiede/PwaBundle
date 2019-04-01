@@ -101,13 +101,13 @@ class PwaConfiguration extends BaseEntity
     
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private $icon192 = null;
     
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private $icon512 = null;
     
