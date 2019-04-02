@@ -16,3 +16,19 @@ services:
     arguments:
       - '@service_container'
       - '@minishlink_web_push'
+
+  pwa.onPushNotificationGetSubscriptions:
+    class: con4gis\PwaBundle\Classes\Listener\PushNotificationListener
+    tags:
+      - { name: kernel.event_listener, event: con4gis.notification.send, method: onPushNotificationGetSubscriptions, priority: 2048 }
+    arguments:
+      - '@doctrine.orm.default_entity_manager'
+      - '@minishlink_web_push'
+
+  pwa.onPushNotificationSendNotifications:
+    class: con4gis\PwaBundle\Classes\Listener\PushNotificationListener
+    tags:
+      - { name: kernel.event_listener, event: con4gis.notification.send, method: onPushNotificationSendNotifications, priority: 1024 }
+    arguments:
+      - '@doctrine.orm.default_entity_manager'
+      - '@minishlink_web_push'

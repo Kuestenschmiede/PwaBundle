@@ -4,6 +4,7 @@
 namespace con4gis\PwaBundle\Command;
 
 
+use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
 use con4gis\PwaBundle\Entity\PushSubscription;
 use Contao\System;
 use Minishlink\WebPush\Subscription;
@@ -44,32 +45,13 @@ class SendPushNotificationCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $content = $input->getArgument('content');
-        $content = \GuzzleHttp\json_encode([
-            'title' => "Neue Benachrichtigung",
-            'body' => $content
-        ]);
-        $entityManager = $this->container->get('doctrine.orm.default_entity_manager');
-        $subscriptions = $entityManager->getRepository(PushSubscription::class)->findAll();
-        foreach ($subscriptions as $subscription) {
-            $sub = Subscription::create([
-                'endpoint' => $subscription->getEndpoint(),
-                'contentEncoding' => "aesgcm",
-                'publicKey' => $subscription->getP256dhKey(),
-                'authToken' => $subscription->getAuthKey()
-            ]);
-            $res = $this->webPush->sendNotification($sub, $content);
-            $reports = $this->webPush->flush();
-            if (is_array($reports)) {
-                foreach ($reports as $report) {
-                    $endpoint = $report['endpoint']->getHost() . $report['endpoint']->getPath();
-                    if ($report['success']) {
-                        $output->writeln("[v] Message sent successfully for subscription {$endpoint}.");
-                    } else {
-                        $output->writeln("[x] Message failed to sent for subscription {$endpoint}: {$report['message']}");
-                    }
-                }
-            }
-        }
+        $title = "Neue Benachrichtigung";
+        $eventDispatcher = $this->container->get('event_dispatcher');
+        $event = new PushNotificationEvent();
+        $event->setSendToAll(true);
+        $event->setTitle($title);
+        $event->setMessage($content);
+        $eventDispatcher->dispatch($event::NAME, $event);
     }
     
 }
