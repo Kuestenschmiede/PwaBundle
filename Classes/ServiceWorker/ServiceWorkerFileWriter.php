@@ -15,9 +15,6 @@ namespace con4gis\PwaBundle\Classes\ServiceWorker;
  */
 class ServiceWorkerFileWriter
 {
-    
-    // TODO class als service bereitstellen
-    // TODO webPath injecten
     /**
      * Current content of the writing buffer.
      * @var string
@@ -27,7 +24,7 @@ class ServiceWorkerFileWriter
     public function createServiceWorkerFile($fileNames, $cacheName, $webPath)
     {
         $this->createCachingCode($fileNames, $cacheName);
-        $this->createFetchCode($cacheName);
+        $this->createFetchCode($fileNames, $cacheName);
         $this->createPushCode();
         // TODO service worker dateiname über konfiguration holen
         file_put_contents($webPath . "/sw.js",$this->strContent);
@@ -55,20 +52,24 @@ class ServiceWorkerFileWriter
      * given name.
      * @param $cacheName
      */
-    public function createFetchCode($cacheName)
+    public function createFetchCode($fileNames, $cacheName)
     {
         // TODO das endsWith und entsprechendes cache.match muss dynamisch generiert werden
+        $lastFragment = "let fragment = event.request.url.substring(event.request.url.lastIndexOf('/') + 1);\n"; // TODO get last fragment after slash
+        $switchStmt = "switch(fragment) {\n";
+        foreach ($fileNames as $fileName) {
+            $switchStmt .= "\t\tcase '$fileName':\n";
+            $switchStmt .= "\t\treturn cache.match('$fileName');\n";
+        }
+        $switchStmt .= "}\n";
         $this->strContent .= <<< JS
 self.addEventListener('fetch', event => {
 	event.respondWith(
         caches.open("$cacheName")
         // if requested url match the cache entry, serve from cache
         .then(cache => {
-            if (event.request.url.endsWith('/landing.html')) {
-                return cache.match('landing.html');
-            } else if (event.request.url.endsWith('/second.html')) {
-                return cache.match('second.html');
-            }
+            $lastFragment
+            $switchStmt
         })
         // if not, fire a request for the requested resource
         .then(function(response) {
@@ -85,25 +86,7 @@ JS;
 self.addEventListener('push', event => {
   console.log(event);
   const notification = event.data.json();
-  self.registration.showNotification(notification.title, {
-    body: notification.body,
-    icon: 'bell.png',
-    image: notification.image,
-    badge: notification.image,
-    vibrate: [300, 100, 300],
-    sound: 'sound.mp3',
-    dir: "auto",
-    tag: 'tag',
-    data: {foo: 'bar'},
-    requireInteraction: true,
-    renotify: true,
-    silent: false,
-    actions: [
-      {action: 'ok', title: 'Toll', icon: 'icon.png'},
-      {action: 'cancel', title: 'Geh weg'}
-    ],
-    timestamp: time()
-  });
+  self.registration.showNotification(notification.title, notification);
 });
 JS;
     }

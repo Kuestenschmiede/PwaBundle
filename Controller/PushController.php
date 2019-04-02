@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class PushController extends AbstractController
 {
     
+    // TODO entityManager vernünftig injecten
+    
     public function getPublicKeyAction(Request $request)
     {
     
@@ -24,7 +26,6 @@ class PushController extends AbstractController
     /**
      * @Route("/con4gis/pushSubscription", name="createPushSubscription", methods={"POST"})
      * @param $request
-     * @param $entityManager
      * @return JsonResponse
      */
     public function createSubscription(Request $request)
@@ -57,8 +58,27 @@ class PushController extends AbstractController
     
     }
     
+    /**
+     * @Route("/con4gis/pushSubscription", name="deleteSubscriptionAction", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function deleteSubscriptionAction(Request $request)
     {
-    
+        $this->container->get('contao.framework')->initialize();
+        /** @var EntityManager $entityManager */
+        $entityManager = System::getContainer()->get('doctrine.orm.default_entity_manager');
+        $arrData = $request->request->all();
+        $endpoint = $arrData['endpoint'];
+        $subscription = $entityManager->getRepository(PushSubscription::class)
+            ->findOneBy(['endpoint' => $endpoint]);
+        try {
+            $entityManager->remove($subscription);
+            $entityManager->flush();
+        } catch (ORMException $exception) {
+            // TODO catch exception
+        }
+        return new JsonResponse([]);
+        
     }
 }

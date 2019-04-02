@@ -1,15 +1,54 @@
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.ready.then(function(registration) {
     if ('PushManager' in window) {
-      registerForPush(registration.pushManager);
+      registration.pushManager.getSubscription()
+        .then(function(subscription) {
+          if (!(subscription === null)) {
+            // user is subscribed
+            updateSubscriptionButton(true);
+          } else {
+            updateSubscriptionButton(false);
+          }
+        });
     }
   });
 }
 
+function updateSubscriptionButton(isSubscribed) {
+  let button = document.getElementById('btn-push-subscribe');
+
+  if (isSubscribed) {
+    button.innerHTML = 'Unsubscribe notifications';
+    button.onclick = null;
+    button.onclick = function(event) {
+      navigator.serviceWorker.getRegistration().then(reg => unsubscribeNotifications(reg.pushManager));
+    };
+  } else {
+    button.innerHTML = 'Subscribe notifications';
+    button.onclick = null;
+    button.onclick = function(event) {
+      navigator.serviceWorker.getRegistration().then(reg => registerForPush(reg.pushManager));
+    };
+  }
+}
+
+function unsubscribeNotifications(pushManager) {
+  pushManager.getSubscription().then(function(subscription) {
+    let endpoint = subscription.endpoint;
+    jQuery.ajax('/con4gis/pushSubscription', {
+      method: 'DELETE',
+      data: {endpoint: endpoint}
+    }).done(function(data) {
+      updateSubscriptionButton(false);
+    });
+  });
+}
+
 function registerForPush(pushManager) {
+  // TODO publicKey vom server abfragen
   let key = urlB64ToUint8Array('BJkdzqcCVqbN_5sW8_iP-TDyY2pTxz82ONPkxF0K3mC5vYkizWj6DOEMBCUoWg6AlmQTg-1EFOVGLzA41VzuK48');
   const options = {userVisibleOnly: true, applicationServerKey: key};
-  console.log(options);
+
   pushManager.subscribe(options)
     .then(pushSubscription => {
       // user has allowed the subscription
@@ -17,12 +56,9 @@ function registerForPush(pushManager) {
       jQuery.ajax('/con4gis/pushSubscription', {
         method: 'POST',
         data: pushSubscription.toJSON()
+      }).done(function(data) {
+        updateSubscriptionButton(true);
       });
-      // fetch('/con4gis/pushSubscription', {
-      //   method: 'POST',
-      //   headers: {'Content-Type': 'application/json' },
-      //   body: JSON.stringify(pushSubscription.toJSON())
-      // });
     }).catch(error => {
       console.log(error);
   });

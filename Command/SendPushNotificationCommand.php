@@ -23,6 +23,8 @@ class SendPushNotificationCommand extends Command
     
     /**
      * SendPushNotificationCommand constructor.
+     * @param ContainerInterface $container
+     * @param $webPush
      */
     public function __construct(ContainerInterface $container, $webPush)
     {
@@ -43,7 +45,7 @@ class SendPushNotificationCommand extends Command
     {
         $content = $input->getArgument('content');
         $content = \GuzzleHttp\json_encode([
-            'title' => "Test",
+            'title' => "Neue Benachrichtigung",
             'body' => $content
         ]);
         $entityManager = $this->container->get('doctrine.orm.default_entity_manager');
@@ -59,17 +61,15 @@ class SendPushNotificationCommand extends Command
             $reports = $this->webPush->flush();
             if (is_array($reports)) {
                 foreach ($reports as $report) {
-                    $endpoint = $report->getRequest()->getUri()->__toString();
-                    if ($report->isSuccess()) {
+                    $endpoint = $report['endpoint']->getHost() . $report['endpoint']->getPath();
+                    if ($report['success']) {
                         $output->writeln("[v] Message sent successfully for subscription {$endpoint}.");
                     } else {
-                        $output->writeln("[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}");
+                        $output->writeln("[x] Message failed to sent for subscription {$endpoint}: {$report['message']}");
                     }
                 }
             }
         }
-    
-        
     }
     
 }
