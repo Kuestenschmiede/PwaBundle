@@ -20,12 +20,14 @@ use Contao\ManagerPlugin\Bundle\Config\ConfigInterface;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
+use Minishlink\Bundle\WebPushBundle\MinishlinkWebPushBundle;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Contao\ManagerPlugin\Config\ConfigPluginInterface;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Routing\RouteCollection;
 
-class Plugin implements BundlePluginInterface, ConfigPluginInterface
+class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPluginInterface
 {
     /**
      * Gets a list of autoload configurations for this bundle.
@@ -37,8 +39,11 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface
     public function getBundles(ParserInterface $parser)
     {
         return [
+            BundleConfig::create(MinishlinkWebPushBundle::class)
+                ->setLoadAfter([ContaoCoreBundle::class]),
             BundleConfig::create(con4gisPwaBundle::class)
                 ->setLoadAfter([con4gisCoreBundle::class])
+                ->setLoadAfter([MinishlinkWebPushBundle::class])
         ];
     }
     
@@ -48,5 +53,18 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface
     public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig)
     {
         $loader->load('@con4gisPwaBundle/Resources/config/config.yml');
+    }
+    
+    /**
+     * Returns a collection of routes for this bundle.
+     *
+     * @return RouteCollection|null
+     */
+    public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel)
+    {
+        return $resolver
+            ->resolve(__DIR__.'/../Resources/config/routing.yml')
+            ->load(__DIR__.'/../Resources/config/routing.yml')
+            ;
     }
 }

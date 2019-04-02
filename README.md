@@ -1,9 +1,9 @@
 # PwaBundle
 
 Aktuelle TODOS:
-* [ ] PWA-Konfig: Offline-Seite
-* [ ] PWA-Konfig: Orientation-Feld
-* [ ] PWA-Konfig: Auswahl ob SW generiert werden soll oder eigene Datei
+* [X] PWA-Konfig: Offline-Seite
+* [X] PWA-Konfig: Orientation-Feld
+* [X] PWA-Konfig: Auswahl ob SW generiert werden soll oder eigene Datei
 * [ ] ServiceWorkerFileWriter: Die einzelnen cache.matches Einträge dynamisch generieren
 * [ ] ServiceWorkerCreationService: Aktuell werden nur eine Ebene tief die Kindseiten automatisch gecached
 * [ ] Push-Notifications: Clientseitige Push Registrierung implementieren

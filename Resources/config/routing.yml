@@ -1,0 +1,24 @@
+#createPushSubscription:
+#  path: /con4gis/pushSubscription
+#  defaults:
+#    _scope: frontend
+#    _controller: "con4gisPwaBundle:Push:createSubscription"
+#  methods: [POST]
+
+#updatePushSubscription:
+#  path: /con4gis/pushSubscription
+#  defaults:
+#    _scope: frontend
+#    _controller: "con4gisPwaBundle:Push:updateSubscription"
+#  methods: [PUT]
+#
+#deletePushSubscription:
+#  path: /con4gis/pushSubscription
+#  defaults:
+#    _scope: frontend
+#    _controller: "con4gisPwaBundle:Push:deleteSubscription"
+#  methods: [DELETE]
+
+controllers:
+  resource: '../../Controller/'
+  type:     annotation

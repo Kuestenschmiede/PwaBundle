@@ -4,3 +4,15 @@ doctrine:
       default:
         mappings:
           con4gisPwaBundle: ~
+
+minishlink_web_push:
+  VAPID:
+    subject: https://yoursite.com # can be an URL or a mailto:
+    publicKey: BJkdzqcCVqbN_5sW8_iP-TDyY2pTxz82ONPkxF0K3mC5vYkizWj6DOEMBCUoWg6AlmQTg-1EFOVGLzA41VzuK48          # uncompressed public key P-256 encoded in Base64-URL
+    privateKey: L8uMT2qyeblHTukDdPpx2YktZ-5YsGslB0-4vSubeDQ
+    # the secret multiplier of the private key encoded in Base64-URL
+  ttl: 2419200                    # Time to Live of notifications in seconds
+  urgency: ~                      # can be very-low / low / normal / high
+  topic: ~                        # default identifier for your notifications
+  timeout: 30                     # Timeout of each request in seconds
+  automatic_padding: true         # pad messages automatically for better security (against more bandwith usage)

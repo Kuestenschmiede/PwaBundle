@@ -8,3 +8,11 @@ services:
     class: con4gis\PwaBundle\Classes\Services\ServiceWorkerCreationService
     public: true
     arguments: ['%contao.web_dir%']
+
+  con4gis_pwa.sendPushCommand:
+    class: con4gis\PwaBundle\Command\SendPushNotificationCommand
+    tags:
+      - { name: console.command }
+    arguments:
+      - '@service_container'
+      - '@minishlink_web_push'

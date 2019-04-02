@@ -28,6 +28,7 @@ class ServiceWorkerFileWriter
     {
         $this->createCachingCode($fileNames, $cacheName);
         $this->createFetchCode($cacheName);
+        $this->createPushCode();
         // TODO service worker dateiname über konfiguration holen
         file_put_contents($webPath . "/sw.js",$this->strContent);
     }
@@ -74,6 +75,35 @@ self.addEventListener('fetch', event => {
             return response || fetch(event.request)
       })
 	);
+});
+JS;
+    }
+    
+    public function createPushCode()
+    {
+        $this->strContent .= <<< JS
+self.addEventListener('push', event => {
+  console.log(event);
+  const notification = event.data.json();
+  self.registration.showNotification(notification.title, {
+    body: notification.body,
+    icon: 'bell.png',
+    image: notification.image,
+    badge: notification.image,
+    vibrate: [300, 100, 300],
+    sound: 'sound.mp3',
+    dir: "auto",
+    tag: 'tag',
+    data: {foo: 'bar'},
+    requireInteraction: true,
+    renotify: true,
+    silent: false,
+    actions: [
+      {action: 'ok', title: 'Toll', icon: 'icon.png'},
+      {action: 'cancel', title: 'Geh weg'}
+    ],
+    timestamp: time()
+  });
 });
 JS;
     }
