@@ -28,21 +28,31 @@ class ServiceWorkerCreationService
     
     public function createServiceWorker(PwaConfiguration $pwaConfiguration, PageModel $pageRoot)
     {
+        // TODO check if .html needs to be appended, set to empty string if not
+        $suffix = ".html";
         // TODO geht aktuell nur eine ebene tief
         $childPages = PageModel::findPublishedByPid($pageRoot->id);
         $arrPagenames = [];
-        foreach ($childPages as $childPage) {
-            // TODO Abfragen, ob html Suffix angehängt werden muss oder nicht
-            $arrPagenames[] = $childPage->alias . ".html";
+        if ($pwaConfiguration->getOfflinePage()) {
+            $offlinePage = PageModel::findById($pwaConfiguration->getOfflinePage());
+            $arrPagenames[] = $offlinePage->alias . $suffix;
+        } else {
+            // cache all pages except the exceptions
+            $pageIds = unserialize($pageRoot->uncachedPages);
+            foreach ($childPages as $childPage) {
+                if (!in_array($childPage->id, $pageIds)) {
+                    $arrPagenames[] = $childPage->alias . $suffix;
+                }
+            }
         }
         $version = 1;
         $cacheName = 'pwa-con4gis-v' . $version;
-        $this->createServiceWorkerFile($arrPagenames, $cacheName);
+        $this->createServiceWorkerFile($arrPagenames, $cacheName, $pwaConfiguration->getOfflinePage() ? $offlinePage->alias . $suffix : "");
     }
     
-    private function createServiceWorkerFile($arrPages, $cacheName)
+    private function createServiceWorkerFile($arrPages, $cacheName, $strOfflinePage)
     {
         $writer = new ServiceWorkerFileWriter();
-        $writer->createServiceWorkerFile($arrPages, $cacheName, $this->webPath);
+        $writer->createServiceWorkerFile($arrPages, $cacheName, $this->webPath, $strOfflinePage);
     }
 }

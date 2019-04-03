@@ -8,6 +8,8 @@
 
 namespace con4gis\PwaBundle\Classes\ServiceWorker;
 
+use con4gis\PwaBundle\Entity\PwaConfiguration;
+
 /**
  * Class ServiceWorkerFileWriter
  * Provides helper methods to write the service worker javascript file chunk by chunk.
@@ -21,12 +23,15 @@ class ServiceWorkerFileWriter
      */
     private $strContent = "";
     
-    public function createServiceWorkerFile($fileNames, $cacheName, $webPath)
+    public function createServiceWorkerFile($fileNames, $cacheName, $webPath, $strOfflinePage)
     {
         $this->createCachingCode($fileNames, $cacheName);
-        $this->createFetchCode($fileNames, $cacheName);
+        if ($strOfflinePage) {
+            $this->createFetchCodeWithOfflinePage($fileNames, $cacheName, $strOfflinePage);
+        } else {
+            $this->createFetchCode($fileNames, $cacheName);
+        }
         $this->createPushCode();
-        // TODO service worker dateiname über konfiguration holen
         file_put_contents($webPath . "/sw.js",$this->strContent);
     }
     
@@ -50,12 +55,13 @@ class ServiceWorkerFileWriter
     /**
      * Creates an event listener on the fetch event and tries to serve the desired request from the cache with the
      * given name.
+     * @param $fileNames
      * @param $cacheName
+     * @param $strOfflinePage
      */
     public function createFetchCode($fileNames, $cacheName)
     {
-        // TODO das endsWith und entsprechendes cache.match muss dynamisch generiert werden
-        $lastFragment = "let fragment = event.request.url.substring(event.request.url.lastIndexOf('/') + 1);\n"; // TODO get last fragment after slash
+        $lastFragment = "let fragment = event.request.url.substring(event.request.url.lastIndexOf('/') + 1);\n";
         $switchStmt = "switch(fragment) {\n";
         foreach ($fileNames as $fileName) {
             $switchStmt .= "\t\tcase '$fileName':\n";
@@ -80,11 +86,23 @@ self.addEventListener('fetch', event => {
 JS;
     }
     
+    public function createFetchCodeWithOfflinePage($fileNames, $cacheName, $offlinePageName)
+    {
+        $this->strContent.= <<< JS
+self.addEventListener('fetch', event => {
+  if (event.request.mode === 'navigate') {
+    return event.respondWith(
+      fetch(event.request).catch(() => caches.match('$offlinePageName'))
+    );
+  }
+});
+JS;
+    }
+    
     public function createPushCode()
     {
         $this->strContent .= <<< JS
 self.addEventListener('push', event => {
-  console.log(event);
   const notification = event.data.json();
   self.registration.showNotification(notification.title, notification);
 });
