@@ -12,24 +12,32 @@ namespace con4gis\PwaBundle\Classes\Services;
 use con4gis\PwaBundle\Classes\ServiceWorker\ServiceWorkerFileWriter;
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 use Contao\PageModel;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ServiceWorkerCreationService
 {
     private $webPath = "";
     
     /**
+     * @var ContainerInterface
+     */
+    private $container = null;
+    
+    /**
      * ServiceWorkerCreationService constructor.
      * @param string $webPath
+     * @param ContainerInterface $container
      */
-    public function __construct(string $webPath)
+    public function __construct(string $webPath, ContainerInterface $container)
     {
         $this->webPath = $webPath;
+        $this->container = $container;
     }
     
     public function createServiceWorker(PwaConfiguration $pwaConfiguration, PageModel $pageRoot)
     {
-        // TODO check if .html needs to be appended, set to empty string if not
-        $suffix = ".html";
+        $suffix = $this->container->getParameter('contao.url_suffix');;
         // TODO geht aktuell nur eine ebene tief
         $childPages = PageModel::findPublishedByPid($pageRoot->id);
         $arrPagenames = [];

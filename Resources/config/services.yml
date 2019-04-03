@@ -7,7 +7,7 @@ services:
   con4gis_pwa_service_worker:
     class: con4gis\PwaBundle\Classes\Services\ServiceWorkerCreationService
     public: true
-    arguments: ['%contao.web_dir%']
+    arguments: ['%contao.web_dir%', '@service_container']
 
   con4gis_pwa.sendPushCommand:
     class: con4gis\PwaBundle\Command\SendPushNotificationCommand
