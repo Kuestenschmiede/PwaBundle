@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,9 +19,17 @@ class PushController extends AbstractController
     
     // TODO entityManager vernünftig injecten
     
+    /**
+     * @Route("/con4gis/pushSubscription/getKey", name="getPushPublicKey", methods={"GET"})
+     * @param $request
+     * @return JsonResponse
+     */
     public function getPublicKeyAction(Request $request)
     {
-    
+        $this->container->get('contao.framework')->initialize();
+        $container = System::getContainer();
+        $publicKey = $container->getParameter('minishlink_web_push.auth')['VAPID']['publicKey'];
+        return new JsonResponse(['key' => $publicKey]);
     }
     
     /**
@@ -72,11 +81,13 @@ class PushController extends AbstractController
         $endpoint = $arrData['endpoint'];
         $subscription = $entityManager->getRepository(PushSubscription::class)
             ->findOneBy(['endpoint' => $endpoint]);
-        try {
-            $entityManager->remove($subscription);
-            $entityManager->flush();
-        } catch (ORMException $exception) {
-            // TODO catch exception
+        if ($subscription) {
+            try {
+                $entityManager->remove($subscription);
+                $entityManager->flush();
+            } catch (ORMException $exception) {
+                // TODO catch exception
+            }
         }
         return new JsonResponse([]);
         

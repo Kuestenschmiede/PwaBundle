@@ -45,22 +45,23 @@ function unsubscribeNotifications(pushManager) {
 }
 
 function registerForPush(pushManager) {
-  // TODO publicKey vom server abfragen
-  let key = urlB64ToUint8Array('BJkdzqcCVqbN_5sW8_iP-TDyY2pTxz82ONPkxF0K3mC5vYkizWj6DOEMBCUoWg6AlmQTg-1EFOVGLzA41VzuK48');
-  const options = {userVisibleOnly: true, applicationServerKey: key};
+  $.ajax('/con4gis/pushSubscription/getKey').done(function(data) {
+    let key = urlB64ToUint8Array(data.key);
+    const options = {userVisibleOnly: true, applicationServerKey: key};
 
-  pushManager.subscribe(options)
-    .then(pushSubscription => {
-      // user has allowed the subscription
-      // send the subscription to server
-      jQuery.ajax('/con4gis/pushSubscription', {
-        method: 'POST',
-        data: pushSubscription.toJSON()
-      }).done(function(data) {
-        updateSubscriptionButton(true);
-      });
-    }).catch(error => {
+    pushManager.subscribe(options)
+      .then(pushSubscription => {
+        // user has allowed the subscription
+        // send the subscription to server
+        jQuery.ajax('/con4gis/pushSubscription', {
+          method: 'POST',
+          data: pushSubscription.toJSON()
+        }).done(function(data) {
+          updateSubscriptionButton(true);
+        });
+      }).catch(error => {
       console.log(error);
+    });
   });
 }
 
