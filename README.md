@@ -12,3 +12,4 @@ Aktuelle TODOS:
 * [ ] ServiceWorker: Caching dynamischer gestalten, aktuell werden initial alle Seiten einmal geladen. Nur in Cache schreiben, wenn gerade angefordert wurde?
 * [ ] ServiceWorker: Nichts im Contao Backend machen. Der SW darf sich nicht im Contao BE registrieren.
 * [ ] ServiceWorkerCreationService: Aktuell werden nur eine Ebene tief die Kindseiten automatisch gecached
+* [ ] ServiceWorker: Versionierung einbauen (version des Page-Roots verwenden)

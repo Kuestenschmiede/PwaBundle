@@ -11,6 +11,7 @@ namespace con4gis\PwaBundle\Classes\Services;
 
 use con4gis\PwaBundle\Classes\ServiceWorker\ServiceWorkerFileWriter;
 use con4gis\PwaBundle\Entity\PwaConfiguration;
+use Contao\Database;
 use Contao\PageModel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -55,8 +56,15 @@ class ServiceWorkerCreationService
             }
         }
         
-        $version = 1;
-        $cacheName = 'pwa-con4gis-v' . $version;
+        $version = Database::getInstance()
+            ->prepare("SELECT version FROM tl_version WHERE fromTable = 'tl_page' AND pid = ? ORDER BY tstamp DESC LIMIT 1")
+            ->execute($pageRoot->id)->fetchAssoc();
+        if ($version && count($version) == 1) {
+            $intVersion = $version['version'];
+        } else {
+            $intVersion = 1;
+        }
+        $cacheName = 'pwa-con4gis-v' . $intVersion;
         $this->createServiceWorkerFile($arrPagenames, $cacheName, $pwaConfiguration->getOfflinePage() ? $offlinePage->alias . $suffix : "");
     }
     
