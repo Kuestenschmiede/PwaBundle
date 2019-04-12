@@ -17,5 +17,9 @@ $GLOBALS['BE_MOD']['con4gis_core'] = array_merge($GLOBALS['BE_MOD']['con4gis_cor
     'pwaConfiguration' => array
     (
         'tables'    => array('tl_c4g_pwa_configuration')
+    ),
+    'webpushConfiguration' => array
+    (
+        'tables'    => array('tl_c4g_webpush_configuration')
     )
 ));
