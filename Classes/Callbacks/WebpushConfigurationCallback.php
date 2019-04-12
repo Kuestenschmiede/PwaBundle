@@ -7,7 +7,11 @@ namespace con4gis\PwaBundle\Classes\Callbacks;
 use con4gis\PwaBundle\Entity\WebPushConfiguration;
 use Contao\Backend;
 use Contao\DataContainer;
+use Contao\System;
 use Database;
+use Minishlink\WebPush\VAPID;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 
 class WebpushConfigurationCallback extends Backend
 {
@@ -36,17 +40,54 @@ class WebpushConfigurationCallback extends Backend
     {
         $strName = 'tl_c4g_webpush_configuration';
         return [
-            WebPushConfiguration::URGENCY_VERY_LOW =>$GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_VERY_LOW],
-            WebPushConfiguration::URGENCY_LOW =>$GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_LOW],
-            WebPushConfiguration::URGENCY_NORMAL =>$GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_NORMAL],
-            WebPushConfiguration::URGENCY_HIGH =>$GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_HIGH]
+            WebPushConfiguration::URGENCY_VERY_LOW => $GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_VERY_LOW],
+            WebPushConfiguration::URGENCY_LOW => $GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_LOW],
+            WebPushConfiguration::URGENCY_NORMAL => $GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_NORMAL],
+            WebPushConfiguration::URGENCY_HIGH => $GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_HIGH]
         ];
     }
     
     public function writeDataToConfig(DataContainer $dc)
     {
-        // TODO create $rootDir/app/config/config.yml or check it's existence
-        // TODO build the yaml structure for the config options
-        // TODO write to the file (and clear the cache/hint the user to clear the cache?)
+        $extensionName = 'minishlink_web_push';
+        
+        if (!($dc->activeRecord->vapidPublickey && $dc->activeRecord->vapidPrivatekey)) {
+            // both keys are required, so create a new pair
+            $keys = VAPID::createVapidKeys();
+            $publicKey = $keys['publicKey'];
+            $privateKey = $keys['privateKey'];
+            $this->Database->prepare("UPDATE tl_c4g_webpush_configuration SET vapidPublickey=?, vapidPrivatekey=? WHERE id=? ")
+                ->execute($publicKey, $privateKey, $dc->activeRecord->id);
+        } else {
+            // use the user specified keys
+            $publicKey = html_entity_decode($dc->activeRecord->vapidPublickey);
+            $privateKey = html_entity_decode($dc->activeRecord->vapidPrivatekey);
+        }
+        
+        // configuration array that will be written to yaml
+        $config = [];
+        $config[$extensionName] = [];
+        $config[$extensionName]['VAPID'] = [
+            'subject' => $dc->activeRecord->vapidSubject,
+            'publicKey' => $publicKey,
+            'privateKey' => $privateKey
+        ];
+        $config[$extensionName]['ttl'] = intval($dc->activeRecord->ttl);
+        $config[$extensionName]['urgency'] = $dc->activeRecord->urgency;
+        $config[$extensionName]['topic'] = $dc->activeRecord->topic;
+        $config[$extensionName]['timeout'] = intval($dc->activeRecord->timeout);
+        // always set to true for better security
+        $config[$extensionName]['automatic_padding'] = true;
+        
+        $rootDir = System::getContainer()->getParameter('kernel.project_dir');
+        $configFile = $rootDir . '/app/config/config.yml';
+        try {
+            $currentConfig = Yaml::parseFile($configFile);
+        } catch (ParseException $exception) {
+            // parsing was not successful
+            $currentConfig = [];
+        }
+        $updatedConfig = Yaml::dump(array_merge($currentConfig, $config));
+        file_put_contents($configFile, $updatedConfig);
     }
 }

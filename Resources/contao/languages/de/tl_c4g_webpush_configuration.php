@@ -5,8 +5,8 @@ use con4gis\PwaBundle\Entity\WebPushConfiguration;
 $strName = 'tl_c4g_webpush_configuration';
 
 $GLOBALS['TL_LANG'][$strName]['vapidSubject'] = ['Betreff', 'Betreff der Push-Nachrichten.'];
-$GLOBALS['TL_LANG'][$strName]['vapidPublickey'] = ['Öffentlicher Schlüssel', 'Öffentlicher Schlüssel für die Verschlüsselung. Kann <a href=https://tools.reactpwa.com/vapid>hier</a> generiert werden.'];
-$GLOBALS['TL_LANG'][$strName]['vapidPrivatekey'] = ['Privater Schlüssel', 'Privater Schlüssel für die Verschlüsselung. Kann <a href=https://tools.reactpwa.com/vapid>hier</a> generiert werden.'];
+$GLOBALS['TL_LANG'][$strName]['vapidPublickey'] = ['Öffentlicher Schlüssel', 'Öffentlicher Schlüssel für die Verschlüsselung. Kann <a href=https://tools.reactpwa.com/vapid>hier</a> generiert werden. Falls Sie keinen Schlüssel angeben, wird ein Schlüsselpaar erzeugt.'];
+$GLOBALS['TL_LANG'][$strName]['vapidPrivatekey'] = ['Privater Schlüssel', 'Privater Schlüssel für die Verschlüsselung. Kann <a href=https://tools.reactpwa.com/vapid>hier</a> generiert werden. Falls Sie keinen Schlüssel angeben, wird ein Schlüsselpaar erzeugt.'];
 $GLOBALS['TL_LANG'][$strName]['ttl'] = ['Time to live', 'Lebensdauer der Push-Nachrichten.'];
 $GLOBALS['TL_LANG'][$strName]['urgency'] = ['Dringlichkeit', 'Dringlichkeit der Push-Nachrichten.'];
 $GLOBALS['TL_LANG'][$strName]['topic'] = ['Betreff', 'Betreff der Push-Nachrichten.'];
@@ -19,3 +19,5 @@ $GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_HIGH] = 'Hoch';
 
 // legends
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Konfiguration für Web-Push';
+// infotext
+$GLOBALS['TL_LANG'][$strName]['infotext'] = 'Bitte beachten Sie, dass nach dem Ändern der WebPush-Konfiguration der Cache geleert werden muss, damit Symfony die neue Konfiguration einlesen kann.';

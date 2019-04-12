@@ -80,14 +80,14 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['vapidPublickey'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long')
         ),
         'vapidPrivatekey' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['vapidPrivatekey'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long')
         ),
     
         'ttl' => array
