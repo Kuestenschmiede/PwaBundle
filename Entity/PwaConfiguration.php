@@ -37,6 +37,9 @@ class PwaConfiguration extends BaseEntity
     const PWA_SERVICE_WORKER_GENERATE = 1;
     const PWA_SERVICE_WORKER_CUSTOM = 2;
     
+    const PWA_OFFLINE_HANDLING_ALWAYS = 1;
+    const PWA_OFFLINE_HANDLING_FALLBACK = 2;
+    
     /**
      * @var int
      * @ORM\Id
@@ -80,6 +83,12 @@ class PwaConfiguration extends BaseEntity
      * @ORM\Column(type="integer")
      */
     private $offlinePage = 0;
+    
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $offlineHandling = 0;
     
     /**
      * @var string
@@ -227,6 +236,22 @@ class PwaConfiguration extends BaseEntity
     public function setOfflinePage(int $offlinePage): void
     {
         $this->offlinePage = $offlinePage;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getOfflineHandling(): int
+    {
+        return $this->offlineHandling;
+    }
+    
+    /**
+     * @param int $offlineHandling
+     */
+    public function setOfflineHandling(int $offlineHandling): void
+    {
+        $this->offlineHandling = $offlineHandling;
     }
     
     /**

@@ -90,7 +90,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,shortName,description,themeColor,backgroundColor,display,orientation,offlinePage,icon192,icon512,serviceWorkerGen;',
+        'default'   =>  '{data_legend},name,shortName,description,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512,serviceWorkerGen;',
     ),
     
     //Fields
@@ -160,6 +160,15 @@ $GLOBALS['TL_DCA'][$strName] = array
             'exclude'                 => true,
             'inputType'               => 'pageTree',
             'eval'                    => ['fieldType'=>'radio'],
+        ),
+    
+        'offlineHandling' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['offlineHandling'],
+            'default'           => '1',
+            'inputType'         => 'select',
+            'options_callback'  => [PwaConfigurationCallback::class, 'getOfflineHandlingOptions'],
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true)
         ),
     
         'icon192' => array

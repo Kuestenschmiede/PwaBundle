@@ -45,7 +45,9 @@ class ServiceWorkerCreationService
         if ($pwaConfiguration->getOfflinePage()) {
             $offlinePage = PageModel::findById($pwaConfiguration->getOfflinePage());
             $arrPagenames[] = $offlinePage->alias . $suffix;
-        } else {
+        }
+        
+        if(!($pwaConfiguration->getOfflinePage()) || ($pwaConfiguration->getOfflinePage() && $pwaConfiguration->getOfflineHandling() == 2)) {
             // cache all pages except the exceptions
             $pageIds = unserialize($pageRoot->uncachedPages);
             
@@ -64,13 +66,19 @@ class ServiceWorkerCreationService
         } else {
             $intVersion = 1;
         }
+        
         $cacheName = 'pwa-con4gis-v' . $intVersion;
-        $this->createServiceWorkerFile($arrPagenames, $cacheName, $pwaConfiguration->getOfflinePage() ? $offlinePage->alias . $suffix : "");
+        $this->createServiceWorkerFile(
+            $arrPagenames,
+            $cacheName,
+            $pwaConfiguration->getOfflinePage() ? $offlinePage->alias . $suffix : "",
+            $pwaConfiguration->getOfflineHandling()
+        );
     }
     
-    private function createServiceWorkerFile($arrPages, $cacheName, $strOfflinePage)
+    private function createServiceWorkerFile($arrPages, $cacheName, $strOfflinePage, $offlineHandling)
     {
         $writer = new ServiceWorkerFileWriter();
-        $writer->createServiceWorkerFile($arrPages, $cacheName, $this->webPath, $strOfflinePage);
+        $writer->createServiceWorkerFile($arrPages, $cacheName, $this->webPath, $strOfflinePage, $offlineHandling);
     }
 }

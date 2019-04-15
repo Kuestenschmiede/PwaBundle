@@ -51,6 +51,16 @@ class PwaConfigurationCallback extends Backend
         ];
     }
     
+    public function getOfflineHandlingOptions()
+    {
+        $strName = 'tl_c4g_pwa_configuration';
+        $optionsLang = $GLOBALS['TL_LANG'][$strName]['offlineHandling'];
+        return [
+            PwaConfiguration::PWA_OFFLINE_HANDLING_ALWAYS => $optionsLang[PwaConfiguration::PWA_OFFLINE_HANDLING_ALWAYS],
+            PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK => $optionsLang[PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK]
+        ];
+    }
+    
     public function convertBinToUuid($varValue)
     {
         $uuid = StringUtil::binToUuid($varValue);

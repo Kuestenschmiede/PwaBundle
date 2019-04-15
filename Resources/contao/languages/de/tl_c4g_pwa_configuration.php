@@ -6,6 +6,8 @@
  * Time: 12:56
  */
 
+use con4gis\PwaBundle\Entity\PwaConfiguration;
+
 $strName = 'tl_c4g_pwa_configuration';
 
 $GLOBALS['TL_LANG'][$strName]['name'] = ['Name', 'Name der PWA'];
@@ -21,19 +23,22 @@ $GLOBALS['TL_LANG'][$strName]['icon512'] = ['Icon der Größe 512x512', 'Wählen
 $GLOBALS['TL_LANG'][$strName]['serviceWorkerGen'] = ['Art der Service Worker Generierung', 'Wählen Sie aus, ob ein SW generiert werden soll oder ob ein eigener verwendet werden soll.'];
 
 // Options
-$GLOBALS['TL_LANG'][$strName]['displayOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_DISPLAY_FULLSCREEN] = "Vollbild";
-$GLOBALS['TL_LANG'][$strName]['displayOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_DISPLAY_STANDALONE] = "Standalone";
-$GLOBALS['TL_LANG'][$strName]['displayOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_DISPLAY_MINIMAL_UI] = "Minimale UI";
-$GLOBALS['TL_LANG'][$strName]['displayOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_DISPLAY_BROWSER] = "Browseransicht";
+$GLOBALS['TL_LANG'][$strName]['displayOptions'][PwaConfiguration::PWA_DISPLAY_FULLSCREEN] = "Vollbild";
+$GLOBALS['TL_LANG'][$strName]['displayOptions'][PwaConfiguration::PWA_DISPLAY_STANDALONE] = "Standalone";
+$GLOBALS['TL_LANG'][$strName]['displayOptions'][PwaConfiguration::PWA_DISPLAY_MINIMAL_UI] = "Minimale UI";
+$GLOBALS['TL_LANG'][$strName]['displayOptions'][PwaConfiguration::PWA_DISPLAY_BROWSER] = "Browseransicht";
 
-$GLOBALS['TL_LANG'][$strName]['orientationOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_ORIENTATION_ANY] = "Automatisch";
-$GLOBALS['TL_LANG'][$strName]['orientationOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_ORIENTATION_NATURAL] = "Natürlich";
-$GLOBALS['TL_LANG'][$strName]['orientationOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_ORIENTATION_LANDSCAPE] = "Breitbild";
-$GLOBALS['TL_LANG'][$strName]['orientationOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_ORIENTATION_LANDSCAPE_PRIMARY] = "Breitbild (Button rechts)";
-$GLOBALS['TL_LANG'][$strName]['orientationOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_ORIENTATION_LANDSCAPE_SECONDARY] = "Breitbild (Button links)";
-$GLOBALS['TL_LANG'][$strName]['orientationOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_ORIENTATION_PORTRAIT] = "Hochformat";
-$GLOBALS['TL_LANG'][$strName]['orientationOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_ORIENTATION_PORTRAIT_PRIMARY] = "Hochformat (Button rechts)";
-$GLOBALS['TL_LANG'][$strName]['orientationOptions'][\con4gis\PwaBundle\Entity\PwaConfiguration::PWA_ORIENTATION_PORTRAIT_SECONDARY] = "Hochformat (Button links)";
+$GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENTATION_ANY] = "Automatisch";
+$GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENTATION_NATURAL] = "Natürlich";
+$GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENTATION_LANDSCAPE] = "Breitbild";
+$GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENTATION_LANDSCAPE_PRIMARY] = "Breitbild (Button rechts)";
+$GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENTATION_LANDSCAPE_SECONDARY] = "Breitbild (Button links)";
+$GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENTATION_PORTRAIT] = "Hochformat";
+$GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENTATION_PORTRAIT_PRIMARY] = "Hochformat (Button rechts)";
+$GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENTATION_PORTRAIT_SECONDARY] = "Hochformat (Button links)";
+
+$GLOBALS['TL_LANG'][$strName]['offlineHandling'][PwaConfiguration::PWA_OFFLINE_HANDLING_ALWAYS] = "Immer auf Offline-Seite weiterleiten";
+$GLOBALS['TL_LANG'][$strName]['offlineHandling'][PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK] = "Normalen Cache-Mechanismus nutzen (Offline-Seite als Fallback)";
 
 // legends
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Angaben für Manifest-Datei';

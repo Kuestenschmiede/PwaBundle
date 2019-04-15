@@ -32,13 +32,6 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
         'onsubmit_callback'			=> array
         (
             array('\con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback', 'writeDataToConfig'),
-        ),
-        'sql'               => array
-        (
-            'keys' => array
-            (
-                'id' => 'primary',
-            )
         )
     ),
     
