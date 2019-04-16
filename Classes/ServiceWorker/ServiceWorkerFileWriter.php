@@ -29,13 +29,14 @@ class ServiceWorkerFileWriter
         if ($strOfflinePage) {
             if ($strOfflinePage && $intOfflineHandling === PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK) {
                 // fallback offline mode
-                $this->createFetchCode($fileNames, $cacheName, $strOfflinePage);
+                $this->createFetchCodeWithOfflinePage($strOfflinePage);
             } else {
                 // always offlinePage mode
-                $this->createFetchCodeWithOfflinePage($fileNames, $cacheName, $strOfflinePage);
+                $this->createFetchCodeForOfflineFallback($strOfflinePage);
             }
         } else {
-            $this->createFetchCode($fileNames, $cacheName);
+            // no offline page => no fallback when request failes and no cache matches
+            $this->createFetchCode();
         }
         $this->createPushCode();
         file_put_contents($webPath . "/sw.js",$this->strContent);
@@ -62,64 +63,49 @@ class ServiceWorkerFileWriter
     /**
      * Creates an event listener on the fetch event and tries to serve the desired request from the cache with the
      * given name.
-     * @param $fileNames
-     * @param $cacheName
-     * @param $defaultPage
      */
-    public function createFetchCode($fileNames, $cacheName, $defaultPage = "")
+    public function createFetchCode()
     {
-        $lastFragment = "let fragment = event.request.url.substring(event.request.url.lastIndexOf('/') + 1);\n";
-        $switchStmt = "switch(fragment) {\n";
-        foreach ($fileNames as $fileName) {
-            $switchStmt .= "\t\t\t\t\tcase '$fileName':\n";
-            $switchStmt .= "\t\t\t\t\treturn cache.match('$fileName');\n";
-        }
-        if ($defaultPage) {
-            $switchStmt .= "\t\t\t\t\tdefault:\n";
-            $switchStmt .= "\t\t\t\t\treturn cache.match('$defaultPage');\n";
-        }
-        $switchStmt .= "\t\t\t\t}\n";
-        if ($defaultPage) {
-            $this->strContent .= <<< JS
+        // should fail when no cache match happens
+        $this->strContent .= <<< JS
 self.addEventListener('fetch', event => {
   if (event.request.mode === 'navigate') {
-    return event.respondWith(
-        fetch(event.request).then(response => response).catch(function() {
-            caches.open("$cacheName")
-            // if requested url match the cache entry, serve from cache
-            .then(cache => {
-                $lastFragment
-                $switchStmt
-            })
-            .then((response) => response || new Response("Schade"))
-        })
-	);
-  }
-});
-
-JS;
-        } else {
-            $this->strContent .= <<< JS
-self.addEventListener('fetch', event => {
-  if (event.request.mode === 'navigate') {
-    return event.respondWith(
-	  fetch(event.request).catch(function() {
-	    caches.open("$cacheName")
-        // if requested url match the cache entry, serve from cache
-        .then(cache => {
-            $lastFragment
-            $switchStmt
-        })
-        .then((response) => response || new Response("Schade"))
-	  })
-	);
+   return event.respondWith(
+        fetch(event.request).catch(() => caches.match(event.request.url))
+   );
   }
 });
 JS;
-        }
+    
     }
     
-    public function createFetchCodeWithOfflinePage($fileNames, $cacheName, $offlinePageName)
+    /**
+     * Creates a fetch listener to match either requested pages from cache or serve the offline page,
+     * if no cache matches.
+     * @param $offlinePage
+     */
+    public function createFetchCodeWithOfflinePage($offlinePage)
+    {
+        // should return offline page when everything else failes
+        $this->strContent .= <<< JS
+self.addEventListener('fetch', event => {
+  if (event.request.mode === 'navigate') {
+    return event.respondWith(
+        fetch(event.request).catch(() => caches.match(event.request.url))//.catch(() => caches.match('$offlinePage'))
+    );
+  }
+});
+JS;
+    
+    }
+    
+    /**
+     * Creates a fetch listener that always serves the offline page, when a request fails due to connection issues.
+     * @param $fileNames
+     * @param $cacheName
+     * @param $offlinePageName
+     */
+    public function createFetchCodeForOfflineFallback($offlinePageName)
     {
         $this->strContent.= <<< JS
 self.addEventListener('fetch', event => {
@@ -132,6 +118,9 @@ self.addEventListener('fetch', event => {
 JS;
     }
     
+    /**
+     * Creates a push listener that shows the incoming push notification.
+     */
     public function createPushCode()
     {
         $this->strContent .= <<< JS

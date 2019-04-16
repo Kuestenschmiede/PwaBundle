@@ -37,7 +37,6 @@ class AddManifestModule extends Module
         $GLOBALS['TL_HEAD'][] = '<script>
           if (\'serviceWorker\' in navigator) {
             navigator.serviceWorker.register("./sw.js")
-              .then(reg => console.log(reg))
               .catch(err => console.log(err));
           }
         </script>';
