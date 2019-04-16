@@ -15,6 +15,11 @@ use Contao\StringUtil;
 
 class PwaConfigurationCallback extends Backend
 {
+    public function showHint()
+    {
+        \Contao\Message::addInfo($GLOBALS['TL_LANG']['tl_c4g_pwa_configuration']['infotext']);
+    }
+    
     public function getDisplayOptions()
     {
         $strName = 'tl_c4g_pwa_configuration';

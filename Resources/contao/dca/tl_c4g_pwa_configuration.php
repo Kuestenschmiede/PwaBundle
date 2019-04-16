@@ -26,7 +26,11 @@ $GLOBALS['TL_DCA'][$strName] = array
     'config' => array
     (
         'dataContainer'     => 'Table',
-        'enableVersioning'  => 'true'
+        'enableVersioning'  => 'true',
+        'onload_callback'			=> array
+        (
+            array('\con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback', 'showHint'),
+        )
     ),
     
     //List
