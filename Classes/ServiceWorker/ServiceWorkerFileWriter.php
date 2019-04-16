@@ -90,10 +90,14 @@ JS;
         $this->strContent .= <<< JS
 self.addEventListener('fetch', event => {
   if (event.request.mode === 'navigate') {
-    event.respondWith(
+    return event.respondWith(
       fetch(event.request).catch(() => {
-        return caches.match(event.request.url).catch(function(reason) {
-          return caches.match('$offlinePage')
+        return caches.match(event.request.url).then(function(response) {
+          if (!response) {
+            return caches.match('$offlinePage')
+          } else {
+            return response
+          }
         })
       })
     );
