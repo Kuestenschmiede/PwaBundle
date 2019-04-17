@@ -26,6 +26,7 @@ class ServiceWorkerFileWriter
     public function createServiceWorkerFile($fileNames, $cacheName, $webPath, $strOfflinePage, $intOfflineHandling)
     {
         $this->createCachingCode($fileNames, $cacheName);
+        $this->createActivationListener($cacheName);
         if ($strOfflinePage) {
             if ($strOfflinePage && $intOfflineHandling === PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK) {
                 // fallback offline mode
@@ -61,6 +62,33 @@ class ServiceWorkerFileWriter
     }
     
     /**
+     * Creates an activate listener that deletes all old caches.
+     * @param $cacheName
+     */
+    public function createActivationListener($cacheName)
+    {
+    $this->strContent .= <<< JS
+self.addEventListener('activate', function(event) {
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.filter(function(cacheName) {
+          // but remember that caches are shared across
+          // the whole origin
+          if (cacheName !== '$cacheName') {
+            return true;
+          }
+        }).map(function(cacheName) {
+          return caches.delete(cacheName);
+        })
+      );
+    })
+  );
+});
+JS;
+    }
+    
+    /**
      * Creates an event listener on the fetch event and tries to serve the desired request from the cache with the
      * given name.
      */
@@ -75,6 +103,7 @@ self.addEventListener('fetch', event => {
    );
   }
 });
+
 JS;
     
     }
@@ -103,6 +132,7 @@ self.addEventListener('fetch', event => {
     );
   }
 });
+
 JS;
     
     }
@@ -123,6 +153,7 @@ self.addEventListener('fetch', event => {
     );
   }
 });
+
 JS;
     }
     
