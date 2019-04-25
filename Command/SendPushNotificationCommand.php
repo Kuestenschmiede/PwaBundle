@@ -14,6 +14,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Class SendPushNotificationCommand
+ * Console command to send push notifications (to all subscribers). Can be used for debugging purposes.
+ * @package con4gis\PwaBundle\Command
+ */
 class SendPushNotificationCommand extends Command
 {
     protected static $defaultName = 'con4gis:send-push';

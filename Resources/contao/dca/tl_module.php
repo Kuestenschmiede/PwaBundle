@@ -1,7 +1,7 @@
 <?php
 
 
-$GLOBALS['TL_DCA']['tl_module']['palettes'][] = "{title_legend},name,type,pwaConfiguration";
+$GLOBALS['TL_DCA']['tl_module']['palettes']['pwa'] = "{title_legend},name,type,pwaConfiguration";
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pwaConfiguration'] = [
     'label'             => $GLOBALS['TL_LANG']['tl_module']['pwaConfiguration'],

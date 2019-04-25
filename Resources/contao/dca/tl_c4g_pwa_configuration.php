@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,shortName,description,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512,serviceWorkerGen;',
+        'default'   =>  '{data_legend},name,shortName,description,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512,appleIcon120,appleIcon152,appleIcon180,appleIcon167,serviceWorkerGen;',
     ),
     
     //Fields

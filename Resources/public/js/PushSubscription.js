@@ -10,6 +10,8 @@ if ('serviceWorker' in navigator) {
             updateSubscriptionButton(false);
           }
         });
+    } else {
+      document.getElementById('btn-push-subscribe').style.display = "none";
     }
   });
 }

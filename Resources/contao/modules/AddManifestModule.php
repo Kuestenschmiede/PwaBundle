@@ -62,10 +62,10 @@ class AddManifestModule extends Module
             $apple180Icon = FilesModel::findByUuid($config->getAppleIcon180());
             $apple167Icon = FilesModel::findByUuid($config->getAppleIcon167());
             
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" href="' . $apple120Icon->path . '"';
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="152x152" href="' . $apple152Icon->path . '"';
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="180x180" href="' . $apple180Icon->path . '"';
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="167x167" href="' . $apple167Icon->path . '"';
+            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" href="' . $apple120Icon->path . '">';
+            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="152x152" href="' . $apple152Icon->path . '">';
+            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="180x180" href="' . $apple180Icon->path . '">';
+            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="167x167" href="' . $apple167Icon->path . '">';
         }
     }
     
