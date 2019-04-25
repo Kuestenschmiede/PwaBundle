@@ -33,6 +33,7 @@ class AddManifestModule extends Module
     {
         // add manifest entry
         $GLOBALS['TL_HEAD'][] = '<link rel="manifest" href="manifest.webmanifest">';
+        $this->addAppleTouchIcons();
         // register service worker
         $GLOBALS['TL_HEAD'][] = '<script>
           if (\'serviceWorker\' in navigator) {
@@ -40,6 +41,14 @@ class AddManifestModule extends Module
               .catch(err => console.log(err));
           }
         </script>';
+    }
+    
+    /**
+     * Adds the required link tags to load the apple touch icons.
+     */
+    public function addAppleTouchIcons()
+    {
+    
     }
     
 }

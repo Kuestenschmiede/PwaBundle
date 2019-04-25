@@ -193,6 +193,42 @@ $GLOBALS['TL_DCA'][$strName] = array
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
         ),
     
+        'appleIcon120' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['appleIcon120'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
+        ),
+    
+        'appleIcon152' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['appleIcon152'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
+        ),
+    
+        'appleIcon180' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['appleIcon180'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
+        ),
+    
+        'appleIcon167' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['appleIcon167'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
+        ),
+    
         'serviceWorkerGen' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['serviceWorkerGen'],

@@ -121,6 +121,30 @@ class PwaConfiguration extends BaseEntity
     private $icon512 = null;
     
     /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $appleIcon120 = null;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $appleIcon152 = null;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $appleIcon180 = null;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $appleIcon167 = null;
+    
+    /**
      * @var int
      * @ORM\Column(type="integer")
      */
@@ -332,6 +356,70 @@ class PwaConfiguration extends BaseEntity
     public function setIcon512(string $icon512): void
     {
         $this->icon512 = $icon512;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getAppleIcon120(): string
+    {
+        return $this->appleIcon120;
+    }
+    
+    /**
+     * @param string $appleIcon120
+     */
+    public function setAppleIcon120(string $appleIcon120): void
+    {
+        $this->appleIcon120 = $appleIcon120;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getAppleIcon152(): string
+    {
+        return $this->appleIcon152;
+    }
+    
+    /**
+     * @param string $appleIcon152
+     */
+    public function setAppleIcon152(string $appleIcon152): void
+    {
+        $this->appleIcon152 = $appleIcon152;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getAppleIcon180(): string
+    {
+        return $this->appleIcon180;
+    }
+    
+    /**
+     * @param string $appleIcon180
+     */
+    public function setAppleIcon180(string $appleIcon180): void
+    {
+        $this->appleIcon180 = $appleIcon180;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getAppleIcon167(): string
+    {
+        return $this->appleIcon167;
+    }
+    
+    /**
+     * @param string $appleIcon167
+     */
+    public function setAppleIcon167(string $appleIcon167): void
+    {
+        $this->appleIcon167 = $appleIcon167;
     }
     
     /**
