@@ -20,13 +20,13 @@ function updateSubscriptionButton(isSubscribed) {
   let button = document.getElementById('btn-push-subscribe');
 
   if (isSubscribed) {
-    button.innerHTML = 'Unsubscribe notifications';
+    button.innerHTML = document.getElementById('text-unsubscribe').innerText;//'Unsubscribe notifications';
     button.onclick = null;
     button.onclick = function(event) {
       navigator.serviceWorker.getRegistration().then(reg => unsubscribeNotifications(reg.pushManager));
     };
   } else {
-    button.innerHTML = 'Subscribe notifications';
+    button.innerHTML = document.getElementById('text-subscribe').innerText;
     button.onclick = null;
     button.onclick = function(event) {
       navigator.serviceWorker.getRegistration().then(reg => registerForPush(reg.pushManager));

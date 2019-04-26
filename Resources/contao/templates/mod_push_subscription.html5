@@ -1,3 +1,7 @@
 <div>
-    <button id="btn-push-subscribe"></button>
+    <button id="btn-push-subscribe">
+        <?php echo $this->subscribeText ?>
+    </button>
+    <span id="text-subscribe" style="display: none;"><?php echo $this->subscribeText ?></span>
+    <span id="text-unsubscribe" style="display: none;"><?php echo $this->unsubscribeText ?></span>
 </div>

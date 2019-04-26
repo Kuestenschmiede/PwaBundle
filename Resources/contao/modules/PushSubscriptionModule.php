@@ -31,5 +31,7 @@ class PushSubscriptionModule extends Module
     {
         // add manifest entry
         ResourceLoader::loadJavaScriptResource('bundles/con4gispwa/js/PushSubscription.js', ResourceLoader::HEAD);
+        $this->Template->subscribeText = $this->subscribeText;
+        $this->Template->unsubscribeText = $this->unsubscribeText;
     }
 }
