@@ -123,7 +123,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
         ),
     )
 );

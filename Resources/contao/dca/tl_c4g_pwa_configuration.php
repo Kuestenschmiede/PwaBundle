@@ -181,7 +181,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true]
         ),
     
         'icon512' => array
@@ -190,7 +190,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true]
         ),
     
         'appleIcon120' => array
@@ -199,7 +199,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true]
         ),
     
         'appleIcon152' => array
@@ -208,7 +208,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true]
         ),
     
         'appleIcon180' => array
@@ -217,7 +217,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true]
         ),
     
         'appleIcon167' => array
@@ -226,7 +226,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>true]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true]
         ),
     
         'serviceWorkerGen' => array
