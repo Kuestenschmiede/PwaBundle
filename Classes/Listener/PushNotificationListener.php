@@ -5,6 +5,8 @@ namespace con4gis\PwaBundle\Classes\Listener;
 
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
 use con4gis\PwaBundle\Entity\PushSubscription;
+use con4gis\PwaBundle\Entity\WebPushConfiguration;
+use Contao\FilesModel;
 use Doctrine\ORM\EntityManager;
 use Minishlink\WebPush\Subscription;
 use Minishlink\WebPush\WebPush;
@@ -64,9 +66,12 @@ class PushNotificationListener
         $eventName,
         EventDispatcherInterface $eventDispatcher
     ) {
+        $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOnly();
+        $filePath = FilesModel::findByUuid($webpushConfig->getIcon())->path;
         $content = \GuzzleHttp\json_encode([
             'title' => $event->getTitle(),
-            'body' => $event->getMessage()
+            'body' => $event->getMessage(),
+            'icon' => $filePath
         ]);
         
         $subscriptions = $event->getSubscriptions();

@@ -11,6 +11,7 @@ use con4gis\CoreBundle\Entity\BaseEntity;
  *
  * @ORM\Entity
  * @ORM\Table(name="tl_c4g_webpush_configuration")
+ * @ORM\Entity(repositoryClass="con4gis\PwaBundle\Entity\WebPushConfigurationRepository")
  * @package con4gis\PwaBundle\Entity
  */
 class WebPushConfiguration extends BaseEntity
@@ -75,6 +76,12 @@ class WebPushConfiguration extends BaseEntity
      * @ORM\Column(type="integer")
      */
     private $timeout = 0;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $icon = null;
     
     /**
      * @return int
@@ -219,4 +226,21 @@ class WebPushConfiguration extends BaseEntity
     {
         $this->timeout = $timeout;
     }
+    
+    /**
+     * @return string
+     */
+    public function getIcon(): string
+    {
+        return $this->icon;
+    }
+    
+    /**
+     * @param string $icon
+     */
+    public function setIcon(string $icon): void
+    {
+        $this->icon = $icon;
+    }
+    
 }

@@ -165,7 +165,12 @@ JS;
         $this->strContent .= <<< JS
 self.addEventListener('push', event => {
   const notification = event.data.json();
-  self.registration.showNotification(notification.title, notification);
+  self.registration.showNotification(notification.title, {
+    body: notification.body,
+    icon: notification.icon,
+    badge: notification.badge,
+    image: notification.image
+  });
 });
 JS;
     }

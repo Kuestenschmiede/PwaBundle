@@ -11,6 +11,7 @@ $GLOBALS['TL_LANG'][$strName]['ttl'] = ['Time to live', 'Lebensdauer der Push-Na
 $GLOBALS['TL_LANG'][$strName]['urgency'] = ['Dringlichkeit', 'Dringlichkeit der Push-Nachrichten.'];
 $GLOBALS['TL_LANG'][$strName]['topic'] = ['Betreff', 'Betreff der Push-Nachrichten.'];
 $GLOBALS['TL_LANG'][$strName]['timeout'] = ['Timeout', 'Timeout für jeden Request.'];
+$GLOBALS['TL_LANG'][$strName]['icon'] = ['Benachrichtigungs-Icon', 'Hier können Sie ein Icon hinterlegen, was im Benachrichtigungsbanner angezeigt wird.'];
 
 $GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_VERY_LOW] = 'Sehr niedrig';
 $GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_LOW] = 'Niedrig';

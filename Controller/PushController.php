@@ -16,9 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PushController extends AbstractController
 {
-    
-    // TODO entityManager vernünftig injecten
-    
     /**
      * @Route("/con4gis/pushSubscription/getKey", name="getPushPublicKey", methods={"GET"})
      * @param $request

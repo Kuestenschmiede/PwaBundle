@@ -11,6 +11,7 @@
  * @link       https://www.con4gis.org
  */
 
+use con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback;
 use con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback;
 
 $strName = 'tl_c4g_webpush_configuration';
@@ -55,7 +56,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
     // Palettes
     'palettes' => array
     (
-        'default' => '{data_legend},vapidSubject,vapidPublickey,vapidPrivatekey,ttl,urgency,topic,timeout;'
+        'default' => '{data_legend},vapidSubject,vapidPublickey,vapidPrivatekey,ttl,urgency,topic,timeout,icon;'
     ),
     
     // Fields
@@ -114,6 +115,15 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             'default'           => 30,
             'inputType'         => 'text',
             'eval'              => array('rgxp' => 'digit','mandatory' => true, 'tl_class' => 'long')
+        ),
+    
+        'icon' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['icon'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>'png', 'tl_class'=>'clr', 'mandatory'=>false]
         ),
     )
 );
