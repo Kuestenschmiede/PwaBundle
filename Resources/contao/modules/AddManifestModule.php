@@ -37,6 +37,7 @@ class AddManifestModule extends Module
         // add manifest entry
         $GLOBALS['TL_HEAD'][] = '<link rel="manifest" href="manifest.webmanifest">';
         $this->addAppleTouchIcons();
+        $this->addAppleSplashScreen();
         // register service worker
         $GLOBALS['TL_HEAD'][] = '<script>
           if (\'serviceWorker\' in navigator) {
@@ -62,11 +63,30 @@ class AddManifestModule extends Module
             $apple180Icon = FilesModel::findByUuid($config->getAppleIcon180());
             $apple167Icon = FilesModel::findByUuid($config->getAppleIcon167());
             
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" href="' . $apple120Icon->path . '">';
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="152x152" href="' . $apple152Icon->path . '">';
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="180x180" href="' . $apple180Icon->path . '">';
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="167x167" href="' . $apple167Icon->path . '">';
+            $GLOBALS['TL_HEAD'][] = '<meta name="apple-mobile-web-app-capable" content="yes">';
+            if ($apple120Icon) {
+                $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="120x120" href="' . $apple120Icon->path . '">';
+            }
+            if ($apple152Icon) {
+                $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="152x152" href="' . $apple152Icon->path . '">';
+            }
+            if ($apple167Icon) {
+                $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="167x167" href="' . $apple167Icon->path . '">';
+            }
+            if ($apple180Icon) {
+                $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" href="' . $apple180Icon->path . '">';
+            }
         }
+    }
+    
+    /**
+     * Loads the required icons/tags to implement a splash screen on iOS.
+     */
+    public function addAppleSplashScreen()
+    {
+        //            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px)
+//                    and (-webkit-device-pixel-ratio: 2)>" href="files/framework_con4gis_io/img/pwa/apple-launch-750-1334.png"';
+    
     }
     
 }
