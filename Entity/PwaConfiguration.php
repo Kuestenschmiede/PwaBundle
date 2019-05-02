@@ -121,6 +121,12 @@ class PwaConfiguration extends BaseEntity
     private $icon512 = null;
     
     /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $serviceWorkerGen = 0;
+    
+    /**
      * @var string
      * @ORM\Column(type="text")
      */
@@ -145,10 +151,46 @@ class PwaConfiguration extends BaseEntity
     private $appleIcon167 = null;
     
     /**
-     * @var int
-     * @ORM\Column(type="integer")
+     * @var string
+     * @ORM\Column(type="text")
      */
-    private $serviceWorkerGen = 0;
+    private $splashIphoneFirst = null;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $splashIphoneSecond = null;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $splashIphoneThird = null;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $splashIphoneFourth = null;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $splashIpadFirst = null;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $splashIpadSecond = null;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $splashIpadThird = null;
     
     /**
      * @return int
@@ -359,6 +401,22 @@ class PwaConfiguration extends BaseEntity
     }
     
     /**
+     * @return int
+     */
+    public function getServiceWorkerGen(): int
+    {
+        return $this->serviceWorkerGen;
+    }
+    
+    /**
+     * @param int $serviceWorkerGen
+     */
+    public function setServiceWorkerGen(int $serviceWorkerGen): void
+    {
+        $this->serviceWorkerGen = $serviceWorkerGen;
+    }
+    
+    /**
      * @return string
      */
     public function getAppleIcon120(): string
@@ -423,18 +481,114 @@ class PwaConfiguration extends BaseEntity
     }
     
     /**
-     * @return int
+     * @return string
      */
-    public function getServiceWorkerGen(): int
+    public function getSplashIphoneFirst(): string
     {
-        return $this->serviceWorkerGen;
+        return $this->splashIphoneFirst;
     }
     
     /**
-     * @param int $serviceWorkerGen
+     * @param string $splashIphoneFirst
      */
-    public function setServiceWorkerGen(int $serviceWorkerGen): void
+    public function setSplashIphoneFirst(string $splashIphoneFirst): void
     {
-        $this->serviceWorkerGen = $serviceWorkerGen;
+        $this->splashIphoneFirst = $splashIphoneFirst;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSplashIphoneSecond(): string
+    {
+        return $this->splashIphoneSecond;
+    }
+    
+    /**
+     * @param string $splashIphoneSecond
+     */
+    public function setSplashIphoneSecond(string $splashIphoneSecond): void
+    {
+        $this->splashIphoneSecond = $splashIphoneSecond;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSplashIphoneThird(): string
+    {
+        return $this->splashIphoneThird;
+    }
+    
+    /**
+     * @param string $splashIphoneThird
+     */
+    public function setSplashIphoneThird(string $splashIphoneThird): void
+    {
+        $this->splashIphoneThird = $splashIphoneThird;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSplashIphoneFourth(): string
+    {
+        return $this->splashIphoneFourth;
+    }
+    
+    /**
+     * @param string $splashIphoneFourth
+     */
+    public function setSplashIphoneFourth(string $splashIphoneFourth): void
+    {
+        $this->splashIphoneFourth = $splashIphoneFourth;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSplashIpadFirst(): string
+    {
+        return $this->splashIpadFirst;
+    }
+    
+    /**
+     * @param string $splashIpadFirst
+     */
+    public function setSplashIpadFirst(string $splashIpadFirst): void
+    {
+        $this->splashIpadFirst = $splashIpadFirst;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSplashIpadSecond(): string
+    {
+        return $this->splashIpadSecond;
+    }
+    
+    /**
+     * @param string $splashIpadSecond
+     */
+    public function setSplashIpadSecond(string $splashIpadSecond): void
+    {
+        $this->splashIpadSecond = $splashIpadSecond;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSplashIpadThird(): string
+    {
+        return $this->splashIpadThird;
+    }
+    
+    /**
+     * @param string $splashIpadThird
+     */
+    public function setSplashIpadThird(string $splashIpadThird): void
+    {
+        $this->splashIpadThird = $splashIpadThird;
     }
 }

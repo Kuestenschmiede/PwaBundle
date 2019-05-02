@@ -94,7 +94,8 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,shortName,description,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512,appleIcon120,appleIcon152,appleIcon180,appleIcon167,serviceWorkerGen;',
+        'default'   =>  '{data_legend},name,shortName,description,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512,serviceWorkerGen,
+        {ios_legend},appleIcon120,appleIcon152,appleIcon180,appleIcon167,splashIphoneFirst,splashIphoneSecond,splashIphoneThird,splashIphoneFourth,splashIpadFirst,splashIpadSecond,splashIpadThird;',
     ),
     
     //Fields
@@ -193,6 +194,15 @@ $GLOBALS['TL_DCA'][$strName] = array
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true]
         ),
     
+        'serviceWorkerGen' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['serviceWorkerGen'],
+            'default'           => '0',
+            'inputType'         => 'select',
+            'options_callback'  => [PwaConfigurationCallback::class, 'getServiceWorkerOptions'],
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
+        ),
+    
         'appleIcon120' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['appleIcon120'],
@@ -229,14 +239,69 @@ $GLOBALS['TL_DCA'][$strName] = array
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
         ),
     
-        'serviceWorkerGen' => array
+        'splashIphoneFirst' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['serviceWorkerGen'],
-            'default'           => '0',
-            'inputType'         => 'select',
-            'options_callback'  => [PwaConfigurationCallback::class, 'getServiceWorkerOptions'],
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
+            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIphoneFirst'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
         ),
+    
+        'splashIphoneSecond' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIphoneSecond'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+        ),
+    
+        'splashIphoneThird' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIphoneThird'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+        ),
+    
+        'splashIphoneFourth' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIphoneFourth'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+        ),
+    
+        'splashIpadFirst' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIpadFirst'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+        ),
+    
+        'splashIpadSecond' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIpadSecond'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+        ),
+    
+        'splashIpadThird' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIpadThird'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+        ),
+        
     )
 );
 

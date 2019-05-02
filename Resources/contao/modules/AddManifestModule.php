@@ -64,6 +64,8 @@ class AddManifestModule extends Module
             $apple167Icon = FilesModel::findByUuid($config->getAppleIcon167());
             
             $GLOBALS['TL_HEAD'][] = '<meta name="apple-mobile-web-app-capable" content="yes">';
+            $GLOBALS['TL_HEAD'][] = '<meta name="apple-mobile-web-app-status-bar-style" content="#ff0000">';
+            $GLOBALS['TL_HEAD'][] = '<meta name="apple-mobile-web-app-title" content="Test App">';
             if ($apple120Icon) {
                 $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="120x120" href="' . $apple120Icon->path . '">';
             }
@@ -84,9 +86,48 @@ class AddManifestModule extends Module
      */
     public function addAppleSplashScreen()
     {
-        //            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px)
-//                    and (-webkit-device-pixel-ratio: 2)>" href="files/framework_con4gis_io/img/pwa/apple-launch-750-1334.png"';
+        $configId = $this->pwaConfiguration;
+        $config = System::getContainer()->get('doctrine.orm.entity_manager')
+            ->getRepository(PwaConfiguration::class)
+            ->findOneBy(['id' => $configId]);
+        if ($config instanceof PwaConfiguration) {
+            $firstSplash = FilesModel::findByUuid($config->getSplashIphoneFirst());
+            $secondSplash = FilesModel::findByUuid($config->getSplashIphoneSecond());
+            $thirdSplash = FilesModel::findByUuid($config->getSplashIphoneThird());
+            $fourthSplash = FilesModel::findByUuid($config->getSplashIphoneFourth());
+            $fifthSplash = FilesModel::findByUuid($config->getSplashIpadFirst());
+            $sixthSplash = FilesModel::findByUuid($config->getSplashIpadSecond());
+            $seventhSplash = FilesModel::findByUuid($config->getSplashIphoneThird());
     
+            if ($firstSplash) {
+                // iPhone X (1125px x 2436px)
+                $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/' . $firstSplash->path . '">';
+            }
+            if ($secondSplash) {
+                // iPhone 8, 7, 6s, 6 (750px x 1334px)
+                $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/' . $secondSplash->path . '">';
+            }
+            if ($thirdSplash) {
+                // iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px)
+                $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/' . $thirdSplash->path . '">';
+            }
+            if ($fourthSplash) {
+                // iPhone 5 (640px x 1136px)
+                $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/' . $fourthSplash->path . '">';
+            }
+            if ($fifthSplash) {
+                // iPad Mini, Air (1536px x 2048px)
+                $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)" href="/' . $fifthSplash->path . '">';
+            }
+            if ($sixthSplash) {
+                // iPad Pro 10.5" (1668px x 2224px)
+                $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)" href="/' . $sixthSplash->path . '">';
+            }
+            if ($seventhSplash) {
+                // iPad Pro 12.9" (2048px x 2732px)
+                $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)" href="/' . $seventhSplash->path . '">';
+            }
+        }
     }
     
 }
