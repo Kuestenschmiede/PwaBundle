@@ -6,7 +6,7 @@
  * Time: 09:15
  */
 
-namespace con4gis\PwaBundle\Classes\ServiceWorker;
+namespace con4gis\PwaBundle\Classes\Services;
 
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 
@@ -23,21 +23,22 @@ class ServiceWorkerFileWriter
      */
     private $strContent = "";
     
-    public function createServiceWorkerFile($fileNames, $cacheName, $webPath, $strOfflinePage, $intOfflineHandling)
+    public function createServiceWorkerFile($fileNames, $cacheName, $webPath, $strOfflinePage, $intOfflineHandling, $blockedUrls)
     {
         $this->createCachingCode($fileNames, $cacheName);
         $this->createActivationListener($cacheName);
+        $urlFilterString = $this->createUrlFilterString($blockedUrls);
         if ($strOfflinePage) {
             if ($strOfflinePage && $intOfflineHandling === PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK) {
                 // fallback offline mode
-                $this->createFetchCodeWithOfflinePage($strOfflinePage);
+                $this->createFetchCodeWithOfflinePage($strOfflinePage, $urlFilterString);
             } else {
                 // always offlinePage mode
-                $this->createFetchCodeForOfflineFallback($strOfflinePage);
+                $this->createFetchCodeForOfflineFallback($strOfflinePage, $urlFilterString);
             }
         } else {
             // no offline page => no fallback when request failes and no cache matches
-            $this->createFetchCode();
+            $this->createFetchCode($urlFilterString);
         }
         $this->createPushCode();
         file_put_contents($webPath . "/sw.js",$this->strContent);
@@ -50,15 +51,17 @@ class ServiceWorkerFileWriter
      */
     public function createCachingCode($fileNames, $cacheName)
     {
-        $this->strContent .= "self.addEventListener('install', event => event.waitUntil(\n";
+        $this->strContent .= "self.addEventListener('install', function(event) {\n";
+        $this->strContent .= "\tself.skipWaiting();\n";
+        $this->strContent .= "\tevent => event.waitUntil(\n";
         $this->strContent .= "\tcaches.open('" . $cacheName . "').then(cache => {\n";
         $this->strContent .= "\t\tcache.add('/');\n";
-        $this->strContent .= "\t\tcache.add('/manifest.webmanifest');\n";
+        $this->strContent .= "\t\tcache.add('manifest.webmanifest');\n";
         foreach ($fileNames as $fileName) {
             $this->strContent .= "\t\tcache.add('" . $fileName . "');\n";
         }
-        $this->strContent .= "\t})\n";
-        $this->strContent .= "));\n";
+        $this->strContent .= "\t}))\n";
+        $this->strContent .= "});\n";
     }
     
     /**
@@ -92,12 +95,13 @@ JS;
      * Creates an event listener on the fetch event and tries to serve the desired request from the cache with the
      * given name.
      */
-    public function createFetchCode()
+    public function createFetchCode($urlFilterString)
     {
         // should fail when no cache match happens
         $this->strContent .= <<< JS
 self.addEventListener('fetch', event => {
   if (event.request.mode === 'navigate') {
+   $urlFilterString
    return event.respondWith(
         fetch(event.request).catch(() => caches.match(event.request.url))
    );
@@ -113,12 +117,13 @@ JS;
      * if no cache matches.
      * @param $offlinePage
      */
-    public function createFetchCodeWithOfflinePage($offlinePage)
+    public function createFetchCodeWithOfflinePage($offlinePage, $urlFilterString)
     {
         // should return offline page when everything else failes
         $this->strContent .= <<< JS
 self.addEventListener('fetch', event => {
   if (event.request.mode === 'navigate') {
+    $urlFilterString
     return event.respondWith(
       fetch(event.request).catch(() => {
         return caches.match(event.request.url).then(function(response) {
@@ -143,11 +148,12 @@ JS;
      * @param $cacheName
      * @param $offlinePageName
      */
-    public function createFetchCodeForOfflineFallback($offlinePageName)
+    public function createFetchCodeForOfflineFallback($offlinePageName, $urlFilterString)
     {
         $this->strContent.= <<< JS
 self.addEventListener('fetch', event => {
   if (event.request.mode === 'navigate') {
+    $urlFilterString
     return event.respondWith(
       fetch(event.request).catch(() => caches.match('$offlinePageName'))
     );
@@ -173,6 +179,16 @@ self.addEventListener('push', event => {
   });
 });
 JS;
+    }
+    
+    public function createUrlFilterString($arrUrls)
+    {
+        $returnFragment = "return event.respondWith(\nfetch(event.request)\n);\n";
+        $strReturn = "";
+        foreach ($arrUrls as $url) {
+            $strReturn .= "if (event.request.url.includes('$url')) {\n$returnFragment}\n";
+        }
+        return $strReturn;
     }
     
     /**

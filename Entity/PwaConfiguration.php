@@ -128,6 +128,18 @@ class PwaConfiguration extends BaseEntity
     
     /**
      * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $additionalUrls = "";
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $blockedUrls = "";
+    
+    /**
+     * @var string
      * @ORM\Column(type="text")
      */
     private $appleIcon120 = null;
@@ -414,6 +426,38 @@ class PwaConfiguration extends BaseEntity
     public function setServiceWorkerGen(int $serviceWorkerGen): void
     {
         $this->serviceWorkerGen = $serviceWorkerGen;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getAdditionalUrls(): string
+    {
+        return $this->additionalUrls;
+    }
+    
+    /**
+     * @param string $additionalUrls
+     */
+    public function setAdditionalUrls(string $additionalUrls): void
+    {
+        $this->additionalUrls = $additionalUrls;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getBlockedUrls(): string
+    {
+        return $this->blockedUrls;
+    }
+    
+    /**
+     * @param string $blockedUrls
+     */
+    public function setBlockedUrls(string $blockedUrls): void
+    {
+        $this->blockedUrls = $blockedUrls;
     }
     
     /**

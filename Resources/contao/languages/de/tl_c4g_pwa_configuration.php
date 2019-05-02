@@ -18,9 +18,12 @@ $GLOBALS['TL_LANG'][$strName]['backgroundColor'] = ['Hintergrund-Farbe', 'Geben 
 $GLOBALS['TL_LANG'][$strName]['display'] = ['Anzeigemodus', 'Wählen Sie den gewünschten Anzeigemodus für die PWA aus.'];
 $GLOBALS['TL_LANG'][$strName]['orientation'] = ['Ausrichtung', 'Wählen Sie die gewünschte Ausrichtung für die PWA aus.'];
 $GLOBALS['TL_LANG'][$strName]['offlinePage'] = ['Offline-Seite', 'Wählen Sie die Seite aus, die als Fallback im Offline-Modus angezeigt werden soll.'];
+$GLOBALS['TL_LANG'][$strName]['offlineHandling'] = ['Offline-Verhalten', 'Wählen Sie das Offline-Verhalten aus, welches die PWA haben soll.'];
 $GLOBALS['TL_LANG'][$strName]['icon192'] = ['Icon der Größe 192x192', 'Wählen Sie ein Icon für die PWA aus (Maße 192x192).'];
 $GLOBALS['TL_LANG'][$strName]['icon512'] = ['Icon der Größe 512x512', 'Wählen Sie ein Icon für die PWA aus (Maße 512x512).'];
 $GLOBALS['TL_LANG'][$strName]['serviceWorkerGen'] = ['Art der Service Worker Generierung', 'Wählen Sie aus, ob ein SW generiert werden soll oder ob ein eigener verwendet werden soll.'];
+$GLOBALS['TL_LANG'][$strName]['additionalUrls'] = ['Zusätzliche URLs', 'Hier können Sie eine kommagetrennte Liste weiterer URLs angeben, die zusätzlich vom SW gecached werden sollen.'];
+$GLOBALS['TL_LANG'][$strName]['blockedUrls'] = ['Blockierte URLs', 'Hier können Sie eine kommagetrennte Liste von URLs oder URL-Fragmenten angeben, bei deren Vorkommen in der Request-URL der SW in keinem Fall etwas tut außer den Request normal auszuführen.'];
 
 $GLOBALS['TL_LANG'][$strName]['appleIcon120'] = ['Icon der Größe 120x120', 'Wählen Sie ein Icon für den iOS-Homescreen aus (Maße 120x120). Das apple-touch-icon im Startpunkt der Website muss dann ausgeschaltet werden.'];
 $GLOBALS['TL_LANG'][$strName]['appleIcon152'] = ['Icon der Größe 152x152', 'Wählen Sie ein Icon für den iOS-Homescreen aus (Maße 152x152). Das apple-touch-icon im Startpunkt der Website muss dann ausgeschaltet werden.'];
@@ -56,6 +59,7 @@ $GLOBALS['TL_LANG'][$strName]['offlineHandling'][PwaConfiguration::PWA_OFFLINE_H
 
 // legends
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Angaben für Manifest-Datei';
+$GLOBALS['TL_LANG'][$strName]['expert_legend'] = 'Experten-Einstellungen';
 $GLOBALS['TL_LANG'][$strName]['ios_legend'] = 'iOS-Spezifika';
 
 // operations

@@ -8,8 +8,6 @@
 
 namespace con4gis\PwaBundle\Classes\Services;
 
-
-use con4gis\PwaBundle\Classes\ServiceWorker\ServiceWorkerFileWriter;
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 use Contao\Database;
 use Contao\PageModel;
@@ -67,18 +65,31 @@ class ServiceWorkerCreationService
             $intVersion = 1;
         }
         
+        // check for additional urls to cache
+        if ($pwaConfiguration->getAdditionalUrls()) {
+            $arrUrls = explode(',', $pwaConfiguration->getAdditionalUrls());
+            $arrPagenames = array_merge($arrPagenames, $arrUrls);
+        }
+        
+        $blockedUrls = [];
+        // check for blocked urls
+        if ($pwaConfiguration->getBlockedUrls()) {
+            $blockedUrls = explode(",", $pwaConfiguration->getBlockedUrls());
+        }
+        
         $cacheName = 'pwa-con4gis-v' . $intVersion;
         $this->createServiceWorkerFile(
             $arrPagenames,
             $cacheName,
             $pwaConfiguration->getOfflinePage() ? $offlinePage->alias . $suffix : "",
-            $pwaConfiguration->getOfflineHandling()
+            $pwaConfiguration->getOfflineHandling(),
+            $blockedUrls
         );
     }
     
-    private function createServiceWorkerFile($arrPages, $cacheName, $strOfflinePage, $offlineHandling)
+    private function createServiceWorkerFile($arrPages, $cacheName, $strOfflinePage, $offlineHandling, $blockedUrls)
     {
         $writer = new ServiceWorkerFileWriter();
-        $writer->createServiceWorkerFile($arrPages, $cacheName, $this->webPath, $strOfflinePage, $offlineHandling);
+        $writer->createServiceWorkerFile($arrPages, $cacheName, $this->webPath, $strOfflinePage, $offlineHandling, $blockedUrls);
     }
 }

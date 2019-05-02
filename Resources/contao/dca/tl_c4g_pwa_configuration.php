@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,shortName,description,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512,serviceWorkerGen,
+        'default'   =>  '{data_legend},name,shortName,description,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512,serviceWorkerGen;{expert_legend},additionalUrls,blockedUrls;
         {ios_legend},appleIcon120,appleIcon152,appleIcon180,appleIcon167,splashIphoneFirst,splashIphoneSecond,splashIphoneThird,splashIphoneFourth,splashIpadFirst,splashIpadSecond,splashIpadThird;',
     ),
     
@@ -201,6 +201,22 @@ $GLOBALS['TL_DCA'][$strName] = array
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getServiceWorkerOptions'],
             'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
+        ),
+    
+        'additionalUrls' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['additionalUrls'],
+            'default'           => '',
+            'inputType'         => 'text',
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long')
+        ),
+    
+        'blockedUrls' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['blockedUrls'],
+            'default'           => '',
+            'inputType'         => 'text',
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long')
         ),
     
         'appleIcon120' => array
