@@ -40,6 +40,9 @@ class PwaConfiguration extends BaseEntity
     const PWA_OFFLINE_HANDLING_ALWAYS = 1;
     const PWA_OFFLINE_HANDLING_FALLBACK = 2;
     
+    const PWA_IOS_STYLE_BLACK = 'black';
+    const PWA_IOS_STYLE_DEFAULT = 'default';
+    
     /**
      * @var int
      * @ORM\Id
@@ -110,6 +113,18 @@ class PwaConfiguration extends BaseEntity
     
     /**
      * @var string
+     * @ORM\Column(type="string")
+     */
+    private $startUrl = "";
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $scope = "";
+    
+    /**
+     * @var string
      * @ORM\Column(type="text")
      */
     private $icon192 = null;
@@ -137,6 +152,12 @@ class PwaConfiguration extends BaseEntity
      * @ORM\Column(type="string", length=255)
      */
     private $blockedUrls = "";
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $iosStyle = "";
     
     /**
      * @var string
@@ -383,6 +404,38 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
+    public function getStartUrl(): string
+    {
+        return $this->startUrl;
+    }
+    
+    /**
+     * @param string $startUrl
+     */
+    public function setStartUrl(string $startUrl): void
+    {
+        $this->startUrl = $startUrl;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getScope(): string
+    {
+        return $this->scope;
+    }
+    
+    /**
+     * @param string $scope
+     */
+    public function setScope(string $scope): void
+    {
+        $this->scope = $scope;
+    }
+    
+    /**
+     * @return string
+     */
     public function getIcon192(): string
     {
         return $this->icon192;
@@ -466,6 +519,22 @@ class PwaConfiguration extends BaseEntity
     public function getAppleIcon120(): string
     {
         return $this->appleIcon120;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getIosStyle(): string
+    {
+        return $this->iosStyle;
+    }
+    
+    /**
+     * @param string $iosStyle
+     */
+    public function setIosStyle(string $iosStyle): void
+    {
+        $this->iosStyle = $iosStyle;
     }
     
     /**

@@ -66,6 +66,16 @@ class PwaConfigurationCallback extends Backend
         ];
     }
     
+    public function getIosStyleOptions()
+    {
+        $strName = 'tl_c4g_pwa_configuration';
+        $optionsLang = $GLOBALS['TL_LANG'][$strName]['iosStyle'];
+        return [
+            PwaConfiguration::PWA_IOS_STYLE_BLACK => $optionsLang[PwaConfiguration::PWA_IOS_STYLE_BLACK],
+            PwaConfiguration::PWA_IOS_STYLE_DEFAULT => $optionsLang[PwaConfiguration::PWA_IOS_STYLE_DEFAULT]
+        ];
+    }
+    
     public function convertBinToUuid($varValue)
     {
         $uuid = StringUtil::binToUuid($varValue);

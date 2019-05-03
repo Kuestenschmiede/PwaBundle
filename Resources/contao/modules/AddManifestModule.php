@@ -43,8 +43,8 @@ class AddManifestModule extends Module
         if ($config instanceof PwaConfiguration) {
             $this->addAppleTouchIcons($config);
             $this->addAppleSplashScreen($config);
+            $GLOBALS['TL_HEAD'][] = '<meta name="theme-color" content="#' . $config->getThemeColor() . '">';
         }
-        $GLOBALS['TL_HEAD'][] = '<meta name="theme-color" content="#' . $config->getThemeColor() . '">';
         // register service worker
         $GLOBALS['TL_HEAD'][] = '<script>
           if (\'serviceWorker\' in navigator) {
@@ -57,6 +57,7 @@ class AddManifestModule extends Module
     /**
      * Adds the required link tags to load the apple touch icons.
      * iOS does not load icons via the manifest file yet.
+     * @param PwaConfiguration $config
      */
     public function addAppleTouchIcons(PwaConfiguration $config)
     {
@@ -66,8 +67,7 @@ class AddManifestModule extends Module
         $apple167Icon = FilesModel::findByUuid($config->getAppleIcon167());
         
         $GLOBALS['TL_HEAD'][] = '<meta name="apple-mobile-web-app-capable" content="yes">';
-        // TODO optionen default (weiß) und black auswählbar machen
-        $GLOBALS['TL_HEAD'][] = '<meta name="apple-mobile-web-app-status-bar-style" content="default">';
+        $GLOBALS['TL_HEAD'][] = '<meta name="apple-mobile-web-app-status-bar-style" content="' . $config->getIosStyle() . '">';
         $GLOBALS['TL_HEAD'][] = '<meta name="apple-mobile-web-app-title" content="' . $config->getName() . '">';
         if ($apple120Icon) {
             $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-icon" sizes="120x120" href="' . $apple120Icon->path . '">';
@@ -85,6 +85,7 @@ class AddManifestModule extends Module
     
     /**
      * Loads the required icons/tags to implement a splash screen on iOS.
+     * @param PwaConfiguration $config
      */
     public function addAppleSplashScreen(PwaConfiguration $config)
     {
@@ -125,6 +126,5 @@ class AddManifestModule extends Module
             $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2)" href="/' . $seventhSplash->path . '">';
         }
     }
-
     
 }

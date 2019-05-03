@@ -13,6 +13,8 @@ $strName = 'tl_c4g_pwa_configuration';
 $GLOBALS['TL_LANG'][$strName]['name'] = ['Name', 'Name der PWA'];
 $GLOBALS['TL_LANG'][$strName]['shortName']  = ['Kurzform', 'Kurzform des Namens der PWA'];
 $GLOBALS['TL_LANG'][$strName]['description'] = ['Beschreibung', 'Beschreibung der PWA'];
+$GLOBALS['TL_LANG'][$strName]['startUrl'] = ['Start-URL', 'Einstiegspunkt der Anwendung, wenn sie über den Home-Bildschirm aufgerufen wird.'];
+$GLOBALS['TL_LANG'][$strName]['scope'] = ['Navigationsscope', 'Geben Sie eine URL an. Nur diese URL und URLs die darunter liegen (bei www.example.com wäre das etwa www.example.com/page) dürfen von der Anwendung angesteuert werden.'];
 $GLOBALS['TL_LANG'][$strName]['themeColor'] = ['Theme-Farbe', 'Geben Sie eine Farbe für das Theme der PWA an.'];
 $GLOBALS['TL_LANG'][$strName]['backgroundColor'] = ['Hintergrund-Farbe', 'Geben sie eine Farbe für den Hintergrund der PWA an.'];
 $GLOBALS['TL_LANG'][$strName]['display'] = ['Anzeigemodus', 'Wählen Sie den gewünschten Anzeigemodus für die PWA aus.'];
@@ -25,6 +27,7 @@ $GLOBALS['TL_LANG'][$strName]['serviceWorkerGen'] = ['Art der Service Worker Gen
 $GLOBALS['TL_LANG'][$strName]['additionalUrls'] = ['Zusätzliche URLs', 'Hier können Sie eine kommagetrennte Liste weiterer URLs angeben, die zusätzlich vom SW gecached werden sollen.'];
 $GLOBALS['TL_LANG'][$strName]['blockedUrls'] = ['Blockierte URLs', 'Hier können Sie eine kommagetrennte Liste von URLs oder URL-Fragmenten angeben, bei deren Vorkommen in der Request-URL der SW in keinem Fall etwas tut außer den Request normal auszuführen.'];
 
+$GLOBALS['TL_LANG'][$strName]['iosStyle'] = ['iOS - Titelleiste', 'Wählen Sie aus, wie die obere Leiste (Akkustatus etc.) auf iOS dargestellt wird.'];
 $GLOBALS['TL_LANG'][$strName]['appleIcon120'] = ['Icon der Größe 120x120', 'Wählen Sie ein Icon für den iOS-Homescreen aus (Maße 120x120). Das apple-touch-icon im Startpunkt der Website muss dann ausgeschaltet werden.'];
 $GLOBALS['TL_LANG'][$strName]['appleIcon152'] = ['Icon der Größe 152x152', 'Wählen Sie ein Icon für den iOS-Homescreen aus (Maße 152x152). Das apple-touch-icon im Startpunkt der Website muss dann ausgeschaltet werden.'];
 $GLOBALS['TL_LANG'][$strName]['appleIcon180'] = ['Icon der Größe 180x180', 'Wählen Sie ein Icon für den iOS-Homescreen aus (Maße 180x180). Das apple-touch-icon im Startpunkt der Website muss dann ausgeschaltet werden.'];
@@ -56,6 +59,9 @@ $GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENT
 
 $GLOBALS['TL_LANG'][$strName]['offlineHandling'][PwaConfiguration::PWA_OFFLINE_HANDLING_ALWAYS] = "Immer auf Offline-Seite weiterleiten";
 $GLOBALS['TL_LANG'][$strName]['offlineHandling'][PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK] = "Normalen Cache-Mechanismus nutzen (Offline-Seite als Fallback)";
+
+$GLOBALS['TL_LANG'][$strName]['iosStyle'][PwaConfiguration::PWA_IOS_STYLE_BLACK] = "Schwarz";
+$GLOBALS['TL_LANG'][$strName]['iosStyle'][PwaConfiguration::PWA_IOS_STYLE_DEFAULT] = "Weiß";
 
 // legends
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Angaben für Manifest-Datei';

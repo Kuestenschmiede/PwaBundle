@@ -94,8 +94,8 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,shortName,description,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512,serviceWorkerGen;{expert_legend},additionalUrls,blockedUrls;
-        {ios_legend},appleIcon120,appleIcon152,appleIcon180,appleIcon167,splashIphoneFirst,splashIphoneSecond,splashIphoneThird,splashIphoneFourth,splashIpadFirst,splashIpadSecond,splashIpadThird;',
+        'default'   =>  '{data_legend},name,shortName,description,startUrl,scope,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512,serviceWorkerGen;{expert_legend},additionalUrls,blockedUrls;
+        {ios_legend},iosStyle,appleIcon120,appleIcon152,appleIcon180,appleIcon167,splashIphoneFirst,splashIphoneSecond,splashIphoneThird,splashIphoneFourth,splashIpadFirst,splashIpadSecond,splashIpadThird;',
     ),
     
     //Fields
@@ -120,6 +120,22 @@ $GLOBALS['TL_DCA'][$strName] = array
         'description' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['description'],
+            'default'           => '',
+            'inputType'         => 'text',
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+        ),
+    
+        'startUrl' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['startUrl'],
+            'default'           => '/',
+            'inputType'         => 'text',
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+        ),
+    
+        'scope' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['scope'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long')
@@ -217,6 +233,15 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => false, 'tl_class' => 'long')
+        ),
+    
+        'iosStyle' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['iosStyle'],
+            'default'           => 'black',
+            'inputType'         => 'select',
+            'options_callback'  => [PwaConfigurationCallback::class, 'getIosStyleOptions'],
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
         ),
     
         'appleIcon120' => array
