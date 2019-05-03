@@ -41,6 +41,7 @@ class ServiceWorkerFileWriter
             $this->createFetchCode($urlFilterString);
         }
         $this->createPushCode();
+        $this->createNotificationClickCode();
         file_put_contents($webPath . "/sw.js",$this->strContent);
     }
     
@@ -175,10 +176,28 @@ self.addEventListener('push', event => {
     body: notification.body,
     icon: notification.icon,
     badge: notification.badge,
-    image: notification.image
+    image: notification.image,
+    vibrate: [1000, 2000, 1000]
   });
 });
 JS;
+    }
+    
+    public function createNotificationClickCode()
+    {
+        $this->strContent .= <<< JS
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll().then(
+      windowClients => {
+        windowClients.length ? windowClients[0].focus() : clients.openWindow('/')
+      }
+    )
+  );
+});
+JS;
+
     }
     
     public function createUrlFilterString($arrUrls)
