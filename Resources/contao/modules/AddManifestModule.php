@@ -99,31 +99,31 @@ class AddManifestModule extends Module
         
         if ($firstSplash) {
             // iPhone X (1125px x 2436px)
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="/' . $firstSplash->path . '">';
+            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" href="' . $firstSplash->path . '" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">';
         }
         if ($secondSplash) {
             // iPhone 8, 7, 6s, 6 (750px x 1334px)
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/' . $secondSplash->path . '">';
+            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" href="' . $secondSplash->path . '" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">';
         }
         if ($thirdSplash) {
             // iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px)
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" href="/' . $thirdSplash->path . '">';
+            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" href="' . $thirdSplash->path . '" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">';
         }
         if ($fourthSplash) {
             // iPhone 5 (640px x 1136px)
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/' . $fourthSplash->path . '">';
+            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" href="' . $fourthSplash->path . '" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">';
         }
         if ($fifthSplash) {
             // iPad Mini, Air (1536px x 2048px)
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2)" href="/' . $fifthSplash->path . '">';
+            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" href="' . $fifthSplash->path . '" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">';
         }
         if ($sixthSplash) {
             // iPad Pro 10.5" (1668px x 2224px)
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2)" href="/' . $sixthSplash->path . '">';
+            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" href="' . $sixthSplash->path . '" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">';
         }
         if ($seventhSplash) {
             // iPad Pro 12.9" (2048px x 2732px)
-            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2)" href="/' . $seventhSplash->path . '">';
+            $GLOBALS['TL_HEAD'][] = '<link rel="apple-touch-startup-image" href="' . $seventhSplash->path . '" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">';
         }
     }
     
