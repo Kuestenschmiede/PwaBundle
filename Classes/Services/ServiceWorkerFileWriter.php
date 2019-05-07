@@ -26,7 +26,7 @@ class ServiceWorkerFileWriter
     public function createServiceWorkerFile($fileNames, $cacheName, $webPath, $strOfflinePage, $intOfflineHandling, $blockedUrls)
     {
         $this->createCachingCode($fileNames, $cacheName);
-        $this->createActivationListener($cacheName);
+        //$this->createActivationListener($cacheName);
         $urlFilterString = $this->createUrlFilterString($blockedUrls);
         if ($strOfflinePage) {
             if ($strOfflinePage && $intOfflineHandling === PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK) {
@@ -53,15 +53,16 @@ class ServiceWorkerFileWriter
     public function createCachingCode($fileNames, $cacheName)
     {
         $this->strContent .= "self.addEventListener('install', function(event) {\n";
-        $this->strContent .= "\tself.skipWaiting();\n";
-        $this->strContent .= "\tevent => event.waitUntil(\n";
-        $this->strContent .= "\tcaches.open('" . $cacheName . "').then(cache => {\n";
-        $this->strContent .= "\t\tcache.add('/');\n";
-        $this->strContent .= "\t\tcache.add('manifest.webmanifest');\n";
+        $this->strContent .= "\tevent.waitUntil(\n";
+        $this->strContent .= "\tcaches.open('" . $cacheName . "').then(cache => \n";
+        $this->strContent .= "\t\tcache.addAll(['/',\n";
+        $this->strContent .= "\t\t'manifest.webmanifest',\n";
         foreach ($fileNames as $fileName) {
-            $this->strContent .= "\t\tcache.add('" . $fileName . "');\n";
+            $this->strContent .= "\t\t'" . $fileName . "',\n";
         }
-        $this->strContent .= "\t}))\n";
+        $this->strContent .= "\t])";
+        $this->strContent .= "\t).then(() => self.skipWaiting()));\n";
+//        $this->strContent .= "\tself.skipWaiting();\n";
         $this->strContent .= "});\n";
     }
     
