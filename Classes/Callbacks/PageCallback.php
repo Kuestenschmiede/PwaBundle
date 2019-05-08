@@ -30,8 +30,6 @@ class PageCallback extends Backend
                 $serviceWorkerService->createServiceWorker($config, \PageModel::findByPk($dc->activeRecord->id));
             }
         }
-        // TODO check if pwa is enabled
-        // TODO call creation services
     }
     
     public function getPwaConfigOptions(DataContainer $dc)

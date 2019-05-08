@@ -19,7 +19,9 @@ class WebpushConfigurationCallback extends Backend
     {
         $objConfig = Database::getInstance()->prepare("SELECT id FROM tl_c4g_webpush_configuration")->execute();
         
-        if (\Input::get('key')) return;
+        if (\Input::get('key')) {
+            return;
+        }
         
         if(!$objConfig->numRows && !\Input::get('act'))
         {
@@ -76,7 +78,7 @@ class WebpushConfigurationCallback extends Backend
         $config[$extensionName]['urgency'] = $dc->activeRecord->urgency;
         $config[$extensionName]['topic'] = $dc->activeRecord->topic;
         $config[$extensionName]['timeout'] = intval($dc->activeRecord->timeout);
-        // always set to true for better security
+        // always set to true for better security (leads to higher payload though)
         $config[$extensionName]['automatic_padding'] = true;
         
         $rootDir = System::getContainer()->getParameter('kernel.project_dir');

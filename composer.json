@@ -1,5 +1,5 @@
 {
-    "name": "con4gis/pwa-bundle",
+    "name": "con4gis/pwa",
     "type": "contao-bundle",
     "description": "Adds PWA functionality to a contao application.",
     "keywords": ["con4gis", "Progressive Web App", "contao", "c4g", "PWA"],

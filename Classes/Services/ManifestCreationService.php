@@ -27,7 +27,6 @@ class ManifestCreationService
     
     public function createManifestFile(PwaConfiguration $pwaConfiguration)
     {
-        // TODO scope und start_url aus der konfiguration ziehen
         $jsonTemplate = [
             "dir" => "ltr",
             "lang" => "de-DE",
