@@ -39,9 +39,6 @@ class PwaConfiguration extends BaseEntity
     const PWA_ORIENTATION_PORTRAIT_PRIMARY = 7;
     const PWA_ORIENTATION_PORTRAIT_SECONDARY = 8;
     
-    const PWA_SERVICE_WORKER_GENERATE = 1;
-    const PWA_SERVICE_WORKER_CUSTOM = 2;
-    
     const PWA_OFFLINE_HANDLING_ALWAYS = 1;
     const PWA_OFFLINE_HANDLING_FALLBACK = 2;
     
@@ -139,12 +136,6 @@ class PwaConfiguration extends BaseEntity
      * @ORM\Column(type="text")
      */
     private $icon512 = null;
-    
-    /**
-     * @var int
-     * @ORM\Column(type="integer")
-     */
-    private $serviceWorkerGen = 0;
     
     /**
      * @var string
@@ -468,22 +459,6 @@ class PwaConfiguration extends BaseEntity
     public function setIcon512(string $icon512): void
     {
         $this->icon512 = $icon512;
-    }
-    
-    /**
-     * @return int
-     */
-    public function getServiceWorkerGen(): int
-    {
-        return $this->serviceWorkerGen;
-    }
-    
-    /**
-     * @param int $serviceWorkerGen
-     */
-    public function setServiceWorkerGen(int $serviceWorkerGen): void
-    {
-        $this->serviceWorkerGen = $serviceWorkerGen;
     }
     
     /**

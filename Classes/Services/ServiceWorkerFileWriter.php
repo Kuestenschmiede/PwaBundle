@@ -28,6 +28,14 @@ class ServiceWorkerFileWriter
      */
     private $strContent = "";
     
+    /**
+     * @param $fileNames
+     * @param $cacheName
+     * @param $webPath
+     * @param $strOfflinePage
+     * @param $intOfflineHandling
+     * @param $blockedUrls
+     */
     public function createServiceWorkerFile($fileNames, $cacheName, $webPath, $strOfflinePage, $intOfflineHandling, $blockedUrls)
     {
         $this->createCachingCode($fileNames, $cacheName);
@@ -101,6 +109,7 @@ JS;
     /**
      * Creates an event listener on the fetch event and tries to serve the desired request from the cache with the
      * given name.
+     * @param $urlFilterString
      */
     public function createFetchCode($urlFilterString)
     {
@@ -123,6 +132,7 @@ JS;
      * Creates a fetch listener to match either requested pages from cache or serve the offline page,
      * if no cache matches.
      * @param $offlinePage
+     * @param $urlFilterString
      */
     public function createFetchCodeWithOfflinePage($offlinePage, $urlFilterString)
     {
@@ -151,9 +161,8 @@ JS;
     
     /**
      * Creates a fetch listener that always serves the offline page, when a request fails due to connection issues.
-     * @param $fileNames
-     * @param $cacheName
      * @param $offlinePageName
+     * @param $urlFilterString
      */
     public function createFetchCodeForOfflineFallback($offlinePageName, $urlFilterString)
     {
@@ -206,6 +215,10 @@ JS;
 
     }
     
+    /**
+     * @param $arrUrls
+     * @return string
+     */
     public function createUrlFilterString($arrUrls)
     {
         $returnFragment = "return event.respondWith(\nfetch(event.request)\n);\n";

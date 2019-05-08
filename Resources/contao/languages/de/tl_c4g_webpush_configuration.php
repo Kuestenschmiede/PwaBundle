@@ -32,4 +32,4 @@ $GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_HIGH] = 'Hoch';
 // legends
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Konfiguration für Web-Push';
 // infotext
-$GLOBALS['TL_LANG'][$strName]['infotext'] = 'Bitte beachten Sie, dass nach dem Ändern der WebPush-Konfiguration der Cache geleert werden muss, damit Symfony die neue Konfiguration einlesen kann.';
+$GLOBALS['TL_LANG'][$strName]['infotext'] = "Bitte beachten Sie, dass nach dem Ändern der WebPush-Konfiguration der Cache geleert werden muss, damit Symfony die neue Konfiguration einlesen kann.";

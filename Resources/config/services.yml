@@ -24,6 +24,7 @@ services:
     arguments:
       - '@doctrine.orm.default_entity_manager'
       - '@minishlink_web_push'
+      - '@logger'
 
   pwa.onPushNotificationSendNotifications:
     class: con4gis\PwaBundle\Classes\Listener\PushNotificationListener
@@ -32,3 +33,4 @@ services:
     arguments:
       - '@doctrine.orm.default_entity_manager'
       - '@minishlink_web_push'
+      - '@logger'

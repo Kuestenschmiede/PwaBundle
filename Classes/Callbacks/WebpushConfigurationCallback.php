@@ -88,7 +88,7 @@ class WebpushConfigurationCallback extends Backend
         $config[$extensionName]['urgency'] = $dc->activeRecord->urgency;
         $config[$extensionName]['topic'] = $dc->activeRecord->topic;
         $config[$extensionName]['timeout'] = intval($dc->activeRecord->timeout);
-        // always set to true for better security (leads to higher payload though)
+        // always set to true for better security (leads to bigger payload though)
         $config[$extensionName]['automatic_padding'] = true;
         
         $rootDir = System::getContainer()->getParameter('kernel.project_dir');

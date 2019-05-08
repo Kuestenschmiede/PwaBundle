@@ -1,15 +1,28 @@
-# PwaBundle
+# con4gis-PwaBundle
 
-Aktuelle TODOS:
-* [X] PWA-Konfig: Offline-Seite: Wenn eine gesetzt ist, sollte nicht alles gecached werden, sondern nur diese und bei keiner Verbindung sollte die dann immer gezeigt werden.
-* [X] PWA-Konfig: Orientation-Feld
-* [X] PWA-Konfig: Auswahl ob SW generiert werden soll oder eigene Datei
-* [X] ServiceWorkerFileWriter: Die einzelnen cache.matches Einträge dynamisch generieren
-* [X] Push-Notifications: Clientseitige Push Registrierung implementieren
-* [X] Push-Notifications: Server-Endpoint (Symfony API) inkl. Aufruf des WebPushBundles für die Subscription
-* [X] Push-Notifications: Möglichkeit um Nachrichten rauszuschicken (server)
-* [X] Push-Notifications: Notification-Banner bei push event anzeigen (Service worker)
-* [ ] ServiceWorker: Caching dynamischer gestalten, aktuell werden initial alle Seiten einmal geladen. Nur in Cache schreiben, wenn gerade angefordert wurde?
-* [ ] ServiceWorker: Nichts im Contao Backend machen. Der SW darf sich nicht im Contao BE registrieren.
-* [ ] ServiceWorkerCreationService: Aktuell werden nur eine Ebene tief die Kindseiten automatisch gecached
-* [X] ServiceWorker: Versionierung einbauen (version des Page-Roots verwenden)
+## Overview
+Turn your Contao Website into a [progressive web app](https://developers.google.com/web/progressive-web-apps/).
+The con4gis-PwaBundle provides everything you need for basic PWA functionality,
+including generating a service worker script and a manifest file.
+
+__Features include:__
+* Configuration of required parameters for the webmanifest 
+* Select a pwa configuration in the page root. On submit the service worker and manifest for this page root will be generated for you.
+* Multiple offline behaviours: choose whether you want to cache everything or if you always want to redirect to a chosen offline page.
+* WebPushConfiguration: configure the web push library in the backend so your users can register for push notifications.
+* Add icons for app splashscreens (Android & iOS)
+
+## Installation
+Via composer:
+```
+composer require con4gis/pwa
+```
+Alternatively, you can use the Contao Manager to install the con4gis-PwaBundle.
+
+## Requirements
+- [Contao](https://github.com/contao/core-bundle) (latest stable release)
+- [CoreBundle](https://github.com/Kuestenschmiede/CoreBundle/releases) (*latest stable release*)
+- [WebPushBundle](https://github.com/web-push-libs/web-push-php) (3.* (latest))
+
+## Documentation
+Visit [docs.con4gis.org](https://docs.con4gis.org) for a user documentation. You can also contact us via the support forum there.

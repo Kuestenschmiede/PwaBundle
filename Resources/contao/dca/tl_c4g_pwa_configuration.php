@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,shortName,description,startUrl,scope,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512,serviceWorkerGen;{expert_legend},additionalUrls,blockedUrls;
+        'default'   =>  '{data_legend},name,shortName,description,startUrl,scope,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512;{expert_legend},additionalUrls,blockedUrls;
         {ios_legend},iosStyle,appleIcon120,appleIcon152,appleIcon180,appleIcon167,splashIphoneFirst,splashIphoneSecond,splashIphoneThird,splashIphoneFourth,splashIpadFirst,splashIpadSecond,splashIpadThird;',
     ),
     
@@ -208,15 +208,6 @@ $GLOBALS['TL_DCA'][$strName] = array
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true]
-        ),
-    
-        'serviceWorkerGen' => array
-        (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['serviceWorkerGen'],
-            'default'           => '0',
-            'inputType'         => 'select',
-            'options_callback'  => [PwaConfigurationCallback::class, 'getServiceWorkerOptions'],
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
         ),
     
         'additionalUrls' => array

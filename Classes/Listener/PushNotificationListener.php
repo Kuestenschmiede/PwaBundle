@@ -20,6 +20,7 @@ use Contao\FilesModel;
 use Doctrine\ORM\EntityManager;
 use Minishlink\WebPush\Subscription;
 use Minishlink\WebPush\WebPush;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PushNotificationListener
@@ -35,16 +36,22 @@ class PushNotificationListener
     private $webPushService = null;
     
     /**
-     * PushNotificationListener constructor.
-     * @param null $entityManager
-     * @param null $webPushService
+     * @var LoggerInterface
      */
-    public function __construct($entityManager, $webPushService)
+    private $logger = null;
+    
+    /**
+     * PushNotificationListener constructor.
+     * @param $entityManager
+     * @param $webPushService
+     * @param LoggerInterface $logger
+     */
+    public function __construct($entityManager, $webPushService, LoggerInterface $logger)
     {
         $this->entityManager = $entityManager;
         $this->webPushService = $webPushService;
+        $this->logger = $logger;
     }
-    
     
     /**
      * Gets the subscriptions.
@@ -93,21 +100,11 @@ class PushNotificationListener
                     'publicKey' => $subscription->getP256dhKey(),
                     'authToken' => $subscription->getAuthKey()
                 ]);
+                $res = $this->webPushService->sendNotification($sub, $content);
+                $reports = $this->webPushService->flush();
             } catch (\ErrorException $exception) {
-                // TODO catch exception
-            }
-            
-            $res = $this->webPushService->sendNotification($sub, $content);
-            $reports = $this->webPushService->flush();
-            if (is_array($reports)) {
-                foreach ($reports as $report) {
-                    $endpoint = $report['endpoint']->getHost() . $report['endpoint']->getPath();
-//                    if ($report['success']) {
-//                        $output->writeln("[v] Message sent successfully for subscription {$endpoint}.");
-//                    } else {
-//                        $output->writeln("[x] Message failed to sent for subscription {$endpoint}: {$report['message']}");
-//                    }
-                }
+                // log error message with stack trace
+                $this->logger->error($exception->getMessage() . "\n" . $exception->getTrace());
             }
         }
     }

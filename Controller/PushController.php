@@ -63,8 +63,7 @@ class PushController extends AbstractController
                 $entityManager->persist($subscription);
                 $entityManager->flush();
             } catch (ORMException $exception) {
-                // TODO handle exception
-                return new JsonResponse([], 500);
+                return new JsonResponse(["error" => "Oops, something went wrong.."], 500);
             }
         }
         return new JsonResponse([]);
@@ -94,7 +93,7 @@ class PushController extends AbstractController
                 $entityManager->remove($subscription);
                 $entityManager->flush();
             } catch (ORMException $exception) {
-                // TODO catch exception
+                return new JsonResponse(["error" => "Oops, something went wrong.."], 500);
             }
         }
         return new JsonResponse([]);

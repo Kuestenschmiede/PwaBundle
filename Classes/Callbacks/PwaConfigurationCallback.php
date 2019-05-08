@@ -53,14 +53,6 @@ class PwaConfigurationCallback extends Backend
         ];
     }
     
-    public function getServiceWorkerOptions()
-    {
-        return [
-            PwaConfiguration::PWA_SERVICE_WORKER_GENERATE => 'Automatisch erzeugen',
-            PwaConfiguration::PWA_SERVICE_WORKER_CUSTOM => 'Aus eigener Datei laden (noch nicht implementiert)'
-        ];
-    }
-    
     public function getOfflineHandlingOptions()
     {
         $strName = 'tl_c4g_pwa_configuration';
