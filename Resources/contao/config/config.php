@@ -26,5 +26,9 @@ $GLOBALS['BE_MOD']['con4gis_core'] = array_merge($GLOBALS['BE_MOD']['con4gis_cor
     'webpushConfiguration' => array
     (
         'tables'    => array('tl_c4g_webpush_configuration')
+    ),
+    'sendPush' => array(
+        'tables' => array('tl_c4g_push_notification'),
+        'stylesheet' => "bundles/con4gispwa/css/backend-push.css"
     )
 ));
