@@ -33,7 +33,7 @@ There are three different ways to send push notifications with this bundle:
 
 To send a notification in one of your scripts, you have to create a PushNotificationEvent and 
 use the Symfony event dispatcher.
-````
+````php
 // get the event dispatcher
 $eventDispatcher = $this->eventDispatcher;
 // instantiate event
