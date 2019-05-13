@@ -24,5 +24,29 @@ Alternatively, you can use the Contao Manager to install the con4gis-PwaBundle.
 - [CoreBundle](https://github.com/Kuestenschmiede/CoreBundle/releases) (*latest stable release*)
 - [WebPushBundle](https://github.com/web-push-libs/web-push-php) (3.* (latest))
 
+## Sending a notification
+
+There are three different ways to send push notifications with this bundle:
+- Console Command (```con4gis:send-push <message>```)
+- Backend Module
+- Sending a notification programmatically
+
+To send a notification in one of your scripts, you have to create a PushNotificationEvent and 
+use the Symfony event dispatcher.
+````
+// get the event dispatcher
+$eventDispatcher = $this->eventDispatcher;
+// instantiate event
+$event = new PushNotificationEvent();
+// this sends the notification to every subscribed user. You can send a notification to only one subscription, too
+$event->setSendToAll(true);
+// set message contents
+$event->setTitle($title);
+$event->setMessage($content);
+// dispatch the event
+$eventDispatcher->dispatch($event::NAME, $event);
+````
+
+
 ## Documentation
 Visit [docs.con4gis.org](https://docs.con4gis.org) for a user documentation. You can also contact us via the support forum there.
