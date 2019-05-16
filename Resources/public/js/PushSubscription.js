@@ -59,7 +59,7 @@ function unsubscribeNotifications(pushManager) {
 }
 
 function registerForPush(pushManager) {
-  $.ajax('/con4gis/pushSubscription/getKey').done(function(data) {
+  jQuery.ajax('/con4gis/pushSubscription/getKey').done(function(data) {
     let key = urlB64ToUint8Array(data.key);
     const options = {userVisibleOnly: true, applicationServerKey: key};
 

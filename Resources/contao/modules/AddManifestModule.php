@@ -50,6 +50,10 @@ class AddManifestModule extends Module
             $this->addAppleSplashScreen($config);
             $GLOBALS['TL_HEAD'][] = '<meta name="theme-color" content="#' . $config->getThemeColor() . '">';
         }
+        // if jquery is not loaded by contao, load it
+        if (!in_array('assets/jquery/js/jquery.min.js|static', $GLOBALS['TL_JAVASCRIPT'])) {
+            $GLOBALS['TL_JAVASCRIPT'][] = 'assets/jquery/js/jquery.min.js|static';
+        }
         // register service worker
         $GLOBALS['TL_HEAD'][] = '<script>
           if (\'serviceWorker\' in navigator) {
