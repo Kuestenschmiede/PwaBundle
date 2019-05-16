@@ -62,8 +62,8 @@ $GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENT
 $GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENTATION_PORTRAIT_PRIMARY] = "Hochformat (Button rechts)";
 $GLOBALS['TL_LANG'][$strName]['orientationOptions'][PwaConfiguration::PWA_ORIENTATION_PORTRAIT_SECONDARY] = "Hochformat (Button links)";
 
-$GLOBALS['TL_LANG'][$strName]['offlineHandling'][PwaConfiguration::PWA_OFFLINE_HANDLING_ALWAYS] = "Immer auf Offline-Seite weiterleiten";
-$GLOBALS['TL_LANG'][$strName]['offlineHandling'][PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK] = "Normalen Cache-Mechanismus nutzen (Offline-Seite als Fallback)";
+$GLOBALS['TL_LANG'][$strName]['offlineHandling']['options'][PwaConfiguration::PWA_OFFLINE_HANDLING_ALWAYS] = "Immer auf Offline-Seite weiterleiten";
+$GLOBALS['TL_LANG'][$strName]['offlineHandling']['options'][PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK] = "Normalen Cache-Mechanismus nutzen (Offline-Seite als Fallback)";
 
 $GLOBALS['TL_LANG'][$strName]['iosStyle'][PwaConfiguration::PWA_IOS_STYLE_BLACK] = "Schwarz";
 $GLOBALS['TL_LANG'][$strName]['iosStyle'][PwaConfiguration::PWA_IOS_STYLE_DEFAULT] = "Weiß";
