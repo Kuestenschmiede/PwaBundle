@@ -7,3 +7,6 @@ $GLOBALS['TL_LANG'][$strName]['messageContent'] = ["Text der Pushnachricht", "Ge
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = "Inhalt der Pushnachricht";
 
 $GLOBALS['TL_LANG'][$strName]['new'] = array("Pushnachricht versenden","Pushnachricht versenden");
+
+$GLOBALS['TL_LANG']['tl_c4g_push_notification']['infoText'] =
+    'Pushnachrichten können über die beschriebenen Schnittstellen (z.B. auf <a target="_blank" href="https://github.com/Kuestenschmiede/PwaBundle">GitHub</a>) versendet werden. Dieses Formular ist für kleinere Seiten gedacht, zur direkten Versendung an die Abonnementen. Sobald Sie das Formular speichern, wird die Nachricht verschickt.';
