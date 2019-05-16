@@ -11,7 +11,7 @@
  * @link       https://www.con4gis.org
  */
 
-$GLOBALS['TL_LANG']['FMD']['pwa'] 			= array('PWA modul', 'Mit diesem Modul wirds zur PWA');
+$GLOBALS['TL_LANG']['FMD']['pwa'] 			= array('PWA modul', 'Fügt die konfigurierten PWA-Eigenschaften der Anwendung hinzu.');
 $GLOBALS['TL_LANG']['FMD']['push-subscription']	= array('Push-Subscription', 'Dieses Modul stellt eine Registrierung für Push-Benachrichtigungen zur Verfügung.');
 $GLOBALS['TL_LANG']['MOD']['pwaConfiguration'] = array('PWA-Konfiguration', 'Konfiguration für PWA-Eigenschaften');
 $GLOBALS['TL_LANG']['MOD']['webpushConfiguration'] = array('WebPush-Konfiguration', 'Konfiguration für den WebPush-Service.');
