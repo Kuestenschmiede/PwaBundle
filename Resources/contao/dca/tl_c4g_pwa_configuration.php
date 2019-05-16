@@ -179,6 +179,7 @@ $GLOBALS['TL_DCA'][$strName] = array
         (
             'label'                   => $GLOBALS['TL_LANG'][$strName]['offlinePage'],
             'exclude'                 => true,
+            'default'                 => 0,
             'inputType'               => 'pageTree',
             'eval'                    => ['fieldType'=>'radio'],
         ),

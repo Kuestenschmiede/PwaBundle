@@ -31,6 +31,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['pwaConfig'] = [
 $GLOBALS['TL_DCA']['tl_page']['fields']['uncachedPages'] = [
     'label'                   => $GLOBALS['TL_LANG']['tl_page']['uncachedPages'],
     'exclude'                 => true,
+    'default'                 => '',
     'inputType'               => 'pageTree',
     'eval'                    => ['fieldType'=>'checkbox', 'multiple' => true, 'filesOnly' => true],
     'sql'                     => "blob NULL"
