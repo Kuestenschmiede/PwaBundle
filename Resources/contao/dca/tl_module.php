@@ -16,11 +16,11 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['push-subscription'] = "{title_legen
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pwaConfiguration'] = [
     'label'             => $GLOBALS['TL_LANG']['tl_module']['pwaConfiguration'],
-    'default'           => '',
+    'default'           => 0,
     'inputType'         => 'select',
     'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PageCallback', 'getPwaConfigOptions'],
     'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true),
-    'sql'               => "int(10) unsigned NOT NULL default '0'"
+    'sql'               => "int(10) unsigned NOT NULL default 0"
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['subscribeText'] = [

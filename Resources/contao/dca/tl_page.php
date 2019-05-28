@@ -21,7 +21,7 @@ $paletteManipulator->applyToPalette('root', 'tl_page');
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['pwaConfig'] = [
         'label'             => $GLOBALS['TL_LANG']['tl_page']['pwaConfig'],
-        'default'           => '',
+        'default'           => '0',
         'inputType'         => 'select',
         'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PageCallback', 'getPwaConfigOptions'],
         'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true),
