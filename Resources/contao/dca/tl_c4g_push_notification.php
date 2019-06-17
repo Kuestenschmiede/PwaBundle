@@ -1,7 +1,5 @@
 <?php
 
-use con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback;
-use con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback;
 use con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback;
 
 $strName = 'tl_c4g_push_notification';
@@ -18,12 +16,12 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
         'closed' => (\Input::get('id')),
         'onload_callback'			=> array
         (
-            array('\con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback', 'loadDataset'),
+            array(PushNotificationCallback::class, 'loadDataset'),
         ),
         'onsubmit_callback'			=> array
         (
-            array('\con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback', 'sendNotification'),
-            array('\con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback', 'truncateTable')
+            array(PushNotificationCallback::class, 'sendNotification'),
+            array(PushNotificationCallback::class, 'truncateTable')
         ),
         'sql'               => array
         (
@@ -54,7 +52,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
     // Palettes
     'palettes' => array
     (
-        'default' => '{data_legend},messageTitle,messageContent;'
+        'default' => '{data_legend},messageTitle,messageContent,subscriptionType;'
     ),
     
     // Fields
@@ -75,7 +73,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
-            'sql'       => "varchar(255) NOT NULL default ''"
+            'sql'               => "varchar(255) NOT NULL default ''"
         ),
         'messageContent' => array
         (
@@ -83,7 +81,16 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
             'default'           => '',
             'inputType'         => 'textarea',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
-            'sql'       => "varchar(255) NOT NULL default ''"
+            'sql'               => "varchar(255) NOT NULL default ''"
         ),
+        'subscriptionType' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['subscriptionType'],
+            'default'           => 0,
+            'inputType'         => 'select',
+            'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'sql'               => "int(10) unsigned NOT NULL default 0"
+        )
     )
 );

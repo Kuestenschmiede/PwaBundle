@@ -4,6 +4,7 @@
 namespace con4gis\PwaBundle\Classes\Callbacks;
 
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
+use con4gis\PwaBundle\Entity\PushSubscriptionType;
 use Contao\Backend;
 use Contao\Controller;
 use Contao\Database;
@@ -18,7 +19,7 @@ class PushNotificationCallback extends Backend
         $content = $dc->activeRecord->messageContent;
         $eventDispatcher = System::getContainer()->get('event_dispatcher');
         $event = new PushNotificationEvent();
-        $event->setSendToAll(true);
+        $event->setSubscriptionType($dc->activeRecord->subscriptionType);
         $event->setTitle($title);
         $event->setMessage($content);
         $eventDispatcher->dispatch($event::NAME, $event);
@@ -41,7 +42,6 @@ class PushNotificationCallback extends Backend
             $this->redirect($this->addToUrl('act=create'));
         }
         
-        
         if(!\Input::get('id') && !\Input::get('act'))
         {
             $GLOBALS['TL_DCA']['tl_c4g_push_notification']['config']['notCreatable'] = true;
@@ -49,5 +49,17 @@ class PushNotificationCallback extends Backend
         }
         
         \Message::addInfo($GLOBALS['TL_LANG']['tl_c4g_push_notification']['infoText']);
+    }
+    
+    public function getSubscriptionTypes()
+    {
+        $em = System::getContainer()->get('doctrine.orm.default_entity_manager');
+        $typeRepo = $em->getRepository(PushSubscriptionType::class);
+        $types = $typeRepo->findAll();
+        $arrTypes = [];
+        foreach ($types as $type) {
+            $arrTypes[$type->getId()] = $type->getName();
+        }
+        return $arrTypes;
     }
 }

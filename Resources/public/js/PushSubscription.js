@@ -67,9 +67,11 @@ function registerForPush(pushManager) {
       .then(pushSubscription => {
         // user has allowed the subscription
         // send the subscription to server
+        let data = pushSubscription.toJSON();
+        data.subscriptionType = document.getElementById('subscription-type').innerText;
         jQuery.ajax('/con4gis/pushSubscription', {
           method: 'POST',
-          data: pushSubscription.toJSON()
+          data: data
         }).done(function(data) {
           updateSubscriptionButton(true);
         });

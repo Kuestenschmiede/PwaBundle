@@ -16,3 +16,4 @@ $GLOBALS['TL_LANG']['FMD']['push-subscription']	= array('Push-Subscription', 'Di
 $GLOBALS['TL_LANG']['MOD']['pwaConfiguration'] = array('PWA-Konfiguration', 'Konfiguration für PWA-Eigenschaften');
 $GLOBALS['TL_LANG']['MOD']['webpushConfiguration'] = array('WebPush-Konfiguration', 'Konfiguration für den WebPush-Service.');
 $GLOBALS['TL_LANG']['MOD']['sendPush'] = array('Pushnachricht senden', 'Versenden Sie eine Pushnachricht');
+$GLOBALS['TL_LANG']['MOD']['pushSubscriptionType'] = array('Push-Abonnement-Typen', 'Definieren Sie verschiedene Typen von Push-Abonnements.');

@@ -30,5 +30,8 @@ $GLOBALS['BE_MOD']['con4gis_core'] = array_merge($GLOBALS['BE_MOD']['con4gis_cor
     'sendPush' => array(
         'tables' => array('tl_c4g_push_notification'),
         'stylesheet' => "bundles/con4gispwa/css/backend-push.css"
-    )
+    ),
+    'pushSubscriptionType' => [
+        'tables' => ['tl_c4g_push_subscription_type']
+    ]
 ));

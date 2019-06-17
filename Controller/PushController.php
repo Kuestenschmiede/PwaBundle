@@ -51,6 +51,7 @@ class PushController extends AbstractController
         $entityManager = System::getContainer()->get('doctrine.orm.default_entity_manager');
         $arrData = $request->request->all();
         $endpoint = $arrData['endpoint'];
+        $subscriptionType = intval($arrData['subscriptionType']);
         $subsRepo = $entityManager->getRepository(PushSubscription::class);
         if ($subsRepo->findOneBy(['endpoint' => $endpoint]) === null) {
             // subscription is new, persist it
@@ -59,6 +60,7 @@ class PushController extends AbstractController
             $subscription->setAuthKey($arrData['keys']['auth']);
             $subscription->setP256dhKey($arrData['keys']['p256dh']);
             $subscription->setTstamp(time());
+            $subscription->setTypeId($subscriptionType);
             try {
                 $entityManager->persist($subscription);
                 $entityManager->flush();

@@ -1,0 +1,15 @@
+<?php
+$strName = 'tl_c4g_push_subscription_type';
+
+$GLOBALS['TL_LANG'][$strName]['name'] = ['Name des Abonnement-Typs', 'Geben Sie einen Namen für den Abonnement-Typ ein.'];
+$GLOBALS['TL_LANG'][$strName]['shorthand'] = ['Schlüssel für den Abonnement-Typ', 'Geben Sie einen eindeutigen Schlüssel ein, z.B. eine Kurzform des Namens. Dieser Schlüssel wird intern zur Identifizierung verwendet und muss eindeutig sein.'];
+
+$GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Allgemeine Daten';
+
+// operations
+$singular = 'Push-Abonnement-Typen';
+$GLOBALS['TL_LANG'][$strName]['new'] = array("$singular hinzufügen","$singular hinzufügen");
+$GLOBALS['TL_LANG'][$strName]['edit'] = array("$singular bearbeiten","Bearbeiten der $singular ID %s");
+$GLOBALS['TL_LANG'][$strName]['copy'] = array("$singular kopieren","Kopieren der $singular ID %s");
+$GLOBALS['TL_LANG'][$strName]['delete'] = array("$singular löschen","Löschen der $singular ID %s");
+$GLOBALS['TL_LANG'][$strName]['show'] = array("$singular anzeigen","Anzeigen der $singular ID %s");

@@ -64,11 +64,7 @@ class PushNotificationListener
         $eventName,
         EventDispatcherInterface $eventDispatcher
     ) {
-        if ($event->isSendToAll()) {
-            $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
-        } else {
-            $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findBy(['endpoint' => $event->getEndpoints()]);
-        }
+        $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findBy(['typeId' => $event->getSubscriptionType()]);
         $event->setSubscriptions($subscriptions);
     }
     

@@ -32,6 +32,12 @@ class PushNotificationEvent extends Event
     private $sendToAll = false;
     
     /**
+     * The ID of the SubscriptionType for which the notification is intended.
+     * @var int
+     */
+    private $subscriptionType = 0;
+    
+    /**
      * The subscription entities.
      * @var array
      */
@@ -79,6 +85,22 @@ class PushNotificationEvent extends Event
     public function setSendToAll(bool $sendToAll): void
     {
         $this->sendToAll = $sendToAll;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getSubscriptionType(): int
+    {
+        return $this->subscriptionType;
+    }
+    
+    /**
+     * @param int $subscriptionType
+     */
+    public function setSubscriptionType(int $subscriptionType): void
+    {
+        $this->subscriptionType = $subscriptionType;
     }
     
     /**

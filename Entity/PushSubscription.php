@@ -58,6 +58,12 @@ class PushSubscription extends BaseEntity
     private $p256dhKey = "";
     
     /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $typeId = 0;
+    
+    /**
      * @return int
      */
     public function getId(): int
@@ -135,5 +141,21 @@ class PushSubscription extends BaseEntity
     public function setP256dhKey(string $p256dhKey): void
     {
         $this->p256dhKey = $p256dhKey;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getTypeId(): int
+    {
+        return $this->typeId;
+    }
+    
+    /**
+     * @param int $typeId
+     */
+    public function setTypeId(int $typeId): void
+    {
+        $this->typeId = $typeId;
     }
 }
