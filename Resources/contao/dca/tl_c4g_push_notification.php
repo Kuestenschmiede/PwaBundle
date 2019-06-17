@@ -89,7 +89,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
             'default'           => 0,
             'inputType'         => 'select',
             'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true),
             'sql'               => "int(10) unsigned NOT NULL default 0"
         )
     )

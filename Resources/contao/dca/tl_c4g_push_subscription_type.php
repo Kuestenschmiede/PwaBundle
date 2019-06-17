@@ -26,7 +26,7 @@ $GLOBALS['TL_DCA'][$strName] = array
         
         'label' => array
         (
-            'fields'            => array('name', 'shorthand'),
+            'fields'            => array('name'),
             'showColumns'       => true,
         ),
         
