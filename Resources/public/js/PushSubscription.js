@@ -49,11 +49,15 @@ function updateSubscriptionButton(isSubscribed) {
 function unsubscribeNotifications(pushManager) {
   pushManager.getSubscription().then(function(subscription) {
     let endpoint = subscription.endpoint;
-    jQuery.ajax('/con4gis/pushSubscription', {
-      method: 'DELETE',
-      data: {endpoint: endpoint}
-    }).done(function(data) {
-      updateSubscriptionButton(false);
+    subscription.unsubscribe().then(function (success) {
+      jQuery.ajax('/con4gis/pushSubscription', {
+        method: 'DELETE',
+        data: {endpoint: endpoint}
+      }).done(function(data) {
+        updateSubscriptionButton(false);
+      });
+    }).catch(function(error) {
+        window.alert("Unsubscription failed");
     });
   });
 }
