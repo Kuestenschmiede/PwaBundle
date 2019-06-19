@@ -4,7 +4,16 @@
     </button>
     <span id="text-subscribe" style="display: none;"><?php echo $this->subscribeText ?></span>
     <span id="text-unsubscribe" style="display: none;"><?php echo $this->unsubscribeText ?></span>
-    <span id="subscription-type" style="display: none;">
-        <?php echo $this->subscriptionType ?>
-    </span>
+
+    <select name="subscription-types" id="subscription-types" style="display: none;">
+        <?php foreach ($this->subscriptionTypes as $id => $type) { ?>
+            <option value="<?php echo $id ?>"><?php echo $type ?></option>
+        <?php } ?>
+    </select>
+
+    <?php if ($this->disableSelection) { ?>
+        <span id="selection-disabled" style="display: none;"></span>
+    <?php } ?>
+
+
 </div>

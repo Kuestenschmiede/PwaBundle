@@ -19,7 +19,7 @@ class PushNotificationCallback extends Backend
         $content = $dc->activeRecord->messageContent;
         $eventDispatcher = System::getContainer()->get('event_dispatcher');
         $event = new PushNotificationEvent();
-        $event->setSubscriptionType($dc->activeRecord->subscriptionType);
+        $event->setSubscriptionTypes(unserialize($dc->activeRecord->subscriptionTypes));
         $event->setTitle($title);
         $event->setMessage($content);
         $eventDispatcher->dispatch($event::NAME, $event);

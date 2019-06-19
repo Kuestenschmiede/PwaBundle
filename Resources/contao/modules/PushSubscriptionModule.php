@@ -42,7 +42,16 @@ class PushSubscriptionModule extends Module
     protected function compile()
     {
         // add manifest entry
-        ResourceLoader::loadJavaScriptResource('bundles/con4gispwa/js/PushSubscription.js', ResourceLoader::HEAD);
+        ResourceLoader::loadJavaScriptResource('bundles/con4gispwa/build/PushSubscription.js', ResourceLoader::HEAD);
+        $arrTypeIds = unserialize($this->subscriptionTypes);
+        $types = System::getContainer()->get('doctrine.orm.default_entity_manager')
+            ->getRepository(PushSubscriptionType::class)->findBy(['id' => $arrTypeIds]);
+        $arrTypes = [];
+        foreach ($types as $type) {
+            $arrTypes[$type->getId()] = $type->getName();
+        }
+        $this->Template->subscriptionTypes = $arrTypes;
+        $this->Template->disableSelection = $this->disableSelection;
         $this->Template->subscribeText = $this->subscribeText;
         $this->Template->unsubscribeText = $this->unsubscribeText;
         $this->Template->subscriptionType = $this->subscriptionType;

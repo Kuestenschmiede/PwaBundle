@@ -21,6 +21,7 @@ use con4gis\CoreBundle\Entity\BaseEntity;
  *
  * @ORM\Entity
  * @ORM\Table(name="tl_c4g_push_subscription")
+ * @ORM\Entity(repositoryClass="con4gis\PwaBundle\Entity\PushSubscriptionRepository")
  * @package con4gis\PwaBundle\Entity
  */
 class PushSubscription extends BaseEntity
@@ -58,10 +59,10 @@ class PushSubscription extends BaseEntity
     private $p256dhKey = "";
     
     /**
-     * @var int
-     * @ORM\Column(type="integer")
+     * @var array
+     * @ORM\Column(type="array")
      */
-    private $typeId = 0;
+    private $types = [];
     
     /**
      * @return int
@@ -144,18 +145,19 @@ class PushSubscription extends BaseEntity
     }
     
     /**
-     * @return int
+     * @return array
      */
-    public function getTypeId(): int
+    public function getTypes(): array
     {
-        return $this->typeId;
+        return $this->types;
     }
     
     /**
-     * @param int $typeId
+     * @param array $types
      */
-    public function setTypeId(int $typeId): void
+    public function setTypes(array $types): void
     {
-        $this->typeId = $typeId;
+        $this->types = $types;
     }
+    
 }

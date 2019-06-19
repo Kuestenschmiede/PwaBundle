@@ -14,7 +14,7 @@
 use con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback;
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pwa'] = "{title_legend},name,type,pwaConfiguration";
-$GLOBALS['TL_DCA']['tl_module']['palettes']['push-subscription'] = "{title_legend},name,type,subscribeText,unsubscribeText,subscriptionType";
+$GLOBALS['TL_DCA']['tl_module']['palettes']['push-subscription'] = "{title_legend},name,type,subscribeText,unsubscribeText,subscriptionTypes";
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pwaConfiguration'] = [
     'label'             => $GLOBALS['TL_LANG']['tl_module']['pwaConfiguration'],
@@ -41,11 +41,19 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['unsubscribeText'] = [
     'sql'               => "varchar(100) NOT NULL default ''"
 ];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['subscriptionType'] = [
-    'label'             => $GLOBALS['TL_LANG']['tl_module']['subscriptionType'],
-    'default'           => 0,
+$GLOBALS['TL_DCA']['tl_module']['fields']['subscriptionTypes'] = [
+    'label'             => $GLOBALS['TL_LANG']['tl_module']['subscriptionTypes'],
+    'default'           => [],
     'inputType'         => 'select',
     'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
-    'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true),
-    'sql'               => "int(10) unsigned NOT NULL default 0"
+    'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true, 'multiple' => true, 'chosen' => true),
+    'sql'               => "blob NULL"
+];
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['disableSelection'] = [
+    'label'                   => $GLOBALS['TL_LANG']['tl_module']['disableSelection'],
+    'exclude'                 => true,
+    'default'                 => '',
+    'inputType'               => 'checkbox',
+    'sql'                     => "char(1) NOT NULL default ''"
 ];

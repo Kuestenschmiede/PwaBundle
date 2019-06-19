@@ -52,7 +52,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
     // Palettes
     'palettes' => array
     (
-        'default' => '{data_legend},messageTitle,messageContent,subscriptionType;'
+        'default' => '{data_legend},messageTitle,messageContent,subscriptionTypes;'
     ),
     
     // Fields
@@ -83,14 +83,14 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
             'sql'               => "varchar(255) NOT NULL default ''"
         ),
-        'subscriptionType' => array
+        'subscriptionTypes' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['subscriptionType'],
-            'default'           => 0,
+            'label'             => $GLOBALS['TL_LANG'][$strName]['subscriptionTypes'],
+            'default'           => [],
             'inputType'         => 'select',
             'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
-            'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true),
-            'sql'               => "int(10) unsigned NOT NULL default 0"
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true, 'multiple' => true, 'chosen' => true),
+            'sql'               => "blob NULL"
         )
     )
 );

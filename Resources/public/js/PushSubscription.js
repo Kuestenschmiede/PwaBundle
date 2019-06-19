@@ -10,6 +10,9 @@
  * @link       https://www.con4gis.org
  */
 
+import Swal from 'sweetalert2';
+
+
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.ready.then(function(registration) {
     if ('PushManager' in window) {
@@ -26,6 +29,36 @@ if ('serviceWorker' in navigator) {
       document.getElementById('btn-push-subscribe').style.display = "none";
     }
   });
+}
+
+function getTypeOptions() {
+  let selectBox = document.getElementById('subscription-types');
+  let options = {};
+  let selectOptions = selectBox.options;
+  for (let key in selectOptions) {
+    if (selectOptions.hasOwnProperty(key)) {
+      options[selectOptions[key].value] = selectOptions[key].label;
+    }
+  }
+  return options;
+}
+
+function getInputForm(options) {
+  let container = document.createElement("div");
+  for (let key in options) {
+    if (options.hasOwnProperty(key)) {
+      let input = document.createElement('input');
+      input.type = "checkbox";
+      input.id = 'subscription-option-' + key;
+      input.name = key;
+      let label = document.createElement('label');
+      label.setAttribute('for', input.id);
+      label.innerText = options[key];
+      container.appendChild(input);
+      container.appendChild(label);
+    }
+  }
+  return container;
 }
 
 function updateSubscriptionButton(isSubscribed) {
@@ -66,13 +99,36 @@ function registerForPush(pushManager) {
   jQuery.ajax('/con4gis/pushSubscription/getKey').done(function(data) {
     let key = urlB64ToUint8Array(data.key);
     const options = {userVisibleOnly: true, applicationServerKey: key};
-
+    const typeOptions = getTypeOptions();
+    const inputForm = getInputForm(typeOptions);
     pushManager.subscribe(options)
-      .then(pushSubscription => {
-        // user has allowed the subscription
-        // send the subscription to server
+      .then(async function (pushSubscription) {
+        const subscriptionType = await Swal.fire({
+          html: inputForm,
+          title: "Wähle die Aktionen, bei denen du benachrichtigt werden willst",
+          showCancelButton: true,
+          confirmButtonText: "Bestätigen",
+          cancelButtonText: "Abbrechen"
+        }).then(confirmed => {
+          if (confirmed) {
+            let checkedOptions = [];
+            let checkboxes = inputForm.childNodes;
+            for (let i = 0; i < checkboxes.length; i++) {
+              if (checkboxes[i].checked) {
+                checkedOptions.push(checkboxes[i].name);
+              }
+            }
+            return checkedOptions;
+          } else {
+            return false;
+          }
+        });
+        if (subscriptionType.length === 0) {
+          return false;
+        }
+
         let data = pushSubscription.toJSON();
-        data.subscriptionType = document.getElementById('subscription-type').innerText;
+        data.subscriptionTypes = subscriptionType;
         jQuery.ajax('/con4gis/pushSubscription', {
           method: 'POST',
           data: data

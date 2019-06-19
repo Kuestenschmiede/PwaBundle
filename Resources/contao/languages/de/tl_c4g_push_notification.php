@@ -3,7 +3,7 @@ $strName = 'tl_c4g_push_notification';
 
 $GLOBALS['TL_LANG'][$strName]['messageTitle'] = ["Titel der Pushnachricht", "Geben Sie hier einen Titel für die Pushnachricht ein."];
 $GLOBALS['TL_LANG'][$strName]['messageContent'] = ["Text der Pushnachricht", "Geben Sie hier den Text ein, den die Pushnachricht enthalten soll."];
-$GLOBALS['TL_LANG'][$strName]['subscriptionType'] = ["Abonnement-Typ", "Wählen Sie den Abonnement-Typ aus, für den die Push-Nachricht bestimmt ist."];
+$GLOBALS['TL_LANG'][$strName]['subscriptionTypes'] = ["Abonnement-Typ", "Wählen Sie den Abonnement-Typ aus, für den die Push-Nachricht bestimmt ist."];
 
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = "Inhalt der Pushnachricht";
 

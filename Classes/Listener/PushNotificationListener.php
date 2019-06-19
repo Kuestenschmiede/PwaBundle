@@ -64,13 +64,19 @@ class PushNotificationListener
         $eventName,
         EventDispatcherInterface $eventDispatcher
     ) {
-        $typeId = $event->getSubscriptionType();
-        if ($typeId > 0) {
-            $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findBy(['typeId' => $event->getSubscriptionType()]);
+        $types = $event->getSubscriptionTypes();
+        $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
+        $resSubscriptions = [];
+        if (count($types) > 0) {
+            foreach ($subscriptions as $subscription) {
+                if (array_intersect($types, $subscription->getTypes())) {
+                    $resSubscriptions[] = $subscription;
+                }
+            }
         } else {
-            $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
+            $resSubscriptions = $subscriptions;
         }
-        $event->setSubscriptions($subscriptions);
+        $event->setSubscriptions($resSubscriptions);
     }
     
     /**
