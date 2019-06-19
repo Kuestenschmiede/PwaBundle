@@ -95,34 +95,45 @@ function unsubscribeNotifications(pushManager) {
   });
 }
 
+function getSelectionState() {
+  let span = document.getElementById('selection-disabled');
+  return !!span;
+}
+
 function registerForPush(pushManager) {
   jQuery.ajax('/con4gis/pushSubscription/getKey').done(function(data) {
     let key = urlB64ToUint8Array(data.key);
     const options = {userVisibleOnly: true, applicationServerKey: key};
     const typeOptions = getTypeOptions();
     const inputForm = getInputForm(typeOptions);
+    const selectionDisabled = getSelectionState();
     pushManager.subscribe(options)
       .then(async function (pushSubscription) {
-        const subscriptionType = await Swal.fire({
-          html: inputForm,
-          title: "Wähle die Aktionen, bei denen du benachrichtigt werden willst",
-          showCancelButton: true,
-          confirmButtonText: "Bestätigen",
-          cancelButtonText: "Abbrechen"
-        }).then(confirmed => {
-          if (confirmed) {
-            let checkedOptions = [];
-            let checkboxes = inputForm.childNodes;
-            for (let i = 0; i < checkboxes.length; i++) {
-              if (checkboxes[i].checked) {
-                checkedOptions.push(checkboxes[i].name);
+        let subscriptionType = "";
+        if (selectionDisabled) {
+          subscriptionType = Object.keys(typeOptions);
+        } else {
+          subscriptionType = await Swal.fire({
+            html: inputForm,
+            title: "Wähle die Aktionen, bei denen du benachrichtigt werden willst",
+            showCancelButton: true,
+            confirmButtonText: "Bestätigen",
+            cancelButtonText: "Abbrechen"
+          }).then(confirmed => {
+            if (confirmed) {
+              let checkedOptions = [];
+              let checkboxes = inputForm.childNodes;
+              for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                  checkedOptions.push(checkboxes[i].name);
+                }
               }
+              return checkedOptions;
+            } else {
+              return false;
             }
-            return checkedOptions;
-          } else {
-            return false;
-          }
-        });
+          });
+        }
         if (subscriptionType.length === 0) {
           return false;
         }
