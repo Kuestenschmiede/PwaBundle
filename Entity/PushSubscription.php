@@ -21,7 +21,6 @@ use con4gis\CoreBundle\Entity\BaseEntity;
  *
  * @ORM\Entity
  * @ORM\Table(name="tl_c4g_push_subscription")
- * @ORM\Entity(repositoryClass="con4gis\PwaBundle\Entity\PushSubscriptionRepository")
  * @package con4gis\PwaBundle\Entity
  */
 class PushSubscription extends BaseEntity
