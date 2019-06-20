@@ -16,3 +16,4 @@ $GLOBALS['TL_LANG']['FMD']['push-subscription']	= array('Push subscription', 'Pr
 $GLOBALS['TL_LANG']['MOD']['pwaConfiguration'] = array('PWA configuration', 'Configuration of pwa functionality.');
 $GLOBALS['TL_LANG']['MOD']['webpushConfiguration'] = array('Web push configuration', 'Configuration of the web push service.');
 $GLOBALS['TL_LANG']['MOD']['sendPush'] = array('Send push notification', 'Send a push notification.');
+$GLOBALS['TL_LANG']['MOD']['pushSubscriptionType'] = array('Push subscription types', 'Define different types of push subscriptions.');

@@ -11,7 +11,10 @@
  */
 
 import Swal from 'sweetalert2';
+import {getLanguage} from "./pwa-i18n";
 
+var language = document.documentElement.getAttribute('lang');
+var langConstants = getLanguage(language);
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.ready.then(function(registration) {
@@ -136,7 +139,7 @@ function unsubscribeNotifications(pushManager) {
         updateSubscriptionButton(false);
       });
     }).catch(function(error) {
-        window.alert("Unsubscription failed");
+        window.alert(langConstants.UNSUBSCRIPTION_FAIL);
     });
   });
 }
@@ -149,10 +152,10 @@ function getSelectionState() {
 async function createSubscriptionDialog(inputForm) {
   return Swal.fire({
     html: inputForm,
-    title: "Wähle die Aktionen, bei denen du benachrichtigt werden willst",
+    title: langConstants.DIALOG_TITLE,
     showCancelButton: true,
-    confirmButtonText: "Bestätigen",
-    cancelButtonText: "Abbrechen"
+    confirmButtonText: langConstants.DIALOG_CONFIRM,
+    cancelButtonText: langConstants.DIALOG_CANCEL
   }).then(confirmed => {
     if (confirmed) {
       let checkedOptions = [];
