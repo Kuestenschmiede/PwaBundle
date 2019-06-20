@@ -1,0 +1,16 @@
+.subscription-option-container {
+    list-style-type: none;
+    text-align: left;
+}
+
+.subscription-option-container > li {
+
+}
+
+.subscription-option-container > li > input{
+
+}
+
+.subscription-option-container > li > label {
+
+}

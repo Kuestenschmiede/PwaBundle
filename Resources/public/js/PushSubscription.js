@@ -44,9 +44,11 @@ function getTypeOptions() {
 }
 
 function getInputForm(options) {
-  let container = document.createElement("div");
+  let container = document.createElement("ul");
+  container.className = "subscription-option-container";
   for (let key in options) {
     if (options.hasOwnProperty(key)) {
+      let listItem = document.createElement('li');
       let input = document.createElement('input');
       input.type = "checkbox";
       input.id = 'subscription-option-' + key;
@@ -54,21 +56,22 @@ function getInputForm(options) {
       let label = document.createElement('label');
       label.setAttribute('for', input.id);
       label.innerText = options[key];
-      container.appendChild(input);
-      container.appendChild(label);
+      listItem.appendChild(input);
+      listItem.appendChild(label);
+      container.appendChild(listItem);
     }
   }
   return container;
 }
 
 function updateInputForm(inputForm, types) {
-  let checkboxes = inputForm.childNodes;
-  for (let i = 0; i < checkboxes.length; i++) {
-    if (types.includes(checkboxes[i].name)) {
-      checkboxes[i].checked = true;
+  let listItems = inputForm.childNodes;
+  for (let i = 0; i < listItems.length; i++) {
+    let checkbox = listItems[i].firstChild;
+    if (types.includes(checkbox.name)) {
+      checkbox.checked = true;
     }
   }
-  // TODO maybe return?
 }
 
 function updateSubscriptionButton(isSubscribed) {
@@ -109,7 +112,6 @@ function updateSubscription(pushManager) {
         if (subscriptionTypes.length === 0) {
           unsubscribeNotifications(pushManager);
         } else {
-          // TODO an server senden, damit der entsprechend updated
           jQuery.ajax('/con4gis/pushSubscription', {
             method: "PUT",
             data: {
@@ -121,7 +123,6 @@ function updateSubscription(pushManager) {
       });
     })
   }
-
 }
 
 function unsubscribeNotifications(pushManager) {
@@ -155,10 +156,11 @@ async function createSubscriptionDialog(inputForm) {
   }).then(confirmed => {
     if (confirmed) {
       let checkedOptions = [];
-      let checkboxes = inputForm.childNodes;
-      for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-          checkedOptions.push(checkboxes[i].name);
+      let listItems = inputForm.childNodes;
+      for (let i = 0; i < listItems.length; i++) {
+        let checkbox = listItems[i].firstChild;
+        if (checkbox.checked) {
+          checkedOptions.push(checkbox.name);
         }
       }
       return checkedOptions;
