@@ -15,12 +15,14 @@ namespace con4gis\PwaBundle\ContaoManager;
 
 use con4gis\CoreBundle\con4gisCoreBundle;
 use con4gis\PwaBundle\con4gisPwaBundle;
+use Contao\CalendarBundle\ContaoCalendarBundle;
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Config\ConfigInterface;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
+use Contao\NewsBundle\ContaoNewsBundle;
 use Minishlink\Bundle\WebPushBundle\MinishlinkWebPushBundle;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -43,8 +45,12 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
             BundleConfig::create(MinishlinkWebPushBundle::class)
                 ->setLoadAfter([ContaoCoreBundle::class]),
             BundleConfig::create(con4gisPwaBundle::class)
-                ->setLoadAfter([con4gisCoreBundle::class])
-                ->setLoadAfter([MinishlinkWebPushBundle::class])
+                ->setLoadAfter([
+                    con4gisCoreBundle::class,
+                    MinishlinkWebPushBundle::class,
+                    ContaoCalendarBundle::class,
+                    ContaoNewsBundle::class
+                ])
         ];
     }
     
