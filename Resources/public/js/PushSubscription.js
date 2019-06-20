@@ -61,6 +61,16 @@ function getInputForm(options) {
   return container;
 }
 
+function updateInputForm(inputForm, types) {
+  let checkboxes = inputForm.childNodes;
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (types.includes(checkboxes[i].name)) {
+      checkboxes[i].checked = true;
+    }
+  }
+  // TODO maybe return?
+}
+
 function updateSubscriptionButton(isSubscribed) {
   let button = document.getElementById('btn-push-subscribe');
 
@@ -68,7 +78,7 @@ function updateSubscriptionButton(isSubscribed) {
     button.innerHTML = document.getElementById('text-unsubscribe').innerText;//'Unsubscribe notifications';
     button.onclick = null;
     button.onclick = function(event) {
-      navigator.serviceWorker.getRegistration().then(reg => unsubscribeNotifications(reg.pushManager));
+      navigator.serviceWorker.getRegistration().then(reg => updateSubscription(reg.pushManager));
     };
   } else {
     button.innerHTML = document.getElementById('text-subscribe').innerText;
@@ -77,6 +87,41 @@ function updateSubscriptionButton(isSubscribed) {
       navigator.serviceWorker.getRegistration().then(reg => registerForPush(reg.pushManager));
     };
   }
+}
+
+function updateSubscription(pushManager) {
+  const typeOptions = getTypeOptions();
+  let inputForm = getInputForm(typeOptions);
+  const selectionDisabled = getSelectionState();
+  if (selectionDisabled) {
+    // normal unsubscription
+    unsubscribeNotifications(pushManager);
+  } else {
+    pushManager.getSubscription().then(function(subscription) {
+      let endpoint = subscription.endpoint;
+      jQuery.ajax('/con4gis/pushSubscription', {
+        method: 'GET',
+        data: {endpoint: endpoint}
+      }).done(async function(data) {
+        let subscribedTypes = data.types;
+        updateInputForm(inputForm, subscribedTypes);
+        let subscriptionTypes = await createSubscriptionDialog(inputForm);
+        if (subscriptionTypes.length === 0) {
+          unsubscribeNotifications(pushManager);
+        } else {
+          // TODO an server senden, damit der entsprechend updated
+          jQuery.ajax('/con4gis/pushSubscription', {
+            method: "PUT",
+            data: {
+              endpoint: endpoint,
+              types: subscriptionTypes
+            }
+          });
+        }
+      });
+    })
+  }
+
 }
 
 function unsubscribeNotifications(pushManager) {
@@ -100,6 +145,29 @@ function getSelectionState() {
   return !!span;
 }
 
+async function createSubscriptionDialog(inputForm) {
+  return Swal.fire({
+    html: inputForm,
+    title: "Wähle die Aktionen, bei denen du benachrichtigt werden willst",
+    showCancelButton: true,
+    confirmButtonText: "Bestätigen",
+    cancelButtonText: "Abbrechen"
+  }).then(confirmed => {
+    if (confirmed) {
+      let checkedOptions = [];
+      let checkboxes = inputForm.childNodes;
+      for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+          checkedOptions.push(checkboxes[i].name);
+        }
+      }
+      return checkedOptions;
+    } else {
+      return false;
+    }
+  });
+}
+
 function registerForPush(pushManager) {
   jQuery.ajax('/con4gis/pushSubscription/getKey').done(function(data) {
     let key = urlB64ToUint8Array(data.key);
@@ -113,26 +181,7 @@ function registerForPush(pushManager) {
         if (selectionDisabled) {
           subscriptionType = Object.keys(typeOptions);
         } else {
-          subscriptionType = await Swal.fire({
-            html: inputForm,
-            title: "Wähle die Aktionen, bei denen du benachrichtigt werden willst",
-            showCancelButton: true,
-            confirmButtonText: "Bestätigen",
-            cancelButtonText: "Abbrechen"
-          }).then(confirmed => {
-            if (confirmed) {
-              let checkedOptions = [];
-              let checkboxes = inputForm.childNodes;
-              for (let i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                  checkedOptions.push(checkboxes[i].name);
-                }
-              }
-              return checkedOptions;
-            } else {
-              return false;
-            }
-          });
+          subscriptionType = await createSubscriptionDialog(inputForm);
         }
         if (subscriptionType.length === 0) {
           return false;

@@ -41,6 +41,33 @@ class PushController extends AbstractController
     }
     
     /**
+     * @Route("/con4gis/pushSubscription/", name="getPushSubscription", methods={"GET"})
+     * @param $request
+     * @return JsonResponse
+     */
+    public function getSubscriptionAction(Request $request)
+    {
+        $data = $request->query->all();
+        $endpoint = $data['endpoint'];
+        if (!$endpoint) {
+            return JsonResponse::create()->setStatusCode(400);
+        }
+        $em = $this->container->get('doctrine.orm.default_entity_manager');
+        $subscription = $em->getRepository(PushSubscription::class)
+            ->findOneBy(['endpoint' => $endpoint]);
+        if ($subscription) {
+            $response = new JsonResponse();
+            $arrData = [];
+            $arrData['types'] = $subscription->getTypes();
+            $response->setData($arrData);
+        } else {
+            $response = new JsonResponse();
+            $response->setStatusCode(404);
+        }
+        return $response;
+    }
+    
+    /**
      * @Route("/con4gis/pushSubscription", name="createPushSubscription", methods={"POST"})
      * @param $request
      * @return JsonResponse
@@ -74,9 +101,33 @@ class PushController extends AbstractController
         return new JsonResponse([]);
     }
     
+    /**
+     * @Route("/con4gis/pushSubscription", name="updatePushSubscription", methods={"PUT"})
+     * @param $request
+     * @return JsonResponse
+     */
     public function updateSubscriptionAction(Request $request)
     {
-    
+        $data = $request->request->all();
+        $endpoint = $data['endpoint'];
+        $types = $data['types'];
+        if ((!$endpoint || !$types) || !is_array($types)) {
+            return JsonResponse::create()->setStatusCode(400);
+        }
+        $em = $this->get('doctrine.orm.default_entity_manager');
+        $subscription = $em->getRepository(PushSubscription::class)
+            ->findOneBy(['endpoint' => $endpoint]);
+        if (!$subscription) {
+            return JsonResponse::create()->setStatusCode(404);
+        }
+        $subscription->setTypes($types);
+        try {
+            $em->persist($subscription);
+            $em->flush();
+        } catch (ORMException $e) {
+            return JsonResponse::create()->setStatusCode(500);
+        }
+        return JsonResponse::create()->setStatusCode(200);
     }
     
     /**
