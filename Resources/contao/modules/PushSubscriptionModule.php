@@ -56,5 +56,6 @@ class PushSubscriptionModule extends Module
         $this->Template->subscribeText = $this->subscribeText;
         $this->Template->unsubscribeText = $this->unsubscribeText;
         $this->Template->subscriptionType = $this->subscriptionType;
+        $this->Template->moduleId = $this->id;
     }
 }

@@ -119,7 +119,8 @@ function updateSubscription(pushManager) {
             method: "PUT",
             data: {
               endpoint: endpoint,
-              types: subscriptionTypes
+              types: subscriptionTypes,
+              moduleId: window.moduleId
             }
           });
         }
@@ -194,6 +195,7 @@ function registerForPush(pushManager) {
 
         let data = pushSubscription.toJSON();
         data.subscriptionTypes = subscriptionType;
+        data.moduleId = window.moduleId;
         jQuery.ajax('/con4gis/pushSubscription', {
           method: 'POST',
           data: data

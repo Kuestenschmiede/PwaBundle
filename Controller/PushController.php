@@ -15,6 +15,7 @@ namespace con4gis\PwaBundle\Controller;
 
 use con4gis\CoreBundle\Controller\BaseController;
 use con4gis\PwaBundle\Entity\PushSubscription;
+use Contao\ModuleModel;
 use Contao\System;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -78,10 +79,9 @@ class PushController extends AbstractController
         $entityManager = System::getContainer()->get('doctrine.orm.default_entity_manager');
         $arrData = $request->request->all();
         $endpoint = $arrData['endpoint'];
+        $moduleId = $arrData['moduleId'];
         $subscriptionTypes = $arrData['subscriptionTypes'];
-        foreach ($subscriptionTypes as $key => $subscriptionType) {
-            $subscriptionTypes[$key] = $subscriptionType;
-        }
+        $subscriptionTypes = $this->checkSubscriptionPermissions(intval($moduleId), $subscriptionTypes);
         $subsRepo = $entityManager->getRepository(PushSubscription::class);
         if ($subsRepo->findOneBy(['endpoint' => $endpoint]) === null) {
             // subscription is new, persist it
@@ -108,9 +108,11 @@ class PushController extends AbstractController
      */
     public function updateSubscriptionAction(Request $request)
     {
+        $this->get('contao.framework')->initialize();
         $data = $request->request->all();
         $endpoint = $data['endpoint'];
         $types = $data['types'];
+        $types = $this->checkSubscriptionPermissions(intval($data['moduleId']), $types);
         if ((!$endpoint || !$types) || !is_array($types)) {
             return JsonResponse::create()->setStatusCode(400);
         }
@@ -154,5 +156,27 @@ class PushController extends AbstractController
         }
         return new JsonResponse([]);
         
+    }
+    
+    /**
+     * Checks if the $subscriptionTypes are allowed for the module. Removes the types which are
+     * not allowed.
+     * @param int $moduleId
+     * @param array $subscriptionTypes
+     * @return array
+     */
+    private function checkSubscriptionPermissions(int $moduleId, array $subscriptionTypes)
+    {
+        $module = ModuleModel::findById($moduleId);
+        $resultingTypes = [];
+        if ($module) {
+            $allowedTypes = unserialize($module->subscriptionTypes);
+            foreach ($subscriptionTypes as $key => $value) {
+                if (in_array($value, $allowedTypes)) {
+                    $resultingTypes[] = $value;
+                }
+            }
+        }
+        return $resultingTypes;
     }
 }
