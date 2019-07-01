@@ -19,7 +19,13 @@ class EventsCallback extends Backend
         $activeRecord = $dc->activeRecord;
         if ($activeRecord->published) {
             if ($activeRecord->pushOnPublish) {
-                if ($activeRecord->pnSendDate <= time()) {
+                $currentTime = time();
+                $sendTime = $activeRecord->pnSendDate;
+                if (!is_int($sendTime)) {
+                    // date string
+                    $sendTime = strtotime($sendTime);
+                }
+                if ($sendTime <= $currentTime) {
                     $event = new PushNotificationEvent();
                     $event->setSubscriptionTypes(unserialize($activeRecord->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->title);
@@ -33,33 +39,15 @@ class EventsCallback extends Backend
     }
     
     public function convertDateStringToTimeStamp($value, $dc) {
-        $array = explode('/', $value);
-        $month = $array[0];
-        $day = $array[1];
-        $year = $array[2];
-        try {
-            $dateTime = new \DateTime();
-            $dateTime->setDate($year, $month, $day);
-            return $dateTime->getTimestamp();
-        } catch(\Throwable $e) {
+        if (is_int($value)) {
             return $value;
+        } else {
+            return strtotime($value);
         }
     }
     
     public function convertTimeStampToDateString($value, $dc) {
-        try {
-            $dateTime = new \DateTime();
-            if ($value == 0) {
-                $value = time();
-            }
-            $dateTime->setTimestamp($value);
-            $year = $dateTime->format('Y');
-            $month = $dateTime->format('m');
-            $day = $dateTime->format('d');
-            return "$month/$day/$year";
-        } catch(\Throwable $e) {
-            return $value;
-        }
+        return date($GLOBALS['TL_CONFIG']['dateFormat'], $value);
     }
     
 }
