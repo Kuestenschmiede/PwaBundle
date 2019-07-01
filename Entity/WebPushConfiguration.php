@@ -240,7 +240,7 @@ class WebPushConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getIcon(): string
+    public function getIcon(): ?string
     {
         return $this->icon;
     }

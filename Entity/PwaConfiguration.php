@@ -496,7 +496,7 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getAppleIcon120(): string
+    public function getAppleIcon120(): ?string
     {
         return $this->appleIcon120;
     }
@@ -528,7 +528,7 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getAppleIcon152(): string
+    public function getAppleIcon152(): ?string
     {
         return $this->appleIcon152;
     }
@@ -544,7 +544,7 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getAppleIcon180(): string
+    public function getAppleIcon180(): ?string
     {
         return $this->appleIcon180;
     }
@@ -560,7 +560,7 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getAppleIcon167(): string
+    public function getAppleIcon167(): ?string
     {
         return $this->appleIcon167;
     }
@@ -576,7 +576,7 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getSplashIphoneFirst(): string
+    public function getSplashIphoneFirst(): ?string
     {
         return $this->splashIphoneFirst;
     }
@@ -592,7 +592,7 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getSplashIphoneSecond(): string
+    public function getSplashIphoneSecond(): ?string
     {
         return $this->splashIphoneSecond;
     }
@@ -608,7 +608,7 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getSplashIphoneThird(): string
+    public function getSplashIphoneThird(): ?string
     {
         return $this->splashIphoneThird;
     }
@@ -624,7 +624,7 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getSplashIphoneFourth(): string
+    public function getSplashIphoneFourth(): ?string
     {
         return $this->splashIphoneFourth;
     }
@@ -640,7 +640,7 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getSplashIpadFirst(): string
+    public function getSplashIpadFirst(): ?string
     {
         return $this->splashIpadFirst;
     }
@@ -656,7 +656,7 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getSplashIpadSecond(): string
+    public function getSplashIpadSecond(): ?string
     {
         return $this->splashIpadSecond;
     }
@@ -672,7 +672,7 @@ class PwaConfiguration extends BaseEntity
     /**
      * @return string
      */
-    public function getSplashIpadThird(): string
+    public function getSplashIpadThird(): ?string
     {
         return $this->splashIpadThird;
     }

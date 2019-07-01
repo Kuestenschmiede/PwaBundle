@@ -82,6 +82,9 @@ class PushController extends AbstractController
         $moduleId = $arrData['moduleId'];
         $subscriptionTypes = $arrData['subscriptionTypes'];
         $subscriptionTypes = $this->checkSubscriptionPermissions(intval($moduleId), $subscriptionTypes);
+        if (!$subscriptionTypes || count($subscriptionTypes) < 1) {
+            return JsonResponse::create()->setStatusCode(400);
+        }
         $subsRepo = $entityManager->getRepository(PushSubscription::class);
         if ($subsRepo->findOneBy(['endpoint' => $endpoint]) === null) {
             // subscription is new, persist it

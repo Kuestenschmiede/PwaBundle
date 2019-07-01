@@ -92,11 +92,14 @@ class PushNotificationListener
     ) {
         $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOnly();
         $filePath = FilesModel::findByUuid($webpushConfig->getIcon())->path;
-        $content = \GuzzleHttp\json_encode([
+        $arrContent = [
             'title' => $event->getTitle(),
-            'body' => $event->getMessage(),
-            'icon' => $filePath
-        ]);
+            'body' => $event->getMessage()
+        ];
+        if ($filePath) {
+            $arrContent['icon'] = $filePath;
+        }
+        $content = \GuzzleHttp\json_encode($arrContent);
         
         $subscriptions = $event->getSubscriptions();
         foreach ($subscriptions as $subscription) {

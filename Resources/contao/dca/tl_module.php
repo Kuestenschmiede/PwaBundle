@@ -35,7 +35,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['subscribeText'] = [
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['unsubscribeText'] = [
     'label'             => $GLOBALS['TL_LANG']['tl_module']['unsubscribeText'],
-    'default'           => 'Pushnachrichten deabonnieren',
+    'default'           => 'Abonnement bearbeiten',
     'inputType'         => 'text',
     'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
     'sql'               => "varchar(100) NOT NULL default ''"
@@ -46,7 +46,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['subscriptionTypes'] = [
     'default'           => [],
     'inputType'         => 'select',
     'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
-    'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true, 'multiple' => true, 'chosen' => true),
+    'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true, 'multiple' => true, 'chosen' => true),
     'sql'               => "blob NULL"
 ];
 
