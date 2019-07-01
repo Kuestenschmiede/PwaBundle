@@ -35,3 +35,5 @@ $GLOBALS['BE_MOD']['con4gis_core'] = array_merge($GLOBALS['BE_MOD']['con4gis_cor
         'tables' => ['tl_c4g_push_subscription_type']
     ]
 ));
+
+$GLOBALS['TL_CRON']['daily'] = [['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents']];

@@ -25,7 +25,7 @@ class EventsCallback extends Backend
                     // date string
                     $sendTime = strtotime($sendTime);
                 }
-                if ($sendTime <= $currentTime) {
+                if ($sendTime <= $currentTime && !$activeRecord->pnSent) {
                     $event = new PushNotificationEvent();
                     $event->setSubscriptionTypes(unserialize($activeRecord->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->title);

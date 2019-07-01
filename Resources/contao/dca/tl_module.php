@@ -13,7 +13,7 @@
 
 use con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback;
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['pwa'] = "{title_legend},name,type,pwaConfiguration";
+$GLOBALS['TL_DCA']['tl_module']['palettes']['pwa'] = "{title_legend},name,type,pwaConfiguration,cronActivation";
 $GLOBALS['TL_DCA']['tl_module']['palettes']['push-subscription'] = "{title_legend},name,type,subscribeText,unsubscribeText,subscriptionTypes,disableSelection";
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pwaConfiguration'] = [
@@ -52,6 +52,14 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['subscriptionTypes'] = [
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['disableSelection'] = [
     'label'                   => $GLOBALS['TL_LANG']['tl_module']['disableSelection'],
+    'exclude'                 => true,
+    'default'                 => '',
+    'inputType'               => 'checkbox',
+    'sql'                     => "char(1) NOT NULL default ''"
+];
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['cronActivation'] = [
+    'label'                   => $GLOBALS['TL_LANG']['tl_module']['cronActivation'],
     'exclude'                 => true,
     'default'                 => '',
     'inputType'               => 'checkbox',

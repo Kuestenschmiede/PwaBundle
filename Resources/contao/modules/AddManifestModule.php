@@ -61,6 +61,11 @@ class AddManifestModule extends Module
               .catch(err => console.log(err));
           }
         </script>';
+        
+        // check for cron call
+        if ($this->cronActivation) {
+            $GLOBALS['TL_BODY'][] = '<script>jQuery.ajax("/_contao/cron");</script>';
+        }
     }
     
     /**
