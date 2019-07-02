@@ -16,3 +16,4 @@ $GLOBALS['TL_LANG']['tl_module']['subscribeText'] = ['Subscribe text', 'Insert a
 $GLOBALS['TL_LANG']['tl_module']['unsubscribeText'] = ['Unsubscribe text', 'Insert a text for the unsubscribe button.'];
 $GLOBALS['TL_LANG']['tl_module']['subscriptionTypes'] = ['Subscription types', 'Choose the subscription types, which the users can subscribe to with this module.'];
 $GLOBALS['TL_LANG']['tl_module']['disableSelection'] = ['Disable selection (Frontend)', 'When active, users can\'t make a selection, but subscribe to all specified types instead.'];
+$GLOBALS['TL_LANG']['tl_module']['cronActivation'] = ['Call contao cron', 'When set, a JavaScript snippet will be generated to call the contao cron (for delayed event notifications).'];

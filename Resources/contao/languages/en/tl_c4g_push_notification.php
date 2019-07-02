@@ -3,6 +3,7 @@ $strName = 'tl_c4g_push_notification';
 
 $GLOBALS['TL_LANG'][$strName]['messageTitle'] = ["Title of the push notification", "Insert a title for the push notification."];
 $GLOBALS['TL_LANG'][$strName]['messageContent'] = ["Content of the push notification", "Insert the text that the notification should contain."];
+$GLOBALS['TL_LANG'][$strName]['subscriptionTypes'] = ["Subscription types", "Choose the subscription types that shall be notified."];
 
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = "Notification content";
 

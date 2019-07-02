@@ -2,7 +2,6 @@
 $strName = 'tl_c4g_push_subscription_type';
 
 $GLOBALS['TL_LANG'][$strName]['name'] = ['Name des Abonnement-Typs', 'Geben Sie einen Namen für den Abonnement-Typ ein.'];
-$GLOBALS['TL_LANG'][$strName]['shorthand'] = ['Schlüssel für den Abonnement-Typ', 'Geben Sie einen eindeutigen Schlüssel ein, z.B. eine Kurzform des Namens. Dieser Schlüssel wird intern zur Identifizierung verwendet und muss eindeutig sein.'];
 
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Allgemeine Daten';
 
