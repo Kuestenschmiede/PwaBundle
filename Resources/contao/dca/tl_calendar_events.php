@@ -7,6 +7,18 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['config']['onsubmit_callback'][] = [Eve
 
 $GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default'] .= ",pushOnPublish,pnSendDate,subscriptionTypes";
 
+$GLOBALS['TL_DCA']['tl_calendar_events']['list']['operations']['resetSentFlag'] = [
+    'label'               => &$GLOBALS['TL_LANG']['tl_calendar_events']['resetSentFlag'],
+    'href'                => 'key=resetSentFlag',
+    'icon'                => 'undo.svg'
+];
+
+$GLOBALS['TL_DCA']['tl_calendar_events']['list']['operations']['sendPn'] = [
+    'label'               => &$GLOBALS['TL_LANG']['tl_calendar_events']['sendPn'],
+    'href'                => 'key=sendPn',
+    'icon'                => 'mover.svg'
+];
+
 $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['pushOnPublish'] = [
     'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_events']['pushOnPublish'],
     'exclude'                 => true,

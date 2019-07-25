@@ -7,8 +7,11 @@ namespace con4gis\PwaBundle\Classes\Callbacks;
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
 use Contao\Backend;
 use Contao\CalendarModel;
+use Contao\Controller;
 use Contao\Database;
 use Contao\DataContainer;
+use Contao\DC_Table;
+use Contao\Input;
 use Contao\NewsArchiveModel;
 use Contao\System;
 
@@ -36,6 +39,30 @@ class EventsCallback extends Backend
                 }
             }
         }
+    }
+    
+    /**
+     * Sends a push notification for the event and ignores the pnSent flag, and does not update it either.
+     * @param DataContainer $dc
+     */
+    public function forceSendPn(DataContainer $dc)
+    {
+    
+    }
+    
+    /**
+     * Resets the pnSent flag.
+     * @param DataContainer $dc
+     */
+    public function resetPnSentFlag(DC_Table $dc)
+    {
+        Database::getInstance()
+            ->prepare("UPDATE tl_calendar_events SET pnSent = 0 WHERE id = ?")
+            ->execute($dc->id);
+        $row = Database::getInstance()
+            ->prepare("SELECT * FROM tl_calendar_events WHERE id = ?")
+            ->execute($dc->id)->fetchAssoc();
+        Controller::redirect('contao?do=calendar&table=tl_calendar_events&id=' . $row['pid']);
     }
     
     public function convertDateStringToTimeStamp($value, $dc) {

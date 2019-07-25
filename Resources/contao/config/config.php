@@ -11,6 +11,8 @@
  * @link       https://www.con4gis.org
  */
 
+use con4gis\PwaBundle\Classes\Callbacks\EventsCallback;
+
 $GLOBALS['FE_MOD']['con4gis']['pwa'] = 'con4gis\PwaBundle\Resources\contao\modules\AddManifestModule';
 $GLOBALS['FE_MOD']['con4gis']['push-subscription'] = 'con4gis\PwaBundle\Resources\contao\modules\PushSubscriptionModule';
 
@@ -35,5 +37,10 @@ $GLOBALS['BE_MOD']['con4gis_core'] = array_merge($GLOBALS['BE_MOD']['con4gis_cor
         'tables' => ['tl_c4g_push_subscription_type']
     ]
 ));
+
+$GLOBALS['BE_MOD']['content']['calendar']['resetSentFlag'] = [EventsCallback::class, 'resetPnSentFlag'];
+$GLOBALS['BE_MOD']['content']['calendar']['sendPn'] = [EventsCallback::class, 'forceSendPn'];
+
+// TODO BE_MOD eintrag für calendar_events und news anpassen, und die buttons reinbringen
 
 $GLOBALS['TL_CRON']['daily'] = [['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents']];
