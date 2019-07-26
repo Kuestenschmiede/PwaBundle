@@ -27,10 +27,11 @@ class EventPushSenderService
     public function sendUnsentEvents()
     {
         $db = Database::getInstance();
-        $arrEvents = $db->prepare("SELECT * FROM tl_calendar_events WHERE pnSent = 0 AND pushOnPublish = 1")
+        $currentTime = time();
+        $arrEvents = $db->prepare("SELECT * FROM tl_calendar_events WHERE pnSent != 1 AND pushOnPublish = 1")
             ->execute()->fetchAllAssoc();
         foreach ($arrEvents as $event) {
-            if ($event['pnSendDate'] <= time()) {
+            if ($event['pnSendDate'] <= $currentTime && $currentTime >= $event['start'] && $currentTime <= $event['stop']) {
                 $sendEvent = new PushNotificationEvent();
                 $sendEvent->setTitle($event['title']);
                 $sendEvent->setMessage(strip_tags($event['teaser']));

@@ -41,4 +41,10 @@ $GLOBALS['BE_MOD']['con4gis_core'] = array_merge($GLOBALS['BE_MOD']['con4gis_cor
 $GLOBALS['BE_MOD']['content']['calendar']['resetSentFlag'] = [EventsCallback::class, 'resetPnSentFlag'];
 $GLOBALS['BE_MOD']['content']['calendar']['sendPn'] = [EventsCallback::class, 'forceSendPn'];
 
-$GLOBALS['TL_CRON']['daily'] = [['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents']];
+if (!$GLOBALS['TL_CRON']['daily']) {
+    $GLOBALS['TL_CRON']['daily'] = [];
+}
+
+//$GLOBALS['TL_CRON']['daily'] = [['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents']];
+$GLOBALS['TL_CRON']['daily'][] = ['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents'];
+$GLOBALS['TL_CRON']['daily'][] = ['con4gis\PwaBundle\Classes\Services\NewsPushSenderService', 'sendUnsentNews'];
