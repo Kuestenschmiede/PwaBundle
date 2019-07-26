@@ -41,6 +41,4 @@ $GLOBALS['BE_MOD']['con4gis_core'] = array_merge($GLOBALS['BE_MOD']['con4gis_cor
 $GLOBALS['BE_MOD']['content']['calendar']['resetSentFlag'] = [EventsCallback::class, 'resetPnSentFlag'];
 $GLOBALS['BE_MOD']['content']['calendar']['sendPn'] = [EventsCallback::class, 'forceSendPn'];
 
-// TODO BE_MOD eintrag für calendar_events und news anpassen, und die buttons reinbringen
-
 $GLOBALS['TL_CRON']['daily'] = [['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents']];

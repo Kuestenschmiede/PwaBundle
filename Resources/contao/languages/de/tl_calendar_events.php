@@ -15,5 +15,6 @@
 $GLOBALS['TL_LANG']['tl_calendar_events']['pushOnPublish'] = ['Bei Veröffentlichung Push-Nachricht versenden', 'Wenn Sie diese Checkbox setzen, wird bei Veröffentlichung dieses Events eine Push-Nachricht gesendet.'];
 $GLOBALS['TL_LANG']['tl_calendar_events']['subscriptionTypes'] = ['Abonnement-Typen', 'Wählen Sie die Abonnement-Typen aus, an die die Push-Nachricht gesendet werden soll.'];
 $GLOBALS['TL_LANG']['tl_calendar_events']['pnSendDate'] = ["Versendungsdatum", "Geben Sie ein Datum an, an dem für dieses Event eine Push-Benachrichtigung versendet werden soll."];
+$GLOBALS['TL_LANG']['tl_calendar_events']['sendDoublePn'] = ["Bei Veröffentlichung und am Datum Push-Nachricht versenden", "Setzen Sie diese Checkbox, wenn Sie zur Veröffentlichung und zusätzlich zu einem angegebenen Zeitpunkt eine Push-Nachricht versenden wollen."];
 $GLOBALS['TL_LANG']['tl_calendar_events']['sendPn'] = ["PN senden", "Senden Sie eine Pushnachricht für dieses Event."];
 $GLOBALS['TL_LANG']['tl_calendar_events']['resetSentFlag'] = ["PN Sendestatus zurücksetzen", "Setzt den Status in der Datenbank zurück, sodass erneut eine automatiserte Pushnachricht für dieses Event versendet wird."];

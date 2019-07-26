@@ -5,7 +5,7 @@ use con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback;
 
 $GLOBALS['TL_DCA']['tl_calendar_events']['config']['onsubmit_callback'][] = [EventsCallback::class, 'sendPushNotification'];
 
-$GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default'] .= ",pushOnPublish,pnSendDate,subscriptionTypes";
+$GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default'] .= ",pushOnPublish,pnSendDate,subscriptionTypes,sendDoublePn";
 
 $GLOBALS['TL_DCA']['tl_calendar_events']['list']['operations']['resetSentFlag'] = [
     'label'               => &$GLOBALS['TL_LANG']['tl_calendar_events']['resetSentFlag'],
@@ -16,7 +16,7 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['list']['operations']['resetSentFlag'] 
 $GLOBALS['TL_DCA']['tl_calendar_events']['list']['operations']['sendPn'] = [
     'label'               => &$GLOBALS['TL_LANG']['tl_calendar_events']['sendPn'],
     'href'                => 'key=sendPn',
-    'icon'                => 'mover.svg'
+    'icon'                => 'resend.svg'
 ];
 
 $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['pushOnPublish'] = [
@@ -47,6 +47,15 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['subscriptionTypes'] = [
     'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
     'eval'              => array('mandatory' => false, 'tl_class' => 'clr', 'includeBlankOption' => true, 'multiple' => true, 'chosen' => true),
     'sql'               => "blob NULL"
+];
+
+$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['sendDoublePn'] = [
+    'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_events']['sendDoublePn'],
+    'exclude'                 => true,
+    'default'                 => '',
+    'inputType'               => 'checkbox',
+    'eval'                    => ['submitOnChange' => true, 'tl_class' => "clr"],
+    'sql'                     => "char(1) NOT NULL default ''"
 ];
 
 $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['pnSent'] = [
