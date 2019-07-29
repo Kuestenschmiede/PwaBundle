@@ -26,7 +26,7 @@ class NewsCallback extends Backend
             $archive = NewsArchiveModel::findById($pid);
             if ($archive->pushOnPublish) {
                 $event = new PushNotificationEvent();
-                $event->setSubscriptionTypes(unserialize($archive->subscriptionTypes));
+                $event->setSubscriptionTypes(unserialize($archive->subscriptionTypes) ?: []);
                 $event->setTitle($activeRecord->headline);
                 $event->setMessage(strip_tags($activeRecord->teaser));
                 System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
