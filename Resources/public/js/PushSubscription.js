@@ -189,9 +189,9 @@ function registerForPush(pushManager) {
         } else {
           subscriptionType = await createSubscriptionDialog(inputForm);
         }
-        if (subscriptionType.length === 0) {
-          return false;
-        }
+        // if (subscriptionType.length === 0) {
+        //   return false;
+        // }
 
         let data = pushSubscription.toJSON();
         data.subscriptionTypes = subscriptionType;

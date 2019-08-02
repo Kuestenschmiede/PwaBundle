@@ -81,10 +81,11 @@ class PushController extends AbstractController
         $endpoint = $arrData['endpoint'];
         $moduleId = $arrData['moduleId'];
         $subscriptionTypes = $arrData['subscriptionTypes'];
-        $subscriptionTypes = $this->checkSubscriptionPermissions(intval($moduleId), $subscriptionTypes);
         if (!$subscriptionTypes || count($subscriptionTypes) < 1) {
-            return JsonResponse::create()->setStatusCode(400);
+            $subscriptionTypes = [];
         }
+        $subscriptionTypes = $this->checkSubscriptionPermissions(intval($moduleId), $subscriptionTypes);
+        
         $subsRepo = $entityManager->getRepository(PushSubscription::class);
         if ($subsRepo->findOneBy(['endpoint' => $endpoint]) === null) {
             // subscription is new, persist it
@@ -172,13 +173,15 @@ class PushController extends AbstractController
     {
         $module = ModuleModel::findById($moduleId);
         $resultingTypes = [];
-        if ($module) {
+        if ($module && $module->subscriptionTypes) {
             $allowedTypes = unserialize($module->subscriptionTypes);
             foreach ($subscriptionTypes as $key => $value) {
                 if (in_array($value, $allowedTypes)) {
                     $resultingTypes[] = $value;
                 }
             }
+        } else {
+            return $subscriptionTypes;
         }
         return $resultingTypes;
     }
