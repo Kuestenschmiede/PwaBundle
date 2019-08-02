@@ -16,7 +16,7 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['list']['operations']['resetSentFlag'] 
 $GLOBALS['TL_DCA']['tl_calendar_events']['list']['operations']['sendPn'] = [
     'label'               => &$GLOBALS['TL_LANG']['tl_calendar_events']['sendPn'],
     'href'                => 'key=sendPn',
-    'icon'                => 'resend.svg'
+    'icon'                => 'bundles/con4gispwa/img/resend.svg'
 ];
 
 $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['pushOnPublish'] = [
