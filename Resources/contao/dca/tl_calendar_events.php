@@ -36,7 +36,7 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['pnSendDate'] = [
     'default'                 => 0,
     'save_callback'           => array(array(EventsCallback::class, 'convertDateStringToTimeStamp')),
     'load_callback'           => array(array(EventsCallback::class, 'convertTimeStampToDateString')),
-    'eval'                    => array('rgxp'=>'date', 'mandatory' => false, 'datepicker' => true, 'tl_class' => 'clr'),
+    'eval'                    => array('rgxp'=>'datim', 'mandatory' => false, 'datepicker' => true, 'tl_class' => 'clr'),
     "sql" => "int(10) NOT NULL default 0"
 ];
 

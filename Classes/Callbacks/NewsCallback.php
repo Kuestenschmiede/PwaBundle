@@ -25,13 +25,20 @@ class NewsCallback extends Backend
             $pid = $activeRecord->pid;
             $archive = NewsArchiveModel::findById($pid);
             if ($archive->pushOnPublish) {
-                $event = new PushNotificationEvent();
-                $event->setSubscriptionTypes(unserialize($archive->subscriptionTypes) ?: []);
-                $event->setTitle($activeRecord->headline);
-                $event->setMessage(strip_tags($activeRecord->teaser));
-                System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
-                Database::getInstance()->prepare("UPDATE tl_news SET pnSent = 1 WHERE id = ?")
-                    ->execute($activeRecord->id);
+                $sendTime = $activeRecord->pnSendDate;
+                if (!is_int($sendTime)) {
+                    // date string
+                    $sendTime = strtotime($sendTime);
+                }
+                if ($sendTime <= $currentTime && !$activeRecord->pnSent) {
+                    $event = new PushNotificationEvent();
+                    $event->setSubscriptionTypes(unserialize($archive->subscriptionTypes) ?: []);
+                    $event->setTitle($activeRecord->headline);
+                    $event->setMessage(strip_tags($activeRecord->teaser));
+                    System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
+                    Database::getInstance()->prepare("UPDATE tl_news SET pnSent = 1 WHERE id = ?")
+                        ->execute($activeRecord->id);
+                }
             }
         }
     }

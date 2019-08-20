@@ -28,13 +28,15 @@ class NewsPushSenderService
     {
         $currentTime = time();
         $db = Database::getInstance();
-        $arrNews = $db->prepare("SELECT * FROM tl_news WHERE pnSent = 0 AND pushOnPublish = 1")
+        $arrNews = $db->prepare("SELECT * FROM tl_news AS news WHERE pnSent = 0 AND
+                    (SELECT archive.pushOnPublish FROM tl_news_archive AS archive WHERE news.pid = archive.id)
+                     = 1")
             ->execute()->fetchAllAssoc();
         foreach ($arrNews as $news) {
             if ($news['pnSendDate'] <= $currentTime && $currentTime >= $news['start'] && $currentTime <= $news['stop']) {
                 $sendEvent = new PushNotificationEvent();
-                $sendEvent->setTitle($news['title']);
-                $sendEvent->setMessage(strip_tags($news['teaser']));
+                $sendEvent->setTitle($news['title'] ?: "");
+                $sendEvent->setMessage(strip_tags($news['teaser']) ?: "");
                 $sendEvent->setSubscriptionTypes($news['subscriptionTypes'] ? unserialize($news['subscriptionTypes']) : []);
                 System::getContainer()->get('event_dispatcher')->dispatch($sendEvent::NAME, $sendEvent);
                 $db->prepare("UPDATE tl_news SET pnSent = 1 WHERE id = ?")
