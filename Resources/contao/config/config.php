@@ -46,5 +46,5 @@ if (!$GLOBALS['TL_CRON']['daily']) {
 }
 
 //$GLOBALS['TL_CRON']['daily'] = [['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents']];
-$GLOBALS['TL_CRON']['daily'][] = ['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents'];
-$GLOBALS['TL_CRON']['daily'][] = ['con4gis\PwaBundle\Classes\Services\NewsPushSenderService', 'sendUnsentNews'];
+$GLOBALS['TL_CRON']['hourly'][] = ['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents'];
+$GLOBALS['TL_CRON']['hourly'][] = ['con4gis\PwaBundle\Classes\Services\NewsPushSenderService', 'sendUnsentNews'];
