@@ -16,6 +16,8 @@ namespace con4gis\PwaBundle\Classes\Services;
 
 
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
+use Contao\CalendarModel;
+use Contao\Controller;
 use Contao\Database;
 use Contao\System;
 
@@ -34,9 +36,18 @@ class NewsPushSenderService
             ->execute()->fetchAllAssoc();
         foreach ($arrNews as $news) {
             if ($news['pnSendDate'] <= $currentTime && $currentTime >= $news['start'] && $currentTime <= $news['stop']) {
+                $url = "";
+                $archive = CalendarModel::findByPk($news['pid']);
+                if ($archive->jumpTo) {
+                    $url = Controller::replaceInsertTags("{{link::" .$archive->jumpTo. "}}");
+                }
+                if ($news['url']) {
+                    $url = $news['url'];
+                }
+                
                 $sendEvent = new PushNotificationEvent();
                 $sendEvent->setTitle($news['title'] ?: "");
-                $sendEvent->setMessage(strip_tags($news['teaser']) ?: "");
+                $sendEvent->setMessage(strip_tags($news['teaser']) . "\n" . $url ?: "");
                 $sendEvent->setSubscriptionTypes($news['subscriptionTypes'] ? unserialize($news['subscriptionTypes']) : []);
                 System::getContainer()->get('event_dispatcher')->dispatch($sendEvent::NAME, $sendEvent);
                 $db->prepare("UPDATE tl_news SET pnSent = 1 WHERE id = ?")

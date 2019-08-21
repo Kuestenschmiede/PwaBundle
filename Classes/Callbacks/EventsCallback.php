@@ -22,6 +22,15 @@ class EventsCallback extends Backend
     public function sendPushNotification(DataContainer $dc)
     {
         $activeRecord = $dc->activeRecord;
+        $pid = $activeRecord->pid;
+        $calendar = CalendarModel::findByPk($pid);
+        $url = "";
+        if ($calendar->jumpTo) {
+            $url = Controller::replaceInsertTags("{{link::" .$calendar->jumpTo. "}}");
+        }
+        if ($activeRecord->url) {
+            $url = $activeRecord->url;
+        }
         $currentTime = time();
         if ($activeRecord->published
             && $currentTime >= $activeRecord->start
@@ -37,7 +46,7 @@ class EventsCallback extends Backend
                     $event = new PushNotificationEvent();
                     $event->setSubscriptionTypes(unserialize($activeRecord->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->title);
-                    $event->setMessage(strip_tags($activeRecord->teaser));
+                    $event->setMessage(strip_tags($activeRecord->teaser) . "\n" . $url);
                     System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
                     Database::getInstance()->prepare("UPDATE tl_calendar_events SET pnSent = 1 WHERE id = ?")
                         ->execute($activeRecord->id);
@@ -47,7 +56,7 @@ class EventsCallback extends Backend
                     $event = new PushNotificationEvent();
                     $event->setSubscriptionTypes(unserialize($activeRecord->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->title);
-                    $event->setMessage(strip_tags($activeRecord->teaser));
+                    $event->setMessage(strip_tags($activeRecord->teaser) . "\n" . $url);
                     System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
                     Database::getInstance()->prepare("UPDATE tl_calendar_events SET pnSent = 2 WHERE id = ?")
                         ->execute($activeRecord->id);
@@ -63,10 +72,19 @@ class EventsCallback extends Backend
     public function forceSendPn(DC_Table $dc)
     {
         $calendarEvent = CalendarEventsModel::findByPk($dc->id);
+        $pid = $calendarEvent->pid;
+        $calendar = CalendarModel::findByPk($pid);
+        $url = "";
+        if ($calendar->jumpTo) {
+            $url = Controller::replaceInsertTags("{{link::" .$calendar->jumpTo. "}}");
+        }
+        if ($calendarEvent->url) {
+            $url = $calendarEvent->url;
+        }
         $event = new PushNotificationEvent();
         $event->setSubscriptionTypes(unserialize($calendarEvent->subscriptionTypes) ?: []);
         $event->setTitle($calendarEvent->title);
-        $event->setMessage(strip_tags($calendarEvent->teaser));
+        $event->setMessage(strip_tags($calendarEvent->teaser) . "\n" . $url);
         System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
         Message::addInfo("Es wurde eine Pushnachricht für das Event \"" . $calendarEvent->title . "\" versendet.");
         Controller::redirect('contao?do=calendar&table=tl_calendar_events&id=' . $calendarEvent->pid);
