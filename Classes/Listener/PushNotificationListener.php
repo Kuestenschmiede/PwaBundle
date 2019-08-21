@@ -92,9 +92,22 @@ class PushNotificationListener
     ) {
         $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOnly();
         $filePath = FilesModel::findByUuid($webpushConfig->getIcon())->path;
+        $clickUrl = $event->getClickUrl();
+        if (substr($clickUrl, 0, 2) === "<a") {
+            // parse the href
+            $dom = new \DOMDocument();
+            $dom->loadHTML($clickUrl);
+            $href = "";
+            foreach ($dom->getElementsByTagName('a') as $node) {
+                $href = $node->getAttribute('href');
+            }
+        } else {
+            $href = $clickUrl;
+        }
         $arrContent = [
             'title' => $event->getTitle(),
-            'body' => $event->getMessage()
+            'body' => $event->getMessage(),
+            'click_action' => $href
         ];
         if ($filePath) {
             $arrContent['icon'] = $filePath;

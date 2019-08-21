@@ -42,7 +42,8 @@ class NewsCallback extends Backend
                     $event = new PushNotificationEvent();
                     $event->setSubscriptionTypes(unserialize($archive->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->headline);
-                    $event->setMessage(strip_tags($activeRecord->teaser) . "\n" . $url);
+                    $event->setMessage(strip_tags($activeRecord->teaser));
+                    $event->setClickUrl($url);
                     System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
                     Database::getInstance()->prepare("UPDATE tl_news SET pnSent = 1 WHERE id = ?")
                         ->execute($activeRecord->id);

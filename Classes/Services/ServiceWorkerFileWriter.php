@@ -192,7 +192,7 @@ self.addEventListener('push', event => {
     icon: notification.icon,
     badge: notification.badge,
     image: notification.image,
-    vibrate: [1000, 2000, 1000]
+    click_action: notification.click_action
   });
 });
 JS;
@@ -202,15 +202,10 @@ JS;
     {
         $this->strContent .= <<< JS
 self.addEventListener('notificationclick', event => {
-  event.notification.close();
-  event.waitUntil(
-    clients.matchAll().then(
-      windowClients => {
-        windowClients.length ? windowClients[0].focus() : clients.openWindow('/')
-      }
-    )
-  );
-});
+    // event.notification.close();
+    const chain = clients.openWindow(event.notification.data.click_action);
+    event.waitUntil(chain);
+}, false);
 JS;
 
     }

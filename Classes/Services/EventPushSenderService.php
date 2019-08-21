@@ -46,7 +46,8 @@ class EventPushSenderService
                 }
                 $sendEvent = new PushNotificationEvent();
                 $sendEvent->setTitle($event['title']);
-                $sendEvent->setMessage(strip_tags($event['teaser']) . "\n" . $url);
+                $sendEvent->setMessage(strip_tags($event['teaser']));
+                $sendEvent->setClickUrl($url);
                 $sendEvent->setSubscriptionTypes($event['subscriptionTypes'] ? unserialize($event['subscriptionTypes']) : []);
                 System::getContainer()->get('event_dispatcher')->dispatch($sendEvent::NAME, $sendEvent);
                 $db->prepare("UPDATE tl_calendar_events SET pnSent = 1 WHERE id = ?")

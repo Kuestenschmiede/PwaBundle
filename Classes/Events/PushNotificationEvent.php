@@ -57,6 +57,11 @@ class PushNotificationEvent extends Event
     private $message = "";
     
     /**
+     * @var string
+     */
+    private $clickUrl = "";
+    
+    /**
      * @return array
      */
     public function getEndpoints(): array
@@ -150,5 +155,21 @@ class PushNotificationEvent extends Event
     public function setMessage(string $message): void
     {
         $this->message = $message;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getClickUrl(): string
+    {
+        return $this->clickUrl;
+    }
+    
+    /**
+     * @param string $clickUrl
+     */
+    public function setClickUrl(string $clickUrl): void
+    {
+        $this->clickUrl = $clickUrl;
     }
 }

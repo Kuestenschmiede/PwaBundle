@@ -66,6 +66,7 @@ class SendPushNotificationCommand extends Command
         $event->setSendToAll(true);
         $event->setTitle($title);
         $event->setMessage($content);
+        $event->setClickUrl("https://www.con4gis.org");
         $eventDispatcher->dispatch($event::NAME, $event);
     }
     
