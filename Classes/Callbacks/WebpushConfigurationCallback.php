@@ -92,6 +92,9 @@ class WebpushConfigurationCallback extends Backend
         $config[$extensionName]['automatic_padding'] = true;
         
         $rootDir = System::getContainer()->getParameter('kernel.project_dir');
+        if (!is_dir($rootDir . '/app/config/')) {
+            mkdir($rootDir . '/app/config/');
+        }
         $configFile = $rootDir . '/app/config/config.yml';
         try {
             $currentConfig = Yaml::parseFile($configFile);
@@ -99,7 +102,13 @@ class WebpushConfigurationCallback extends Backend
             // parsing was not successful
             $currentConfig = [];
         }
+        if ($currentConfig === null) {
+            $currentConfig = [];
+        }
         $updatedConfig = Yaml::dump(array_merge($currentConfig, $config));
-        file_put_contents($configFile, $updatedConfig);
+        if (!is_writable($configFile)) {
+            chmod($configFile, 0775);
+        }
+        $count = file_put_contents($configFile, $updatedConfig);
     }
 }
