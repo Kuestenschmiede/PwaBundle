@@ -33,16 +33,11 @@ class EventsCallback extends Backend
         }
         $currentTime = time();
         if ($activeRecord->published
-            && $currentTime >= $activeRecord->start
-            && $currentTime <= $activeRecord->stop
+            && (!$activeRecord->start || ($currentTime >= $activeRecord->start))
+            && (!$activeRecord->stop || ($currentTime <= $activeRecord->stop))
         ) {
             if ($activeRecord->pushOnPublish) {
-                $sendTime = $activeRecord->pnSendDate;
-                if (!is_int($sendTime)) {
-                    // date string
-                    $sendTime = strtotime($sendTime);
-                }
-                if ($sendTime <= $currentTime && !$activeRecord->pnSent) {
+                if (!$activeRecord->pnSent) {
                     $event = new PushNotificationEvent();
                     $event->setSubscriptionTypes(unserialize($activeRecord->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->title);
@@ -51,7 +46,16 @@ class EventsCallback extends Backend
                     System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
                     Database::getInstance()->prepare("UPDATE tl_calendar_events SET pnSent = 1 WHERE id = ?")
                         ->execute($activeRecord->id);
-                } else if ($sendTime > $currentTime && $activeRecord->sendDoublePn && !($activeRecord->pnSent > 0)) {
+                }
+            } else if ($activeRecord->sendDoublePn) {
+                $sendTime = $activeRecord->pnSendDate;
+
+                if (!is_int($sendTime)) {
+                    // date string
+                    $sendTime = strtotime($sendTime);
+                }
+
+                if ($sendTime > $currentTime && !($activeRecord->pnSent > 0)) {
                     // send at date but also now on publish
                     // do not set pnSent flag so the cronjob triggers regularly
                     $event = new PushNotificationEvent();
