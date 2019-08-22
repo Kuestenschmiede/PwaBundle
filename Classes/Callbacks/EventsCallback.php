@@ -78,23 +78,30 @@ class EventsCallback extends Backend
     public function forceSendPn(DC_Table $dc)
     {
         $calendarEvent = CalendarEventsModel::findByPk($dc->id);
-        $pid = $calendarEvent->pid;
-        $calendar = CalendarModel::findByPk($pid);
-        $url = "";
-        if ($calendar->jumpTo) {
-            $url = Controller::replaceInsertTags("{{link::" .$calendar->jumpTo. "}}");
+        $currentTime = time();
+
+        if ($calendarEvent->published
+            && (!$calendarEvent->start || ($currentTime >= $calendarEvent->start))
+            && (!$calendarEvent->stop || ($currentTime <= $calendarEvent->stop))
+        ) {
+            $pid = $calendarEvent->pid;
+            $calendar = CalendarModel::findByPk($pid);
+            $url = "";
+            if ($calendar->jumpTo) {
+                $url = Controller::replaceInsertTags("{{link::" .$calendar->jumpTo. "}}");
+            }
+            if ($calendarEvent->url) {
+                $url = $calendarEvent->url;
+            }
+            $event = new PushNotificationEvent();
+            $event->setSubscriptionTypes(unserialize($calendarEvent->subscriptionTypes) ?: []);
+            $event->setTitle($calendarEvent->title);
+            $event->setMessage(strip_tags($calendarEvent->teaser));
+            $event->setClickUrl($url);
+            System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
+            Message::addInfo("Es wurde eine Pushnachricht für das Event \"" . $calendarEvent->title . "\" versendet.");
+            Controller::redirect('contao?do=calendar&table=tl_calendar_events&id=' . $calendarEvent->pid);
         }
-        if ($calendarEvent->url) {
-            $url = $calendarEvent->url;
-        }
-        $event = new PushNotificationEvent();
-        $event->setSubscriptionTypes(unserialize($calendarEvent->subscriptionTypes) ?: []);
-        $event->setTitle($calendarEvent->title);
-        $event->setMessage(strip_tags($calendarEvent->teaser));
-        $event->setClickUrl($url);
-        System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
-        Message::addInfo("Es wurde eine Pushnachricht für das Event \"" . $calendarEvent->title . "\" versendet.");
-        Controller::redirect('contao?do=calendar&table=tl_calendar_events&id=' . $calendarEvent->pid);
     }
     
     /**
