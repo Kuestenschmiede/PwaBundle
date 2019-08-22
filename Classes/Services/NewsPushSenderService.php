@@ -38,11 +38,9 @@ class NewsPushSenderService
             if ((!$news['pnSendDate'] || ($news['pnSendDate'] <= $currentTime)) &&
                 (!$news['start'] || ($currentTime >= $news['start'])) &&
                 (!$news['stop'] || ($currentTime <= $news['stop']))) {
-                $url = "";
-                $archive = \NewsModel::findByPk($news['pid']);
-                if ($archive->jumpTo) {
-                    $url = Controller::replaceInsertTags("{{link::" .$archive->jumpTo. "}}");
-                }
+
+                $url = Controller::replaceInsertTags("{{news::" .$news->id. "}}");
+
                 if ($news['url']) {
                     $url = $news['url'];
                 }

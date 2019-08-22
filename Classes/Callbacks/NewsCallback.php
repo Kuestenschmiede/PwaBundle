@@ -26,10 +26,7 @@ class NewsCallback extends Backend
             $pid = $activeRecord->pid;
             $archive = NewsArchiveModel::findById($pid);
             if ($archive->pushOnPublish) {
-                $url = "";
-                if ($archive->jumpTo) {
-                    $url = Controller::replaceInsertTags("{{link::" .$archive->jumpTo. "}}");
-                }
+                $url = Controller::replaceInsertTags("{{news::" .$activeRecord->id. "}}");
                 if ($activeRecord->url) {
                     $url = $activeRecord->url;
                 }
