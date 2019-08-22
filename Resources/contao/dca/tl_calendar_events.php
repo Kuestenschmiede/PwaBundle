@@ -5,7 +5,7 @@ use con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback;
 
 $GLOBALS['TL_DCA']['tl_calendar_events']['config']['onsubmit_callback'][] = [EventsCallback::class, 'sendPushNotification'];
 
-$GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default'] .= ",pushOnPublish,pnSendDate,subscriptionTypes,sendDoublePn";
+$GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default'] .= ",subscriptionTypes,pushOnPublish,sendDoublePn,pnSendDate";
 
 $GLOBALS['TL_DCA']['tl_calendar_events']['list']['operations']['resetSentFlag'] = [
     'label'               => &$GLOBALS['TL_LANG']['tl_calendar_events']['resetSentFlag'],
