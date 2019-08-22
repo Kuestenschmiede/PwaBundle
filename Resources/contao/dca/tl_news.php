@@ -16,7 +16,7 @@ $GLOBALS['TL_DCA']['tl_news']['fields']['pnSendDate'] = [
     'sorting'                 => true,
     'search'                  => true,
     'inputType'               => 'text',
-    'default'                 => 0,
+    'default'                 => time(),
     'save_callback'           => array(array(EventsCallback::class, 'convertDateStringToTimeStamp')),
     'load_callback'           => array(array(EventsCallback::class, 'convertTimeStampToDateString')),
     'eval'                    => array('rgxp'=>'datim', 'mandatory' => false, 'datepicker' => true, 'tl_class' => 'clr'),
