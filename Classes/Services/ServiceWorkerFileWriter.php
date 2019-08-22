@@ -187,13 +187,14 @@ JS;
         $this->strContent .= <<< JS
 self.addEventListener('push', event => {
   const notification = event.data.json();
-  self.registration.showNotification(notification.title, {
+  self.click_action = notification.click_action;
+  event.waitUntil(self.registration.showNotification(notification.title, {
     body: notification.body,
     icon: notification.icon,
     badge: notification.badge,
     image: notification.image,
     click_action: notification.click_action
-  });
+  }));
 });
 JS;
     }
@@ -203,7 +204,7 @@ JS;
         $this->strContent .= <<< JS
 self.addEventListener('notificationclick', event => {
     // event.notification.close();
-    const chain = clients.openWindow(event.notification.data.click_action);
+    const chain = clients.openWindow(self.click_action);
     event.waitUntil(chain);
 }, false);
 JS;
