@@ -60,6 +60,8 @@ class PushNotificationCallback extends Backend
         foreach ($types as $type) {
             $arrTypes[$type->getId()] = $type->getName();
         }
+
+        sort($arrTypes);
         return $arrTypes;
     }
 }

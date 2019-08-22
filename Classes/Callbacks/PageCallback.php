@@ -48,7 +48,8 @@ class PageCallback extends Backend
         foreach ($configs as $config) {
             $options[$config->getId()] = $config->getName();
         }
-        
+
+        sort($options);
         return $options;
     }
 }
