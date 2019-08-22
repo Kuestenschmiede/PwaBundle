@@ -28,7 +28,7 @@ class PushSubscriptionModule extends Module
         if (TL_MODE == 'BE') {
             $objTemplate = new \BackendTemplate('be_wildcard');
             
-            $objTemplate->wildcard = '### '.$GLOBALS['TL_LANG']['FMD']['pwa'][0].' ###';
+            $objTemplate->wildcard = '### '.$GLOBALS['TL_LANG']['FMD']['push-subscription'][0].' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->title;
@@ -51,6 +51,7 @@ class PushSubscriptionModule extends Module
         foreach ($types as $type) {
             $arrTypes[$type->getId()] = $type->getName();
         }
+        sort($arrTypes);
         $this->Template->subscriptionTypes = $arrTypes;
         $this->Template->disableSelection = $this->disableSelection;
         $this->Template->subscribeText = $this->subscribeText;
