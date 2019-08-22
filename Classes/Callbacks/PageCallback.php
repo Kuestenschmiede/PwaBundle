@@ -49,7 +49,6 @@ class PageCallback extends Backend
             $options[$config->getId()] = $config->getName();
         }
 
-        sort($options);
         return $options;
     }
 }

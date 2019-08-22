@@ -61,7 +61,6 @@ class PushNotificationCallback extends Backend
             $arrTypes[$type->getId()] = $type->getName();
         }
 
-        sort($arrTypes);
         return $arrTypes;
     }
 }

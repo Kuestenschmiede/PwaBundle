@@ -51,7 +51,9 @@ class PushSubscriptionModule extends Module
         foreach ($types as $type) {
             $arrTypes[$type->getId()] = $type->getName();
         }
-        sort($arrTypes);
+
+        asort($arrTypes, SORT_STRING | SORT_FLAG_CASE | SORT_NATURAL);
+
         $this->Template->subscriptionTypes = $arrTypes;
         $this->Template->disableSelection = $this->disableSelection;
         $this->Template->subscribeText = $this->subscribeText;
