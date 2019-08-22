@@ -16,7 +16,7 @@ namespace con4gis\PwaBundle\Classes\Services;
 
 
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
-use Contao\CalendarModel;
+use Contao\NewsModel;
 use Contao\Controller;
 use Contao\Database;
 use Contao\System;
@@ -30,14 +30,16 @@ class NewsPushSenderService
     {
         $currentTime = time();
         $db = Database::getInstance();
-        $arrNews = $db->prepare("SELECT * FROM tl_news AS news WHERE pnSent = 0 AND
+        $arrNews = $db->prepare("SELECT * FROM tl_news AS news WHERE news.pnSent = 0 AND news.published = 1 AND
                     (SELECT archive.pushOnPublish FROM tl_news_archive AS archive WHERE news.pid = archive.id)
                      = 1")
             ->execute()->fetchAllAssoc();
         foreach ($arrNews as $news) {
-            if ($news['pnSendDate'] <= $currentTime && $currentTime >= $news['start'] && $currentTime <= $news['stop']) {
+            if ((!$news['pnSendDate'] || ($news['pnSendDate'] <= $currentTime)) &&
+                (!$news['start'] || ($currentTime >= $news['start'])) &&
+                (!$news['stop'] || ($currentTime <= $news['stop']))) {
                 $url = "";
-                $archive = CalendarModel::findByPk($news['pid']);
+                $archive = \NewsModel::findByPk($news['pid']);
                 if ($archive->jumpTo) {
                     $url = Controller::replaceInsertTags("{{link::" .$archive->jumpTo. "}}");
                 }

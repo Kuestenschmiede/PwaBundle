@@ -19,9 +19,9 @@ class NewsCallback extends Backend
         $activeRecord = $dc->activeRecord;
         $currentTime = time();
         if ($activeRecord->published
-            && $currentTime >= $activeRecord->start
-            && $currentTime <= $activeRecord->stop
-            && $activeRecord->pnSent === 0
+            && (!$activeRecord->start || ($currentTime >= $activeRecord->start))
+            && (!$activeRecord->stop || ($currentTime <= $activeRecord->stop))
+            && ($activeRecord->pnSent == 0)
         ) {
             $pid = $activeRecord->pid;
             $archive = NewsArchiveModel::findById($pid);
@@ -38,7 +38,7 @@ class NewsCallback extends Backend
                     // date string
                     $sendTime = strtotime($sendTime);
                 }
-                if ($sendTime <= $currentTime && !$activeRecord->pnSent) {
+                if (!$sendTime || ($sendTime <= $currentTime)) {
                     $event = new PushNotificationEvent();
                     $event->setSubscriptionTypes(unserialize($archive->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->headline);
