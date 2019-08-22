@@ -5,7 +5,10 @@ use con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback;
 
 $GLOBALS['TL_DCA']['tl_calendar_events']['config']['onsubmit_callback'][] = [EventsCallback::class, 'sendPushNotification'];
 
-$GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default'] .= ",subscriptionTypes,pushOnPublish,sendDoublePn,pnSendDate";
+$GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['__selector__'][] = 'sendDoublePn';
+$GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['default'] .= ",subscriptionTypes,pushOnPublish,sendDoublePn";
+$GLOBALS['TL_DCA']['tl_calendar_events']['subpalettes']['sendDoublePn'] = 'pnSendDate';
+
 
 $GLOBALS['TL_DCA']['tl_calendar_events']['list']['operations']['resetSentFlag'] = [
     'label'               => &$GLOBALS['TL_LANG']['tl_calendar_events']['resetSentFlag'],
@@ -24,7 +27,7 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['pushOnPublish'] = [
     'exclude'                 => true,
     'default'                 => '',
     'inputType'               => 'checkbox',
-    'eval'                    => ['submitOnChange' => true, 'tl_class' => "clr"],
+    'eval'                    => ['submitOnChange' => false, 'tl_class' => "clr"],
     'sql'                     => "char(1) NOT NULL default ''"
 ];
 
