@@ -44,11 +44,9 @@ class EventPushSenderService
                         (!$event['stop'] || ($currentTime >= $event['stop']))
                     ))) {
                 $pid = $event['pid'];
-                $calendar = CalendarModel::findByPk($pid);
-                $url = "";
-                if ($calendar->jumpTo) {
-                    $url = Controller::replaceInsertTags("{{link::" .$calendar->jumpTo. "}}");
-                }
+
+                $url = Controller::replaceInsertTags("{{event::" .$event->id. "}}");
+
                 if ($event['url']) {
                     $url = $event['url'];
                 }

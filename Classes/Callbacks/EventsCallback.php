@@ -24,13 +24,11 @@ class EventsCallback extends Backend
         $activeRecord = $dc->activeRecord;
         $pid = $activeRecord->pid;
         $calendar = CalendarModel::findByPk($pid);
-        $url = "";
-        if ($calendar->jumpTo) {
-            $url = Controller::replaceInsertTags("{{link::" .$calendar->jumpTo. "}}");
-        }
+        $url = Controller::replaceInsertTags("{{event::".$activeRecord->id."}}");
         if ($activeRecord->url) {
             $url = $activeRecord->url;
         }
+
         $currentTime = time();
         if ($activeRecord->published
             && (!$activeRecord->start || ($currentTime >= $activeRecord->start))
@@ -85,11 +83,7 @@ class EventsCallback extends Backend
             && (!$calendarEvent->stop || ($currentTime <= $calendarEvent->stop))
         ) {
             $pid = $calendarEvent->pid;
-            $calendar = CalendarModel::findByPk($pid);
-            $url = "";
-            if ($calendar->jumpTo) {
-                $url = Controller::replaceInsertTags("{{link::" .$calendar->jumpTo. "}}");
-            }
+            $url = Controller::replaceInsertTags("{{event::" .$calendarEvent->id. "}}");
             if ($calendarEvent->url) {
                 $url = $calendarEvent->url;
             }
