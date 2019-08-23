@@ -53,6 +53,8 @@ class SendPushNotificationCommand extends Command
     {
         $this->setName('con4gis:send-push')
             ->addArgument('content', InputArgument::REQUIRED, 'Content of the push notification.')
+            ->addArgument('title', InputArgument::REQUIRED, 'Title of the push notification.')
+            ->addArgument('url', InputArgument::REQUIRED, 'Click url of the push notification.')
             ->setDescription('Sends a push notification to all subscribers.')
         ;
     }
@@ -60,13 +62,13 @@ class SendPushNotificationCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $content = $input->getArgument('content');
-        $title = "Neue Benachrichtigung";
+        $title = $input->getArgument('title') ?: "Neue Benachrichtigung";
         $eventDispatcher = $this->container->get('event_dispatcher');
         $event = new PushNotificationEvent();
         $event->setSendToAll(true);
         $event->setTitle($title);
         $event->setMessage($content);
-        $event->setClickUrl("https://www.con4gis.org");
+        $event->setClickUrl($input->getArgument('url') ?: "https://www.con4gis.org");
         $eventDispatcher->dispatch($event::NAME, $event);
     }
     
