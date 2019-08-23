@@ -28,7 +28,7 @@ Alternatively, you can use the Contao Manager to install the con4gis-PwaBundle.
 ## Usage
 This bundles provides two front end modules for contao:
 
-___PWA module___
+___PWA module (add manifest)___
 
 Creates the required HTML code to load the manifest file and the service worker. Can be included anywhere on the page since it
 contains no visible elements by itself.
