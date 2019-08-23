@@ -30,7 +30,7 @@ class EventPushSenderService
     {
         $db = Database::getInstance();
         $currentTime = time();
-        $arrEvents = $db->prepare("SELECT * FROM tl_calendar_events WHERE published = 1 AND pnSent != 1 AND (pushOnPublish = 1 OR sendDoublePn = 1")
+        $arrEvents = $db->prepare("SELECT * FROM tl_calendar_events WHERE published = 1 AND pnSent != 1 AND (pushOnPublish = 1 OR sendDoublePn = 1)")
             ->execute()->fetchAllAssoc();
         
         foreach ($arrEvents as $event) {
