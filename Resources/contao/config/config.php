@@ -19,8 +19,8 @@ $GLOBALS['FE_MOD']['con4gis']['push-subscription'] = 'con4gis\PwaBundle\Resource
 /**
  * Backend Modules
  */
-$GLOBALS['BE_MOD']['con4gis_pwa'] = array
-(
+
+array_insert($GLOBALS['BE_MOD'], array_search('content', array_keys($GLOBALS['BE_MOD'])) + 3, array('con4gis_pwa' => array(
     'pwaConfiguration' => array
     (
         'tables'    => array('tl_c4g_pwa_configuration')
@@ -36,7 +36,11 @@ $GLOBALS['BE_MOD']['con4gis_pwa'] = array
     'pushSubscriptionType' => [
         'tables' => ['tl_c4g_push_subscription_type']
     ]
-);
+)));
+
+if(TL_MODE == "BE") {
+    $GLOBALS['TL_CSS'][] = '/bundles/con4gispwa/css/con4gis.css';
+}
 
 $GLOBALS['BE_MOD']['content']['calendar']['resetSentFlag'] = [EventsCallback::class, 'resetPnSentFlag'];
 $GLOBALS['BE_MOD']['content']['calendar']['sendPn'] = [EventsCallback::class, 'forceSendPn'];

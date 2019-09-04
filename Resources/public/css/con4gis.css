@@ -1,0 +1,21 @@
+/*
+ * This file is part of con4gis,
+ * the gis-kit for Contao CMS.
+ *
+ * @package   	con4gis
+ * @version        6
+ * @author  	    con4gis contributors (see "authors.txt")
+ * @license 	    LGPL-3.0-or-later
+ * @copyright 	Küstenschmiede GmbH Software & Design
+ * @link              https://www.con4gis.org
+ *
+ */
+
+/*
+#header {
+  background-color: #2C3E50;
+}*/
+
+#tl_navigation .tl_level_1_group .group-con4gis_pwa {
+  background: url("../../con4giscore/images/con4gis.svg") 7px center no-repeat;
+}
