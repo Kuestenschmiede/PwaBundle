@@ -15,5 +15,5 @@ $GLOBALS['TL_LANG']['FMD']['pwa'] = array('PWA: add manifest', 'Adds the configu
 $GLOBALS['TL_LANG']['FMD']['push-subscription']	= array('PWA: push-subscription', 'Provides a mechanism to subscribe to push notifications.');
 $GLOBALS['TL_LANG']['MOD']['pwaConfiguration'] = array('PWA configuration', 'Configuration of pwa functionality.');
 $GLOBALS['TL_LANG']['MOD']['webpushConfiguration'] = array('Web push configuration', 'Configuration of the web push service.');
-$GLOBALS['TL_LANG']['MOD']['sendPush'] = array('Send push notification', 'Send a push notification.');
+$GLOBALS['TL_LANG']['MOD']['sendPush'] = array('Send test notification', 'Send a test push notification. This function is not intended for productive use.');
 $GLOBALS['TL_LANG']['MOD']['pushSubscriptionType'] = array('Push subscription types', 'Define different types of push subscriptions.');
