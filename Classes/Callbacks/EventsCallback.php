@@ -128,7 +128,7 @@ class EventsCallback extends Backend
     }
     
     public function convertTimeStampToDateString($value, $dc) {
-        return date($GLOBALS['TL_CONFIG']['dateFormat'], $value);
+        return date($GLOBALS['TL_CONFIG']['datimFormat'], $value);
     }
     
 }
