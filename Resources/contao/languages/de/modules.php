@@ -13,6 +13,8 @@
 
 $GLOBALS['TL_LANG']['FMD']['pwa'] = array('PWA: Manifest hinzufügen', 'Fügt die konfigurierten PWA-Eigenschaften der Anwendung hinzu.');
 $GLOBALS['TL_LANG']['FMD']['push-subscription']	= array('PWA: Pushnachrichten abonnieren', 'Dieses Modul stellt eine Registrierung für Push-Benachrichtigungen zur Verfügung.');
+
+$GLOBALS['TL_LANG']['MOD']['con4gis_pwa'] = ['con4gis '.$GLOBALS['con4gis']['version'] . ' - PWA', 'con4gis Progressive Web App'];
 $GLOBALS['TL_LANG']['MOD']['pwaConfiguration'] = array('PWA-Konfiguration', 'Konfiguration für PWA-Eigenschaften');
 $GLOBALS['TL_LANG']['MOD']['webpushConfiguration'] = array('WebPush-Konfiguration', 'Konfiguration für den WebPush-Service.');
 $GLOBALS['TL_LANG']['MOD']['sendPush'] = array('Testnachricht senden', 'Versenden Sie eine testweise eine Pushnachricht. Diese Funktion ist nicht für den produktiven Einsatz bestimmt.');

@@ -19,7 +19,7 @@ $GLOBALS['FE_MOD']['con4gis']['push-subscription'] = 'con4gis\PwaBundle\Resource
 /**
  * Backend Modules
  */
-$GLOBALS['BE_MOD']['con4gis_core'] = array_merge($GLOBALS['BE_MOD']['con4gis_core'], array
+$GLOBALS['BE_MOD']['con4gis_pwa'] = array
 (
     'pwaConfiguration' => array
     (
@@ -36,7 +36,7 @@ $GLOBALS['BE_MOD']['con4gis_core'] = array_merge($GLOBALS['BE_MOD']['con4gis_cor
     'pushSubscriptionType' => [
         'tables' => ['tl_c4g_push_subscription_type']
     ]
-));
+);
 
 $GLOBALS['BE_MOD']['content']['calendar']['resetSentFlag'] = [EventsCallback::class, 'resetPnSentFlag'];
 $GLOBALS['BE_MOD']['content']['calendar']['sendPn'] = [EventsCallback::class, 'forceSendPn'];
