@@ -40,7 +40,9 @@ class NewsCallback extends Backend
                     $event->setSubscriptionTypes(unserialize($archive->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->headline);
                     $event->setMessage(strip_tags($activeRecord->teaser));
-                    $event->setClickUrl($url);
+                    if ($url) {
+                        $event->setClickUrl($url);
+                    }
                     System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
                     Database::getInstance()->prepare("UPDATE tl_news SET pnSent = 1 WHERE id = ?")
                         ->execute($activeRecord->id);

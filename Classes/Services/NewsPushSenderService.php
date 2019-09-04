@@ -48,7 +48,9 @@ class NewsPushSenderService
                 $sendEvent = new PushNotificationEvent();
                 $sendEvent->setTitle($news['title'] ?: "");
                 $sendEvent->setMessage(strip_tags($news['teaser']) ?: "");
-                $sendEvent->setClickUrl($url);
+                if ($url) {
+                    $sendEvent->setClickUrl($url);
+                }
                 $sendEvent->setSubscriptionTypes($news['subscriptionTypes'] ? unserialize($news['subscriptionTypes']) : []);
                 System::getContainer()->get('event_dispatcher')->dispatch($sendEvent::NAME, $sendEvent);
                 $db->prepare("UPDATE tl_news SET pnSent = 1 WHERE id = ?")

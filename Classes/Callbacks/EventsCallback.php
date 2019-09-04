@@ -40,7 +40,9 @@ class EventsCallback extends Backend
                     $event->setSubscriptionTypes(unserialize($activeRecord->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->title);
                     $event->setMessage(strip_tags($activeRecord->teaser));
-                    $event->setClickUrl($url);
+                    if ($url) {
+                        $event->setClickUrl($url);
+                    }
                     System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
                     Database::getInstance()->prepare("UPDATE tl_calendar_events SET pnSent = 1 WHERE id = ?")
                         ->execute($activeRecord->id);
@@ -60,7 +62,9 @@ class EventsCallback extends Backend
                     $event->setSubscriptionTypes(unserialize($activeRecord->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->title);
                     $event->setMessage(strip_tags($activeRecord->teaser));
-                    $event->setClickUrl($url);
+                    if ($url) {
+                        $event->setClickUrl($url);
+                    }
                     System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
                     Database::getInstance()->prepare("UPDATE tl_calendar_events SET pnSent = 2 WHERE id = ?")
                         ->execute($activeRecord->id);
@@ -91,7 +95,9 @@ class EventsCallback extends Backend
             $event->setSubscriptionTypes(unserialize($calendarEvent->subscriptionTypes) ?: []);
             $event->setTitle($calendarEvent->title);
             $event->setMessage(strip_tags($calendarEvent->teaser));
-            $event->setClickUrl($url);
+            if ($url) {
+                $event->setClickUrl($url);
+            }
             System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
             Message::addInfo("Es wurde eine Pushnachricht für das Event \"" . $calendarEvent->title . "\" versendet.");
             Controller::redirect('contao?do=calendar&table=tl_calendar_events&id=' . $calendarEvent->pid);

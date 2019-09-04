@@ -187,14 +187,25 @@ JS;
         $this->strContent .= <<< JS
 self.addEventListener('push', event => {
   const notification = event.data.json();
-  self.click_action = notification.click_action;
-  event.waitUntil(self.registration.showNotification(notification.title, {
-    body: notification.body,
-    icon: notification.icon,
-    badge: notification.badge,
-    image: notification.image,
-    click_action: notification.click_action
-  }));
+  if (notification.click_action && notification.click_action !== undefined) {
+      self.click_action = notification.click_action;
+      event.waitUntil(self.registration.showNotification(notification.title, {
+        body: notification.body,
+        icon: notification.icon,
+        badge: notification.badge,
+        image: notification.image,
+        click_action: notification.click_action
+      }));
+  } else {
+      self.click_action = undefined;
+      event.waitUntil(self.registration.showNotification(notification.title, {
+        body: notification.body,
+        icon: notification.icon,
+        badge: notification.badge,
+        image: notification.image,
+        click_action: undefined
+      }));
+  }
 });
 JS;
     }
@@ -204,8 +215,10 @@ JS;
         $this->strContent .= <<< JS
 self.addEventListener('notificationclick', event => {
     // event.notification.close();
+    if (self.click_action && (self.click_action !== undefined)) {
     const chain = clients.openWindow(self.click_action);
-    event.waitUntil(chain);
+    event.waitUntil(chain);     
+    }
 }, false);
 JS;
 

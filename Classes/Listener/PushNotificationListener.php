@@ -93,7 +93,7 @@ class PushNotificationListener
         $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOnly();
         $filePath = FilesModel::findByUuid($webpushConfig->getIcon())->path;
         $clickUrl = $event->getClickUrl();
-        if (substr($clickUrl, 0, 2) === "<a") {
+        if ($clickUrl && (substr($clickUrl, 0, 2) === "<a")) {
             // parse the href
             $dom = new \DOMDocument();
             $dom->loadHTML($clickUrl);
