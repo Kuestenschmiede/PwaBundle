@@ -39,8 +39,9 @@ class NewsPushSenderService
                 (!$news['start'] || ($currentTime >= $news['start'])) &&
                 (!$news['stop'] || ($currentTime <= $news['stop']))) {
 
-                $url = Controller::replaceInsertTags("{{news::" .$news->id. "}}");
+                $url = Controller::replaceInsertTags("{{news::" .$news['id']. "}}");
 
+                //ToDo ask for url selection
                 if ($news['url']) {
                     $url = $news['url'];
                 }

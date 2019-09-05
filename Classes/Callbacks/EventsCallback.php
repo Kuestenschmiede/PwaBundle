@@ -23,8 +23,8 @@ class EventsCallback extends Backend
     {
         $activeRecord = $dc->activeRecord;
         $pid = $activeRecord->pid;
-        $calendar = CalendarModel::findByPk($pid);
-        $url = Controller::replaceInsertTags("{{event::".$activeRecord->id."}}");
+        //$calendar = CalendarModel::findByPk($pid);
+        $url = Controller::replaceInsertTags("{{event_url::".$activeRecord->id."}}");
         if ($activeRecord->url) {
             $url = $activeRecord->url;
         }
@@ -49,7 +49,6 @@ class EventsCallback extends Backend
                 }
             }
 
-            //ToDo check
             if ($activeRecord->sendDoublePn) {
                 $sendTime = $activeRecord->pnSendDate;
 
@@ -58,7 +57,7 @@ class EventsCallback extends Backend
                     $sendTime = strtotime($sendTime);
                 }
 
-                if ($sendTime >= $currentTime && !($activeRecord->pnSent > 0)) {
+                if ($sendTime <= $currentTime && !($activeRecord->pnSent > 0)) {
                     // send at date but also now on publish
                     // do not set pnSent flag so the cronjob triggers regularly
                     $event = new PushNotificationEvent();
@@ -98,6 +97,8 @@ class EventsCallback extends Backend
             $event->setSubscriptionTypes(unserialize($calendarEvent->subscriptionTypes) ?: []);
             $event->setTitle($calendarEvent->title);
             $event->setMessage(strip_tags($calendarEvent->teaser));
+
+            //ToDo ask for url selection
             if ($url) {
                 $event->setClickUrl($url);
             }

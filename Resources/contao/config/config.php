@@ -45,10 +45,5 @@ if(TL_MODE == "BE") {
 $GLOBALS['BE_MOD']['content']['calendar']['resetSentFlag'] = [EventsCallback::class, 'resetPnSentFlag'];
 $GLOBALS['BE_MOD']['content']['calendar']['sendPn'] = [EventsCallback::class, 'forceSendPn'];
 
-/*if (!$GLOBALS['TL_CRON']['daily']) {
-    $GLOBALS['TL_CRON']['daily'] = [];
-}*/
-
-//$GLOBALS['TL_CRON']['daily'] = [['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents']];
 $GLOBALS['TL_CRON']['minutely'][] = ['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents'];
 $GLOBALS['TL_CRON']['minutely'][] = ['con4gis\PwaBundle\Classes\Services\NewsPushSenderService', 'sendUnsentNews'];
