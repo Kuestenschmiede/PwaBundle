@@ -36,7 +36,7 @@ class EventPushSenderService
         foreach ($arrEvents as $event) {
 
             //send on senddate if published || send if published
-            if (($event['sendDoublePn'] && ($event['pnSendDate'] <= $currentTime) && (
+            if (($event['sendDoublePn'] && ($event['pnSendDate'] >= $currentTime) && (
                   (!$event['start'] || ($currentTime >= $event['start'])) &&
                   (!$event['stop'] || ($currentTime >= $event['stop']))
                 )) || ($event['sendOnPublished'] && (

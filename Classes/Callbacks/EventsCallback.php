@@ -47,7 +47,10 @@ class EventsCallback extends Backend
                     Database::getInstance()->prepare("UPDATE tl_calendar_events SET pnSent = 1 WHERE id = ?")
                         ->execute($activeRecord->id);
                 }
-            } else if ($activeRecord->sendDoublePn) {
+            }
+
+            //ToDo check
+            if ($activeRecord->sendDoublePn) {
                 $sendTime = $activeRecord->pnSendDate;
 
                 if (!is_int($sendTime)) {
@@ -55,7 +58,7 @@ class EventsCallback extends Backend
                     $sendTime = strtotime($sendTime);
                 }
 
-                if ($sendTime > $currentTime && !($activeRecord->pnSent > 0)) {
+                if ($sendTime >= $currentTime && !($activeRecord->pnSent > 0)) {
                     // send at date but also now on publish
                     // do not set pnSent flag so the cronjob triggers regularly
                     $event = new PushNotificationEvent();
