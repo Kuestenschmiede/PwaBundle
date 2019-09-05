@@ -40,31 +40,35 @@ class AddManifestModule extends Module
     protected function compile()
     {
         // add manifest entry
-        $GLOBALS['TL_HEAD'][] = '<link rel="manifest" href="manifest.webmanifest">';
         $configId = $this->pwaConfiguration;
+
         $config = System::getContainer()->get('doctrine.orm.entity_manager')
             ->getRepository(PwaConfiguration::class)
             ->findOneBy(['id' => $configId]);
         if ($config instanceof PwaConfiguration) {
             $this->addAppleTouchIcons($config);
             $this->addAppleSplashScreen($config);
+
+            $path = str_pad($config->getId(), 3 ,'0', STR_PAD_LEFT);
+            $GLOBALS['TL_HEAD'][] = '<link rel="manifest" href="'.$path.'/manifest.webmanifest">';
             $GLOBALS['TL_HEAD'][] = '<meta name="theme-color" content="#' . $config->getThemeColor() . '">';
-        }
-        // if jquery is not loaded by contao, load it
-        if (!in_array('assets/jquery/js/jquery.min.js|static', $GLOBALS['TL_JAVASCRIPT'])) {
-            $GLOBALS['TL_JAVASCRIPT'][] = 'assets/jquery/js/jquery.min.js|static';
-        }
-        // register service worker
-        $GLOBALS['TL_HEAD'][] = '<script>
+
+            // if jquery is not loaded by contao, load it
+            if (!in_array('assets/jquery/js/jquery.min.js|static', $GLOBALS['TL_JAVASCRIPT'])) {
+                $GLOBALS['TL_JAVASCRIPT'][] = 'assets/jquery/js/jquery.min.js|static';
+            }
+            // register service worker
+            $GLOBALS['TL_HEAD'][] = '<script>
           if (\'serviceWorker\' in navigator) {
-            navigator.serviceWorker.register("./sw.js")
+            navigator.serviceWorker.register("'.$path.'/sw.js")
               .catch(err => console.log(err));
           }
         </script>';
-        
-        // check for cron call
-        if ($this->cronActivation) {
-            $GLOBALS['TL_BODY'][] = '<script>jQuery.ajax("/_contao/cron");</script>';
+
+            // check for cron call
+            if ($this->cronActivation) {
+                $GLOBALS['TL_BODY'][] = '<script>jQuery.ajax("/_contao/cron");</script>';
+            }
         }
     }
     

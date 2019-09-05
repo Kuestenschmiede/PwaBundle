@@ -68,10 +68,10 @@ class ServiceWorkerFileWriter
         $this->strContent .= "self.addEventListener('install', function(event) {\n";
         $this->strContent .= "\tevent.waitUntil(\n";
         $this->strContent .= "\tcaches.open('" . $cacheName . "').then(cache => \n";
-        $this->strContent .= "\t\tcache.addAll(['/',\n";
+        $this->strContent .= "\t\tcache.addAll(['../',\n";
         $this->strContent .= "\t\t'manifest.webmanifest',\n";
         foreach ($fileNames as $fileName) {
-            $this->strContent .= "\t\t'" . $fileName . "',\n";
+            $this->strContent .= "\t\t'../" . $fileName . "',\n";
         }
         $this->strContent .= "\t])";
         $this->strContent .= "\t).then(() => self.skipWaiting()));\n";
