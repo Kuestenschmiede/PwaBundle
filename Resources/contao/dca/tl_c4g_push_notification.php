@@ -36,7 +36,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
     //List
     'list' => array
     (
-        'global_operations' => '',
+        'global_operations' => [],
         
         'operations' => array
         (
