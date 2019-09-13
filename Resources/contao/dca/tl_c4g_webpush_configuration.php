@@ -40,7 +40,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
     //List
     'list' => array
     (
-        'global_operations' => '',
+        'global_operations' => [],
         
         'operations' => array
         (
