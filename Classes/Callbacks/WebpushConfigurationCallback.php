@@ -63,6 +63,8 @@ class WebpushConfigurationCallback extends Backend
     public function writeDataToConfig(DataContainer $dc)
     {
         $extensionName = 'minishlink_web_push';
+        $rootDir = System::getContainer()->getParameter('kernel.project_dir');
+        $configFile = $this->getConfigFilePath($rootDir);
         
         if (!($dc->activeRecord->vapidPublickey && $dc->activeRecord->vapidPrivatekey)) {
             // both keys are required, so create a new pair
@@ -92,11 +94,6 @@ class WebpushConfigurationCallback extends Backend
         // always set to true for better security (leads to bigger payload though)
         $config[$extensionName]['automatic_padding'] = true;
         
-        $rootDir = System::getContainer()->getParameter('kernel.project_dir');
-        if (!is_dir($rootDir . '/app/config/')) {
-            mkdir($rootDir . '/app/config/');
-        }
-        $configFile = $rootDir . '/app/config/config.yml';
         try {
             $currentConfig = Yaml::parseFile($configFile);
         } catch (ParseException $exception) {
@@ -112,5 +109,42 @@ class WebpushConfigurationCallback extends Backend
             chmod($configFile, 0775);
         }
         $count = file_put_contents($configFile, $updatedConfig);
+    }
+    
+    private function getConfigFilePath($rootDir)
+    {
+        // check for config/
+        if (!is_dir($rootDir . '/config')) {
+            // check for app/config/
+            if (!is_dir($rootDir . '/app/config/')) {
+                // no config present. create one in config/
+                mkdir($rootDir . '/config');
+                if (file_exists($rootDir . '/config/config.yml')) {
+                    return $rootDir . '/config/config.yml';
+                } else if (file_exists($rootDir . '/config/config.yaml')) {
+                    return $rootDir . '/config/config.yaml';
+                } else {
+                    return $rootDir . '/config/config.yml';
+                }
+            } else {
+                // app/config directory
+                if (file_exists($rootDir . '/app/config/config.yml')) {
+                    return $rootDir . '/app/config/config.yml';
+                } else if (file_exists($rootDir . '/app/config/config.yaml')) {
+                    return $rootDir . '/app/config/config.yaml';
+                } else {
+                    return $rootDir . '/app/config/config.yml';
+                }
+            }
+        } else {
+            // config directory
+            if (file_exists($rootDir . '/config/config.yml')) {
+                return $rootDir . '/config/config.yml';
+            } else if (file_exists($rootDir . '/config/config.yaml')) {
+                return $rootDir . '/config/config.yaml';
+            } else {
+                return $rootDir . '/config/config.yml';
+            }
+        }
     }
 }

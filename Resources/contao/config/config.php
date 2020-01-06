@@ -20,25 +20,25 @@ $GLOBALS['FE_MOD']['con4gis']['push-subscription'] = 'con4gis\PwaBundle\Resource
  * Backend Modules
  */
 
-array_insert($GLOBALS['BE_MOD'], array_search('content', array_keys($GLOBALS['BE_MOD'])) + 3, array('con4gis_pwa' => array(
-    'pwaConfiguration' => array
+$GLOBALS['BE_MOD']['con4gis'] = array_merge($GLOBALS['BE_MOD']['con4gis'], [
+    'c4g_pwa_configuration' => array
     (
         'tables'    => array('tl_c4g_pwa_configuration')
     ),
-    'webpushConfiguration' => array
+    'c4g_webpush_configuration' => array
     (
         'tables'    => array('tl_c4g_webpush_configuration')
     ),
-    'sendPush' => array(
+    'c4g_push_notification' => array(
         'tables' => array('tl_c4g_push_notification'),
         'stylesheet' => "bundles/con4gispwa/css/backend-push.css"
     ),
-    'pushSubscriptionType' => [
+    'c4g_push_subscription_type' => [
         'tables' => ['tl_c4g_push_subscription_type']
     ]
-)));
+]);
 
-if(TL_MODE == "BE") {
+if (TL_MODE == "BE") {
     $GLOBALS['TL_CSS'][] = '/bundles/con4gispwa/css/con4gis.css';
 }
 
