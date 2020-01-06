@@ -14,6 +14,7 @@
 namespace con4gis\PwaBundle\Classes\Callbacks;
 
 
+use con4gis\CoreBundle\Resources\contao\models\C4gLogModel;
 use con4gis\PwaBundle\Entity\WebPushConfiguration;
 use Contao\Backend;
 use Contao\DataContainer;
@@ -101,6 +102,7 @@ class WebpushConfigurationCallback extends Backend
         } catch (ParseException $exception) {
             // parsing was not successful
             $currentConfig = [];
+            C4gLogModel::addLogEntry('pwa', $exception->getMessage());
         }
         if ($currentConfig === null) {
             $currentConfig = [];
