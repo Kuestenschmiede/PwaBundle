@@ -36,8 +36,16 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
     //List
     'list' => array
     (
-        'global_operations' => [],
-        
+        'global_operations' => [
+            'back' =>
+                [
+                    'href'                => 'key=back',
+                    'class'               => 'header_back',
+                    'button_callback'     => ['\con4gis\CoreBundle\Classes\Helper\DcaHelper', 'back'],
+                    'icon'                => 'back.svg',
+                    'label'               => &$GLOBALS['TL_LANG']['MSC']['backBT'],
+                ],
+        ],
         'operations' => array
         (
             'edit' => array

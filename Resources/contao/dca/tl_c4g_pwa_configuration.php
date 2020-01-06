@@ -52,13 +52,19 @@ $GLOBALS['TL_DCA'][$strName] = array
         
         'global_operations' => array
         (
-            'all' => array
-            (
+            'all' => [
                 'label'         => $GLOBALS['TL_LANG']['MSC']['all'],
                 'href'          => 'act=select',
                 'class'         => 'header_edit_all',
                 'attributes'    => 'onclick="Backend.getScrollOffSet()" accesskey="e"'
-            )
+            ],
+            'back' => [
+                'href'                => 'key=back',
+                'class'               => 'header_back',
+                'button_callback'     => ['\con4gis\CoreBundle\Classes\Helper\DcaHelper', 'back'],
+                'icon'                => 'back.svg',
+                'label'               => &$GLOBALS['TL_LANG']['MSC']['backBT'],
+            ],
         ),
         
         'operations' => array
