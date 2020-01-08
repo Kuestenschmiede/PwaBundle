@@ -73,7 +73,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             (
                 'label'         => $GLOBALS['TL_LANG'][$strName]['edit'],
                 'href'          => 'act=edit',
-                'icon'          => 'edit.gif',
+                'icon'          => 'bundles/con4giscore/images/be-icons/edit.svg',
             ),
             'copy' => array
             (
