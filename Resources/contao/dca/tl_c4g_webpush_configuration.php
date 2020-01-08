@@ -57,7 +57,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             (
                 'label'         => $GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['edit'],
                 'href'          => 'act=edit',
-                'icon'          => 'bundles/con4giscore/images/be-icons/edit.svg',
+                'icon'          => 'edit.svg',
             )
         )
     ),
