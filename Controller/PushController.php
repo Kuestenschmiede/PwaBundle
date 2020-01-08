@@ -14,6 +14,7 @@
 namespace con4gis\PwaBundle\Controller;
 
 use con4gis\CoreBundle\Controller\BaseController;
+use con4gis\CoreBundle\Resources\contao\models\C4gLogModel;
 use con4gis\PwaBundle\Entity\PushSubscription;
 use Contao\ModuleModel;
 use Contao\System;
@@ -99,6 +100,7 @@ class PushController extends AbstractController
                 $entityManager->persist($subscription);
                 $entityManager->flush();
             } catch (ORMException $exception) {
+                C4gLogModel::addLogEntry('pwa', $exception->getMessage());
                 return new JsonResponse(["error" => "Oops, something went wrong.."], 500);
             }
         }
@@ -131,6 +133,7 @@ class PushController extends AbstractController
             $em->persist($subscription);
             $em->flush();
         } catch (ORMException $e) {
+            C4gLogModel::addLogEntry('pwa', $e->getMessage());
             return JsonResponse::create()->setStatusCode(500);
         }
         return JsonResponse::create()->setStatusCode(200);
@@ -155,6 +158,7 @@ class PushController extends AbstractController
                 $entityManager->remove($subscription);
                 $entityManager->flush();
             } catch (ORMException $exception) {
+                C4gLogModel::addLogEntry('pwa', $exception->getMessage());
                 return new JsonResponse(["error" => "Oops, something went wrong.."], 500);
             }
         }
