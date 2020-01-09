@@ -4,19 +4,15 @@
  * the gis-kit for Contao CMS.
  *
  * @package   	con4gis
- * @version        6
+ * @version    7
  * @author  	    con4gis contributors (see "authors.txt")
  * @license 	    LGPL-3.0-or-later
  * @copyright 	Küstenschmiede GmbH Software & Design
  * @link              https://www.con4gis.org
- *
  */
-
 namespace con4gis\PwaBundle\Classes\Services;
 
-
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
-use Contao\CalendarModel;
 use Contao\Controller;
 use Contao\Database;
 use Contao\System;
@@ -30,9 +26,9 @@ class EventPushSenderService
     {
         $db = Database::getInstance();
         $currentTime = time();
-        $arrEvents = $db->prepare("SELECT * FROM tl_calendar_events WHERE published = 1 AND pnSent != 1 AND (pushOnPublish = 1 OR sendDoublePn = 1)")
+        $arrEvents = $db->prepare('SELECT * FROM tl_calendar_events WHERE published = 1 AND pnSent != 1 AND (pushOnPublish = 1 OR sendDoublePn = 1)')
             ->execute()->fetchAllAssoc();
-        
+
         foreach ($arrEvents as $event) {
 
             //send on senddate if published || send if published
@@ -45,7 +41,7 @@ class EventPushSenderService
                     ))) {
                 //$pid = $event['pid'];
 
-                $url = Controller::replaceInsertTags("{{event_url::" .$event['id']. "}}");
+                $url = Controller::replaceInsertTags('{{event_url::' . $event['id'] . '}}');
 
                 //ToDo ask for url selection
                 if ($event['url']) {
@@ -59,7 +55,7 @@ class EventPushSenderService
                 }
                 $sendEvent->setSubscriptionTypes($event['subscriptionTypes'] ? unserialize($event['subscriptionTypes']) : []);
                 System::getContainer()->get('event_dispatcher')->dispatch($sendEvent::NAME, $sendEvent);
-                $db->prepare("UPDATE tl_calendar_events SET pnSent = 1 WHERE id = ?")
+                $db->prepare('UPDATE tl_calendar_events SET pnSent = 1 WHERE id = ?')
                     ->execute($event['id']);
             }
         }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace con4gis\PwaBundle\Classes\Callbacks;
-
 
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
 use Contao\Backend;
@@ -12,9 +10,7 @@ use Contao\Controller;
 use Contao\Database;
 use Contao\DataContainer;
 use Contao\DC_Table;
-use Contao\Input;
 use Contao\Message;
-use Contao\NewsArchiveModel;
 use Contao\System;
 
 class EventsCallback extends Backend
@@ -24,7 +20,7 @@ class EventsCallback extends Backend
         $activeRecord = $dc->activeRecord;
         $pid = $activeRecord->pid;
         //$calendar = CalendarModel::findByPk($pid);
-        $url = Controller::replaceInsertTags("{{event_url::".$activeRecord->id."}}");
+        $url = Controller::replaceInsertTags('{{event_url::' . $activeRecord->id . '}}');
         if ($activeRecord->url) {
             $url = $activeRecord->url;
         }
@@ -44,7 +40,7 @@ class EventsCallback extends Backend
                         $event->setClickUrl($url);
                     }
                     System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
-                    Database::getInstance()->prepare("UPDATE tl_calendar_events SET pnSent = 1 WHERE id = ?")
+                    Database::getInstance()->prepare('UPDATE tl_calendar_events SET pnSent = 1 WHERE id = ?')
                         ->execute($activeRecord->id);
                 }
             }
@@ -68,13 +64,13 @@ class EventsCallback extends Backend
                         $event->setClickUrl($url);
                     }
                     System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
-                    Database::getInstance()->prepare("UPDATE tl_calendar_events SET pnSent = 2 WHERE id = ?")
+                    Database::getInstance()->prepare('UPDATE tl_calendar_events SET pnSent = 2 WHERE id = ?')
                         ->execute($activeRecord->id);
                 }
             }
         }
     }
-    
+
     /**
      * Sends a push notification for the event and ignores the pnSent flag, and does not update it either.
      * @param DC_Table $dc
@@ -89,7 +85,7 @@ class EventsCallback extends Backend
             && (!$calendarEvent->stop || ($currentTime <= $calendarEvent->stop))
         ) {
             $pid = $calendarEvent->pid;
-            $url = Controller::replaceInsertTags("{{event::" .$calendarEvent->id. "}}");
+            $url = Controller::replaceInsertTags('{{event::' . $calendarEvent->id . '}}');
             if ($calendarEvent->url) {
                 $url = $calendarEvent->url;
             }
@@ -103,11 +99,11 @@ class EventsCallback extends Backend
                 $event->setClickUrl($url);
             }
             System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
-            Message::addInfo("Es wurde eine Pushnachricht für das Event \"" . $calendarEvent->title . "\" versendet.");
+            Message::addInfo('Es wurde eine Pushnachricht für das Event "' . $calendarEvent->title . '" versendet.');
             Controller::redirect('contao?do=calendar&table=tl_calendar_events&id=' . $calendarEvent->pid);
         }
     }
-    
+
     /**
      * Resets the pnSent flag.
      * @param DC_Table $dc
@@ -115,24 +111,25 @@ class EventsCallback extends Backend
     public function resetPnSentFlag(DC_Table $dc)
     {
         Database::getInstance()
-            ->prepare("UPDATE tl_calendar_events SET pnSent = 0 WHERE id = ?")
+            ->prepare('UPDATE tl_calendar_events SET pnSent = 0 WHERE id = ?')
             ->execute($dc->id);
         $row = Database::getInstance()
-            ->prepare("SELECT * FROM tl_calendar_events WHERE id = ?")
+            ->prepare('SELECT * FROM tl_calendar_events WHERE id = ?')
             ->execute($dc->id)->fetchAssoc();
         Controller::redirect('contao?do=calendar&table=tl_calendar_events&id=' . $row['pid']);
     }
-    
-    public function convertDateStringToTimeStamp($value, $dc) {
+
+    public function convertDateStringToTimeStamp($value, $dc)
+    {
         if (is_int($value)) {
             return $value;
-        } else {
-            return strtotime($value);
         }
+
+        return strtotime($value);
     }
-    
-    public function convertTimeStampToDateString($value, $dc) {
+
+    public function convertTimeStampToDateString($value, $dc)
+    {
         return date($GLOBALS['TL_CONFIG']['datimFormat'], $value);
     }
-    
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace con4gis\PwaBundle\Classes\Callbacks;
-
 
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
 use Contao\Backend;
@@ -26,7 +24,7 @@ class NewsCallback extends Backend
             $pid = $activeRecord->pid;
             $archive = NewsArchiveModel::findById($pid);
             if ($archive->pushOnPublish) {
-                $url = Controller::replaceInsertTags("{{news::" .$activeRecord->id. "}}");
+                $url = Controller::replaceInsertTags('{{news::' . $activeRecord->id . '}}');
 
                 //ToDo ask for url selection
                 if ($activeRecord->url) {
@@ -46,11 +44,10 @@ class NewsCallback extends Backend
                         $event->setClickUrl($url);
                     }
                     System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
-                    Database::getInstance()->prepare("UPDATE tl_news SET pnSent = 1 WHERE id = ?")
+                    Database::getInstance()->prepare('UPDATE tl_news SET pnSent = 1 WHERE id = ?')
                         ->execute($activeRecord->id);
                 }
             }
         }
     }
-    
 }

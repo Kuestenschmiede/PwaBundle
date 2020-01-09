@@ -4,7 +4,7 @@
  * the gis-kit for Contao CMS.
  *
  * @package   	con4gis
- * @version    6
+ * @version    7
  * @author  	con4gis contributors (see "authors.txt")
  * @license 	LGPL-3.0-or-later
  * @copyright 	Küstenschmiede GmbH Software & Design
@@ -26,8 +26,8 @@ class ServiceWorkerFileWriter
      * Current content of the writing buffer.
      * @var string
      */
-    private $strContent = "";
-    
+    private $strContent = '';
+
     /**
      * @param $fileNames
      * @param $cacheName
@@ -55,9 +55,9 @@ class ServiceWorkerFileWriter
         }
         $this->createPushCode();
         $this->createNotificationClickCode();
-        file_put_contents($webPath . "/sw.js",$this->strContent);
+        file_put_contents($webPath . '/sw.js', $this->strContent);
     }
-    
+
     /**
      * Creates an event listener on the install event for the service worker and caches all given file names.
      * @param $fileNames
@@ -78,14 +78,14 @@ class ServiceWorkerFileWriter
 //        $this->strContent .= "\tself.skipWaiting();\n";
         $this->strContent .= "});\n";
     }
-    
+
     /**
      * Creates an activate listener that deletes all old caches.
      * @param $cacheName
      */
     public function createActivationListener($cacheName)
     {
-    $this->strContent .= <<< JS
+        $this->strContent .= <<< JS
 self.addEventListener('activate', function(event) {
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
@@ -105,7 +105,7 @@ self.addEventListener('activate', function(event) {
 });
 JS;
     }
-    
+
     /**
      * Creates an event listener on the fetch event and tries to serve the desired request from the cache with the
      * given name.
@@ -125,9 +125,8 @@ self.addEventListener('fetch', event => {
 });
 
 JS;
-    
     }
-    
+
     /**
      * Creates a fetch listener to match either requested pages from cache or serve the offline page,
      * if no cache matches.
@@ -156,9 +155,8 @@ self.addEventListener('fetch', event => {
 });
 
 JS;
-    
     }
-    
+
     /**
      * Creates a fetch listener that always serves the offline page, when a request fails due to connection issues.
      * @param $offlinePageName
@@ -166,7 +164,7 @@ JS;
      */
     public function createFetchCodeForOfflineFallback($offlinePageName, $urlFilterString)
     {
-        $this->strContent.= <<< JS
+        $this->strContent .= <<< JS
 self.addEventListener('fetch', event => {
   if (event.request.mode === 'navigate') {
     $urlFilterString
@@ -178,7 +176,7 @@ self.addEventListener('fetch', event => {
 
 JS;
     }
-    
+
     /**
      * Creates a push listener that shows the incoming push notification.
      */
@@ -209,7 +207,7 @@ self.addEventListener('push', event => {
 });
 JS;
     }
-    
+
     public function createNotificationClickCode()
     {
         $this->strContent .= <<< JS
@@ -221,9 +219,8 @@ self.addEventListener('notificationclick', event => {
     }
 }, false);
 JS;
-
     }
-    
+
     /**
      * @param $arrUrls
      * @return string
@@ -231,13 +228,14 @@ JS;
     public function createUrlFilterString($arrUrls)
     {
         $returnFragment = "return event.respondWith(\nfetch(event.request)\n);\n";
-        $strReturn = "";
+        $strReturn = '';
         foreach ($arrUrls as $url) {
             $strReturn .= "if (event.request.url.includes('$url')) {\n$returnFragment}\n";
         }
+
         return $strReturn;
     }
-    
+
     /**
      * @return string
      */

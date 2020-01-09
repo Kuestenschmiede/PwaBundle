@@ -4,7 +4,7 @@
  * the gis-kit for Contao CMS.
  *
  * @package   	con4gis
- * @version    6
+ * @version    7
  * @author  	con4gis contributors (see "authors.txt")
  * @license 	LGPL-3.0-or-later
  * @copyright 	Küstenschmiede GmbH Software & Design
@@ -18,49 +18,49 @@ use Symfony\Component\EventDispatcher\Event;
 class PushNotificationEvent extends Event
 {
     const NAME = 'con4gis.notification.send';
-    
+
     /**
      * Ids of the subscriptions to which the message should be sent.
      * @var array
      */
     private $endpoints = [];
-    
+
     /**
      * If this is true, the $endpoints property will be ignored and the notification will be sent to every subscriber.
      * @var bool
      */
     private $sendToAll = false;
-    
+
     /**
      * The IDs of the SubscriptionTypes for which the notification is intended.
      * $sendToAll will be set to true, if this is empty.
      * @var array
      */
     private $subscriptionTypes = [];
-    
+
     /**
      * The subscription entities.
      * @var array
      */
     private $subscriptions = [];
-    
+
     /**
      * Title of the notification
      * @var string
      */
-    private $title = "";
-    
+    private $title = '';
+
     /**
      * Content of the notification
      * @var string
      */
-    private $message = "";
-    
+    private $message = '';
+
     /**
      * @var string
      */
-    private $clickUrl = "";
-    
+    private $clickUrl = '';
+
     /**
      * @return array
      */
@@ -68,7 +68,7 @@ class PushNotificationEvent extends Event
     {
         return $this->endpoints;
     }
-    
+
     /**
      * @param array $endpoints
      */
@@ -76,7 +76,7 @@ class PushNotificationEvent extends Event
     {
         $this->endpoints = $endpoints;
     }
-    
+
     /**
      * @return bool
      */
@@ -84,7 +84,7 @@ class PushNotificationEvent extends Event
     {
         return $this->sendToAll;
     }
-    
+
     /**
      * @param bool $sendToAll
      */
@@ -92,7 +92,7 @@ class PushNotificationEvent extends Event
     {
         $this->sendToAll = $sendToAll;
     }
-    
+
     /**
      * @return array
      */
@@ -100,7 +100,7 @@ class PushNotificationEvent extends Event
     {
         return $this->subscriptionTypes;
     }
-    
+
     /**
      * @param array $subscriptionTypes
      */
@@ -108,7 +108,7 @@ class PushNotificationEvent extends Event
     {
         $this->subscriptionTypes = $subscriptionTypes;
     }
-    
+
     /**
      * @return array
      */
@@ -116,7 +116,7 @@ class PushNotificationEvent extends Event
     {
         return $this->subscriptions;
     }
-    
+
     /**
      * @param array $subscriptions
      */
@@ -124,7 +124,7 @@ class PushNotificationEvent extends Event
     {
         $this->subscriptions = $subscriptions;
     }
-    
+
     /**
      * @return string
      */
@@ -132,7 +132,7 @@ class PushNotificationEvent extends Event
     {
         return $this->title;
     }
-    
+
     /**
      * @param string $title
      */
@@ -140,7 +140,7 @@ class PushNotificationEvent extends Event
     {
         $this->title = $title;
     }
-    
+
     /**
      * @return string
      */
@@ -148,7 +148,7 @@ class PushNotificationEvent extends Event
     {
         return $this->message;
     }
-    
+
     /**
      * @param string $message
      */
@@ -156,7 +156,7 @@ class PushNotificationEvent extends Event
     {
         $this->message = $message;
     }
-    
+
     /**
      * @return string
      */
@@ -164,7 +164,7 @@ class PushNotificationEvent extends Event
     {
         return $this->clickUrl;
     }
-    
+
     /**
      * @param string $clickUrl
      */

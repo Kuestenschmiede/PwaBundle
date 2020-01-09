@@ -4,7 +4,7 @@
  * the gis-kit for Contao CMS.
  *
  * @package   	con4gis
- * @version    6
+ * @version    7
  * @author  	con4gis contributors (see "authors.txt")
  * @license 	LGPL-3.0-or-later
  * @copyright 	Küstenschmiede GmbH Software & Design
@@ -12,7 +12,6 @@
  */
 
 namespace con4gis\PwaBundle\Classes\Callbacks;
-
 
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 use Contao\Backend;
@@ -36,7 +35,7 @@ class PageCallback extends Backend
             }
         }
     }
-    
+
     public function getPwaConfigOptions(DataContainer $dc)
     {
         $configs = System::getContainer()
@@ -44,7 +43,7 @@ class PageCallback extends Backend
             ->getRepository(PwaConfiguration::class)
             ->findAll();
         $options = [];
-        
+
         foreach ($configs as $config) {
             $options[$config->getId()] = $config->getName();
         }

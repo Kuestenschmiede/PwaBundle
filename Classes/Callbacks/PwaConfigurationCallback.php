@@ -4,7 +4,7 @@
  * the gis-kit for Contao CMS.
  *
  * @package   	con4gis
- * @version    6
+ * @version    7
  * @author  	con4gis contributors (see "authors.txt")
  * @license 	LGPL-3.0-or-later
  * @copyright 	Küstenschmiede GmbH Software & Design
@@ -12,7 +12,6 @@
  */
 
 namespace con4gis\PwaBundle\Classes\Callbacks;
-
 
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 use Contao\Backend;
@@ -24,11 +23,12 @@ class PwaConfigurationCallback extends Backend
     {
         \Contao\Message::addInfo($GLOBALS['TL_LANG']['tl_c4g_pwa_configuration']['infotext']);
     }
-    
+
     public function getDisplayOptions()
     {
         $strName = 'tl_c4g_pwa_configuration';
         $optionsLang = $GLOBALS['TL_LANG'][$strName]['displayOptions'];
+
         return [
             PwaConfiguration::PWA_DISPLAY_FULLSCREEN => $optionsLang[PwaConfiguration::PWA_DISPLAY_FULLSCREEN],
             PwaConfiguration::PWA_DISPLAY_STANDALONE => $optionsLang[PwaConfiguration::PWA_DISPLAY_STANDALONE],
@@ -36,11 +36,12 @@ class PwaConfigurationCallback extends Backend
             PwaConfiguration::PWA_DISPLAY_BROWSER => $optionsLang[PwaConfiguration::PWA_DISPLAY_BROWSER],
         ];
     }
-    
+
     public function getOrientationOptions()
     {
         $strName = 'tl_c4g_pwa_configuration';
         $optionsLang = $GLOBALS['TL_LANG'][$strName]['orientationOptions'];
+
         return [
             PwaConfiguration::PWA_ORIENTATION_ANY => $optionsLang[PwaConfiguration::PWA_ORIENTATION_ANY],
             PwaConfiguration::PWA_ORIENTATION_NATURAL => $optionsLang[PwaConfiguration::PWA_ORIENTATION_NATURAL],
@@ -52,33 +53,36 @@ class PwaConfigurationCallback extends Backend
             PwaConfiguration::PWA_ORIENTATION_PORTRAIT_SECONDARY => $optionsLang[PwaConfiguration::PWA_ORIENTATION_PORTRAIT_SECONDARY],
         ];
     }
-    
+
     public function getOfflineHandlingOptions()
     {
         $strName = 'tl_c4g_pwa_configuration';
         $optionsLang = $GLOBALS['TL_LANG'][$strName]['offlineHandling']['options'];
+
         return [
             PwaConfiguration::PWA_OFFLINE_HANDLING_ALWAYS => $optionsLang[PwaConfiguration::PWA_OFFLINE_HANDLING_ALWAYS],
-            PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK => $optionsLang[PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK]
+            PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK => $optionsLang[PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK],
         ];
     }
-    
+
     public function getIosStyleOptions()
     {
         $strName = 'tl_c4g_pwa_configuration';
         $optionsLang = $GLOBALS['TL_LANG'][$strName]['iosStyle'];
+
         return [
             PwaConfiguration::PWA_IOS_STYLE_BLACK => $optionsLang[PwaConfiguration::PWA_IOS_STYLE_BLACK],
-            PwaConfiguration::PWA_IOS_STYLE_DEFAULT => $optionsLang[PwaConfiguration::PWA_IOS_STYLE_DEFAULT]
+            PwaConfiguration::PWA_IOS_STYLE_DEFAULT => $optionsLang[PwaConfiguration::PWA_IOS_STYLE_DEFAULT],
         ];
     }
-    
+
     public function convertBinToUuid($varValue)
     {
         $uuid = StringUtil::binToUuid($varValue);
+
         return $uuid;
     }
-    
+
     public static function getAllowedImageExtensions()
     {
         return 'png,jpeg,gif,jpg';

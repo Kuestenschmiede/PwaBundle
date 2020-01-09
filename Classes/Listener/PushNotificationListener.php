@@ -4,7 +4,7 @@
  * the gis-kit for Contao CMS.
  *
  * @package   	con4gis
- * @version    6
+ * @version    7
  * @author  	con4gis contributors (see "authors.txt")
  * @license 	LGPL-3.0-or-later
  * @copyright 	Küstenschmiede GmbH Software & Design
@@ -29,17 +29,17 @@ class PushNotificationListener
      * @var EntityManager
      */
     private $entityManager = null;
-    
+
     /**
      * @var WebPush
      */
     private $webPushService = null;
-    
+
     /**
      * @var LoggerInterface
      */
     private $logger = null;
-    
+
     /**
      * PushNotificationListener constructor.
      * @param $entityManager
@@ -52,7 +52,7 @@ class PushNotificationListener
         $this->webPushService = $webPushService;
         $this->logger = $logger;
     }
-    
+
     /**
      * Gets the subscriptions.
      * @param PushNotificationEvent $event
@@ -78,7 +78,7 @@ class PushNotificationListener
         }
         $event->setSubscriptions($resSubscriptions);
     }
-    
+
     /**
      * Sends the notifications.
      * @param PushNotificationEvent $event
@@ -93,11 +93,11 @@ class PushNotificationListener
         $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOnly();
         $filePath = FilesModel::findByUuid($webpushConfig->getIcon())->path;
         $clickUrl = $event->getClickUrl();
-        if ($clickUrl && (substr($clickUrl, 0, 2) === "<a")) {
+        if ($clickUrl && (substr($clickUrl, 0, 2) === '<a')) {
             // parse the href
             $dom = new \DOMDocument();
             $dom->loadHTML($clickUrl);
-            $href = "";
+            $href = '';
             foreach ($dom->getElementsByTagName('a') as $node) {
                 $href = $node->getAttribute('href');
             }
@@ -107,21 +107,21 @@ class PushNotificationListener
         $arrContent = [
             'title' => $event->getTitle(),
             'body' => $event->getMessage(),
-            'click_action' => $href
+            'click_action' => $href,
         ];
         if ($filePath) {
             $arrContent['icon'] = $filePath;
         }
         $content = \GuzzleHttp\json_encode($arrContent);
-        
+
         $subscriptions = $event->getSubscriptions();
         foreach ($subscriptions as $subscription) {
             try {
                 $sub = Subscription::create([
                     'endpoint' => $subscription->getEndpoint(),
-                    'contentEncoding' => "aesgcm",
+                    'contentEncoding' => 'aesgcm',
                     'publicKey' => $subscription->getP256dhKey(),
-                    'authToken' => $subscription->getAuthKey()
+                    'authToken' => $subscription->getAuthKey(),
                 ]);
                 $res = $this->webPushService->sendNotification($sub, $content);
                 $reports = $this->webPushService->flush();
