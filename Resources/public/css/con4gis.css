@@ -15,3 +15,7 @@
 li .c4g_pwa_configuration, li .c4g_webpush_configuration, li .c4g_push_notification, li .c4g_push_subscription_type {
   display: none !important;
 }
+
+li .active .c4g_pwa_configuration, li .active .c4g_webpush_configuration, li .active .c4g_push_notification, li .active .c4g_push_subscription_type {
+  display: block !important;
+}
