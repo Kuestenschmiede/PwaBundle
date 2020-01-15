@@ -14,7 +14,7 @@
 namespace con4gis\PwaBundle\Resources\contao\modules;
 
 
-use con4gis\CoreBundle\Resources\contao\classes\ResourceLoader;
+use con4gis\CoreBundle\Classes\ResourceLoader;
 use con4gis\PwaBundle\Entity\PushSubscriptionType;
 use Contao\Module;
 use Contao\System;
