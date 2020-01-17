@@ -15,6 +15,7 @@ use con4gis\PwaBundle\Classes\Callbacks\EventsCallback;
 
 $GLOBALS['FE_MOD']['con4gis']['pwa'] = 'con4gis\PwaBundle\Resources\contao\modules\AddManifestModule';
 $GLOBALS['FE_MOD']['con4gis']['push-subscription'] = 'con4gis\PwaBundle\Resources\contao\modules\PushSubscriptionModule';
+asort($GLOBALS['FE_MOD']['con4gis']);
 
 /**
  * Backend Modules
