@@ -23,18 +23,26 @@ $GLOBALS['FE_MOD']['con4gis']['push-subscription'] = 'con4gis\PwaBundle\Resource
 $GLOBALS['BE_MOD']['con4gis'] = array_merge($GLOBALS['BE_MOD']['con4gis'], [
     'c4g_pwa_configuration' => array
     (
-        'tables'    => array('tl_c4g_pwa_configuration')
+        'brick' => 'pwa',
+        'tables'    => array('tl_c4g_pwa_configuration'),
+        'icon' => 'bundles/con4giscore/images/be-icons/edit.svg'
     ),
     'c4g_webpush_configuration' => array
     (
-        'tables'    => array('tl_c4g_webpush_configuration')
+        'brick' => 'pwa',
+        'tables'    => array('tl_c4g_webpush_configuration'),
+        'icon' => 'bundles/con4gispwa/images/be-icons/webpush_config.svg'
     ),
     'c4g_push_notification' => array(
+        'brick' => 'pwa',
         'tables' => array('tl_c4g_push_notification'),
-        'stylesheet' => "bundles/con4gispwa/css/backend-push.css"
+        'stylesheet' => "bundles/con4gispwa/css/backend-push.css",
+        'icon' => 'bundles/con4gispwa/images/be-icons/push_example.svg'
     ),
     'c4g_push_subscription_type' => [
-        'tables' => ['tl_c4g_push_subscription_type']
+        'brick' => 'pwa',
+        'tables' => ['tl_c4g_push_subscription_type'],
+        'icon' => 'bundles/con4gispwa/images/be-icons/push_types.svg'
     ]
 ]);
 
