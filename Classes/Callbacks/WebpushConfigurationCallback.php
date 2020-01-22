@@ -120,28 +120,26 @@ class WebpushConfigurationCallback extends Backend
                     return $rootDir . '/config/config.yml';
                 } elseif (file_exists($rootDir . '/config/config.yaml')) {
                     return $rootDir . '/config/config.yaml';
-                } else {
-                    return $rootDir . '/config/config.yml';
                 }
-            } else {
-                // app/config directory
-                if (file_exists($rootDir . '/app/config/config.yml')) {
-                    return $rootDir . '/app/config/config.yml';
-                } elseif (file_exists($rootDir . '/app/config/config.yaml')) {
-                    return $rootDir . '/app/config/config.yaml';
-                } else {
-                    return $rootDir . '/app/config/config.yml';
-                }
-            }
-        } else {
-            // config directory
-            if (file_exists($rootDir . '/config/config.yml')) {
-                return $rootDir . '/config/config.yml';
-            } elseif (file_exists($rootDir . '/config/config.yaml')) {
-                return $rootDir . '/config/config.yaml';
-            } else {
+
                 return $rootDir . '/config/config.yml';
             }
+            // app/config directory
+            if (file_exists($rootDir . '/app/config/config.yml')) {
+                return $rootDir . '/app/config/config.yml';
+            } elseif (file_exists($rootDir . '/app/config/config.yaml')) {
+                return $rootDir . '/app/config/config.yaml';
+            }
+
+            return $rootDir . '/app/config/config.yml';
         }
+        // config directory
+        if (file_exists($rootDir . '/config/config.yml')) {
+            return $rootDir . '/config/config.yml';
+        } elseif (file_exists($rootDir . '/config/config.yaml')) {
+            return $rootDir . '/config/config.yaml';
+        }
+
+        return $rootDir . '/config/config.yml';
     }
 }

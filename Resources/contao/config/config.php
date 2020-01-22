@@ -47,10 +47,6 @@ $GLOBALS['BE_MOD']['con4gis'] = array_merge($GLOBALS['BE_MOD']['con4gis'], [
     ]
 ]);
 
-if (TL_MODE == "BE") {
-    $GLOBALS['TL_CSS'][] = '/bundles/con4gispwa/css/con4gis.css';
-}
-
 $GLOBALS['BE_MOD']['content']['calendar']['resetSentFlag'] = [EventsCallback::class, 'resetPnSentFlag'];
 $GLOBALS['BE_MOD']['content']['calendar']['sendPn'] = [EventsCallback::class, 'forceSendPn'];
 
