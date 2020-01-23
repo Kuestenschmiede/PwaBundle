@@ -11,10 +11,10 @@
  * @link       https://www.con4gis.org
  */
 
-$GLOBALS['TL_LANG']['MOD']['c4g_pwa_configuration'] = array('PWA: configuration', 'Configuration of pwa functionality.');
-$GLOBALS['TL_LANG']['MOD']['c4g_webpush_configuration'] = array('PWA: Web push configuration', 'Configuration of the web push service.');
-$GLOBALS['TL_LANG']['MOD']['c4g_push_notification'] = array('PWA: Send test notification', 'Send a test push notification. This function is not intended for productive use.');
-$GLOBALS['TL_LANG']['MOD']['c4g_push_subscription_type'] = array('PWA: Push subscription types', 'Define different types of push subscriptions.');
+$GLOBALS['TL_LANG']['MOD']['c4g_pwa_configuration'] = array('(pwa) Configuration', 'Configuration of pwa functionality.');
+$GLOBALS['TL_LANG']['MOD']['c4g_webpush_configuration'] = array('(pwa) Push configuration', 'Configuration of the web push service.');
+$GLOBALS['TL_LANG']['MOD']['c4g_push_notification'] = array('(pwa) test notification', 'Send a test push notification. This function is not intended for productive use.');
+$GLOBALS['TL_LANG']['MOD']['c4g_push_subscription_type'] = array('(pwa) Subscription types', 'Define different types of push subscriptions.');
 
-$GLOBALS['TL_LANG']['FMD']['pwa'] = array('pwa: Add manifest', 'Adds the configured pwa functionality to the application.');
-$GLOBALS['TL_LANG']['FMD']['push-subscription']	= array('pwa: Push subscription', 'Provides a mechanism to subscribe to push notifications.');
+$GLOBALS['TL_LANG']['FMD']['pwa'] = array('(pwa) Add manifest', 'Adds the configured pwa functionality to the application.');
+$GLOBALS['TL_LANG']['FMD']['push-subscription']	= array('(pwa) Push subscription', 'Provides a mechanism to subscribe to push notifications.');
