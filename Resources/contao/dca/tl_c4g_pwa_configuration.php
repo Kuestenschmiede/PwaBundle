@@ -42,7 +42,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'fields'            => array('name ASC'),
             'panelLayout'       => 'filter;sort,search,limit',
             'headerFields'      => array('name', 'type'),
-            'icon'              => 'bundles/con4giscore/images/be-icons/con4gis.org_dark.svg',
+            'icon'              => 'bundles/con4giscore/images/be-icons/con4gis_blue.svg',
         ),
         
         'label' => array
