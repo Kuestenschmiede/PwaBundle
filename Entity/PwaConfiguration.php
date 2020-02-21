@@ -58,6 +58,12 @@ class PwaConfiguration extends BaseEntity
      * @ORM\Column(type="integer")
      */
     private $tstamp = 0;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    protected $importId = 0;
     
     /**
      * @var string
@@ -251,6 +257,22 @@ class PwaConfiguration extends BaseEntity
     public function setTstamp(int $tstamp): void
     {
         $this->tstamp = $tstamp;
+    }
+
+    /**
+     * @return int
+     */
+    public function getimportId(): int
+    {
+        return $this->importId;
+    }
+
+    /**
+     * @param int $importId
+     */
+    public function setImportId(int $importId): void
+    {
+        $this->importId = $importId;
     }
     
     /**
