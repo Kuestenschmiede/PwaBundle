@@ -12,8 +12,9 @@
  */
 
 // legends
-$GLOBALS['TL_LANG']['tl_page']['pwa_legend'] = 'Einstellungen für Progressive Web App';
+$GLOBALS['TL_LANG']['tl_page']['pwa_legend'] = 'Einstellungen für die Progressive Web App (con4gis)';
 
 // fields
 $GLOBALS['TL_LANG']['tl_page']['pwaConfig'] = ['PWA-Konfiguration', 'Wählen Sie die zu verwendende PWA-Konfiguration aus. Diese können im gleichnamigen Backend-Modul angelegt werden.'];
+$GLOBALS['TL_LANG']['tl_page']['pushConfig'] = ['Push-Konfiguration', 'Wählen Sie die zu verwendende Push-Konfiguration aus. Diese können im gleichnamigen Backend-Modul angelegt werden.'];
 $GLOBALS['TL_LANG']['tl_page']['uncachedPages'] = ['Seiten nicht cachen', 'Hier können Sie einzelne Seiten auswählen, die nicht vom Service Worker gecached werden sollen. Dies kann sinnvoll sein bei Seiten, die sich oft ändern.'];

@@ -84,18 +84,24 @@ class ServiceWorkerCreationService
         }
 
         $cacheName = 'pwa-con4gis-v' . $intVersion;
+
+        $path = $this->webPath.'/'.str_pad($pwaConfiguration->getId(), 3 ,'0', STR_PAD_LEFT);
+        if (!is_dir($path)) {
+            mkdir($path, 0777);
+        }
         $this->createServiceWorkerFile(
             $arrPagenames,
             $cacheName,
             $pwaConfiguration->getOfflinePage() ? $offlinePage->alias . $suffix : '',
             $pwaConfiguration->getOfflineHandling(),
-            $blockedUrls
+            $blockedUrls,
+            $path
         );
     }
-
-    private function createServiceWorkerFile($arrPages, $cacheName, $strOfflinePage, $offlineHandling, $blockedUrls)
+    
+    private function createServiceWorkerFile($arrPages, $cacheName, $strOfflinePage, $offlineHandling, $blockedUrls, $path)
     {
         $writer = new ServiceWorkerFileWriter();
-        $writer->createServiceWorkerFile($arrPages, $cacheName, $this->webPath, $strOfflinePage, $offlineHandling, $blockedUrls);
+        $writer->createServiceWorkerFile($arrPages, $cacheName, $path, $strOfflinePage, $offlineHandling, $blockedUrls);
     }
 }
