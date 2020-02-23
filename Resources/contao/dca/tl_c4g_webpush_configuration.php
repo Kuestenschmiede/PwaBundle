@@ -23,34 +23,55 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
     (
         'dataContainer'     => 'Table',
         'enableVersioning'  => false,
-        'notDeletable' => true,
-        'notCopyable' => true,
-        'closed' => (\Input::get('id')),
-        'onload_callback'			=> array
-        (
-            array('\con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback', 'loadDataset'),
-        ),
-        'onsubmit_callback'			=> array
-        (
-            array('\con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback', 'writeDataToConfig'),
-        )
+        // 'notDeletable' => true,
+        // 'notCopyable' => true,
+        //'closed' => (\Input::get('id')),
+//        'onload_callback'			=> array
+//        (
+//            array('\con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback', 'loadDataset'),
+//        ),
+//        'onsubmit_callback'			=> array
+//        (
+//            array('\con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback', 'writeDataToConfig'),
+//        )
     ),
     
     
     //List
     'list' => array
     (
-        'global_operations' => [
-            'back' =>
-                [
-                    'href'                => 'key=back',
-                    'class'               => 'header_back',
-                    'button_callback'     => ['\con4gis\CoreBundle\Classes\Helper\DcaHelper', 'back'],
-                    'icon'                => 'back.svg',
-                    'label'               => &$GLOBALS['TL_LANG']['MSC']['backBT'],
-                ],
+        'sorting' => array
+        (
+            'mode'              => 2,
+            'fields'            => array('name ASC'),
+            'panelLayout'       => 'filter;sort,search,limit',
+            'headerFields'      => array('name'),
+            'icon'              => 'bundles/con4giscore/images/be-icons/con4gis_blue.svg',
+        ),
+
+        'label' => array
+        (
+            'fields'            => array('name'),
+            'showColumns'       => true,
+        ),
+
+        'global_operations' => array
+        (
+            'all' => [
+                'label'         => $GLOBALS['TL_LANG']['MSC']['all'],
+                'href'          => 'act=select',
+                'class'         => 'header_edit_all',
+                'attributes'    => 'onclick="Backend.getScrollOffSet()" accesskey="e"'
             ],
-        
+            'back' => [
+                'href'                => 'key=back',
+                'class'               => 'header_back',
+                'button_callback'     => ['\con4gis\CoreBundle\Classes\Helper\DcaHelper', 'back'],
+                'icon'                => 'back.svg',
+                'label'               => &$GLOBALS['TL_LANG']['MSC']['backBT'],
+            ],
+        ),
+
         'operations' => array
         (
             'edit' => array
@@ -58,19 +79,44 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
                 'label'         => $GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['edit'],
                 'href'          => 'act=edit',
                 'icon'          => 'edit.svg',
-            )
+            ),
+            'copy' => array
+            (
+                'label'         => $GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['copy'],
+                'href'          => 'act=copy',
+                'icon'          => 'copy.svg',
+            ),
+            'delete' => array
+            (
+                'label'         => $GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['delete'],
+                'href'          => 'act=delete',
+                'icon'          => 'delete.svg',
+                'attributes'    => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false;Backend.getScrollOffset()"',
+            ),
+            'show' => array
+            (
+                'label'         => $GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['show'],
+                'href'          => 'act=show',
+                'icon'          => 'show.svg',
+            ),
         )
     ),
     
     // Palettes
     'palettes' => array
     (
-        'default' => '{data_legend},vapidSubject,vapidPublickey,vapidPrivatekey,ttl,urgency,topic,timeout,icon;'
+        'default' => '{data_legend},name,vapidSubject,vapidPublickey,vapidPrivatekey,ttl,urgency,topic,batchSize,timeout,icon;'
     ),
     
     // Fields
     'fields' => array
     (
+        'name' => [
+            'label'             => $GLOBALS['TL_LANG'][$strName]['name'],
+            'default'           => '',
+            'inputType'         => 'text',
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+        ],
         'vapidSubject' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['vapidSubject'],
@@ -117,7 +163,15 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long')
         ),
-    
+
+        'batchSize' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['batchSize'],
+            'default'           => 1000,
+            'inputType'         => 'text',
+            'eval'              => array('rgxp' => 'digit','mandatory' => true, 'tl_class' => 'long')
+        ),
+
         'timeout' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['timeout'],

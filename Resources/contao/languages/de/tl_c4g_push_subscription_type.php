@@ -2,6 +2,7 @@
 $strName = 'tl_c4g_push_subscription_type';
 
 $GLOBALS['TL_LANG'][$strName]['name'] = ['Name des Abonnement-Typs', 'Geben Sie einen Namen für den Abonnement-Typ ein.'];
+$GLOBALS['TL_LANG'][$strName]['pushConfig'] = ['Push-Konfiguration', 'Wählen Sie die zu verwendende Push-Konfiguration aus. Diese können im gleichnamigen Backend-Modul angelegt werden.'];
 
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Allgemeine Daten';
 

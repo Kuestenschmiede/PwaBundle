@@ -21,13 +21,13 @@ $GLOBALS['TL_DCA'][$strName] = array
             'mode'              => 2,
             'fields'            => array('name ASC'),
             'panelLayout'       => 'filter;sort,search,limit',
-            'headerFields'      => array('name', 'type'),
+            'headerFields'      => array('name', 'pushConfig'),
             'icon'              => 'bundles/con4giscore/images/be-icons/con4gis_blue.svg',
         ),
         
         'label' => array
         (
-            'fields'            => array('name'),
+            'fields'            => array('name', 'pushConfig:tl_c4g_webpush_configuration.name'),
             'showColumns'       => true,
         ),
         
@@ -81,19 +81,27 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name;'
+        'default'   =>  '{data_legend},name,pushConfig;'
     ),
     
     //Fields
     'fields' => array
     (
-        'name' => array
-        (
+        'name' => [
             'label'             => $GLOBALS['TL_LANG'][$strName]['name'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long')
-        ),
+        ],
+        'pushConfig' => [
+            'label'             => $GLOBALS['TL_LANG'][$strName]['pushConfig'],
+            'default'           => '0',
+            'inputType'         => 'select',
+            'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\SubscriptionTypeCallback', 'getPushConfigOptions'],
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true),
+            'sql'               => "int(10) unsigned NOT NULL default '0'"
+            //ToDo xlabel
+        ]
     )
 );
 

@@ -30,32 +30,32 @@ class ManifestCreationService
 
     public function createManifestFile(PwaConfiguration $pwaConfiguration)
     {
-        $path = '/'.str_pad($pwaConfiguration->getId(), 3 ,'0', STR_PAD_LEFT);
+        $path = '/' . str_pad($pwaConfiguration->getId(), 3, '0', STR_PAD_LEFT);
         if (!is_dir($path)) {
             mkdir($path, 0777);
         }
 
         $jsonTemplate = [
-            "dir" => "ltr",
-            "lang" => "de-DE",
-            "name" => "",
-            "short_name" => "",
-            "description" => "",
-            "scope" => $pwaConfiguration->getScope(),
-            "start_url" => $pwaConfiguration->getStartUrl(),
-            "display" => "",
-            "background_color" => "",
-            "theme_color" => "",
-            "icons" => [],
-            "serviceworker" => [
-                "src" => "/001/sw.js",
-                "scope" => $pwaConfiguration->getScope(),
-                "update_via_cache" => "none"
-            ]
+            'dir' => 'ltr',
+            'lang' => 'de-DE',
+            'name' => '',
+            'short_name' => '',
+            'description' => '',
+            'scope' => $pwaConfiguration->getScope(),
+            'start_url' => $pwaConfiguration->getStartUrl(),
+            'display' => '',
+            'background_color' => '',
+            'theme_color' => '',
+            'icons' => [],
+            'serviceworker' => [
+                'src' => $path . '/sw.js',
+                'scope' => $pwaConfiguration->getScope(),
+                'update_via_cache' => 'none',
+            ],
         ];
         $manifestJson = $this->parseFromConfiguration($jsonTemplate, $pwaConfiguration);
 
-        $file = $this->webPath.$path.'/manifest.webmanifest';
+        $file = $this->webPath . $path . '/manifest.webmanifest';
         $this->writeManifestFile($file, $manifestJson);
     }
 
@@ -71,15 +71,15 @@ class ManifestCreationService
         $icon512 = FilesModel::findByUuid($configuration->getIcon512());
         $arrJson['icons'] = [
             [
-                "src" => '../'.$icon192->path,
-                "sizes" => "192x192",
-                "type" => "image/png"
+                'src' => '../' . $icon192->path,
+                'sizes' => '192x192',
+                'type' => 'image/png',
             ],
             [
-                "src" => '../'.$icon512->path,
-                "sizes" => "512x512",
-                "type" => "image/png"
-            ]
+                'src' => '../' . $icon512->path,
+                'sizes' => '512x512',
+                'type' => 'image/png',
+            ],
         ];
 
         return $arrJson;
@@ -108,7 +108,7 @@ class ManifestCreationService
                 return 'browser';
         }
     }
-    
+
     private function writeManifestFile($file, $arrData)
     {
         file_put_contents($file, json_encode($arrData, JSON_PRETTY_PRINT));

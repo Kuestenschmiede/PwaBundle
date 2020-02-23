@@ -40,6 +40,12 @@ class PushSubscriptionType extends BaseEntity
      * @ORM\Column(type="string")
      */
     private $name = "";
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    protected $pushConfig = 0;
     
     /**
      * @return int
@@ -104,5 +110,20 @@ class PushSubscriptionType extends BaseEntity
     {
         $this->name = $name;
     }
-    
+
+    /**
+     * @return int
+     */
+    public function getPushConfig(): int
+    {
+        return $this->pushConfig;
+    }
+
+    /**
+     * @param int $pushConfig
+     */
+    public function setPushConfig(int $pushConfig): void
+    {
+        $this->pushConfig = $pushConfig;
+    }
 }

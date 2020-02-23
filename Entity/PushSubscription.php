@@ -68,6 +68,12 @@ class PushSubscription extends BaseEntity
      * @ORM\Column(type="array")
      */
     private $types = [];
+
+    /**
+     * @var array
+     * @ORM\Column(type="array")
+     */
+    private $content = [];
     
     /**
      * @return int
@@ -180,5 +186,21 @@ class PushSubscription extends BaseEntity
     {
         $this->types = $types;
     }
-    
+
+    /**
+     * @return array
+     */
+    public function getContent(): array
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param array $content
+     */
+    public function setContent(array $content): void
+    {
+        $this->content = $content;
+    }
+
 }

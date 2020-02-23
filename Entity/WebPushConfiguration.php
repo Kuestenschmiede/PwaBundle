@@ -50,6 +50,12 @@ class WebPushConfiguration extends BaseEntity
      * @ORM\Column(type="integer")
      */
     protected $importId = 0;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $name = "";
     
     /**
      * @var string
@@ -86,7 +92,13 @@ class WebPushConfiguration extends BaseEntity
      * @ORM\Column(type="string")
      */
     private $topic = "";
-    
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $batchSize = 1000;
+
     /**
      * @var int
      * @ORM\Column(type="integer")
@@ -145,6 +157,22 @@ class WebPushConfiguration extends BaseEntity
     public function setImportId(int $importId): void
     {
         $this->importId = $importId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
     }
     
     /**
@@ -241,6 +269,22 @@ class WebPushConfiguration extends BaseEntity
     public function setTopic(string $topic): void
     {
         $this->topic = $topic;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBatchSize(): int
+    {
+        return $this->batchSize;
+    }
+
+    /**
+     * @param int $batchSize
+     */
+    public function setBatchSize(int $batchSize): void
+    {
+        $this->batchSize = $batchSize;
     }
     
     /**

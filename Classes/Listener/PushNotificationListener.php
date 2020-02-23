@@ -15,6 +15,7 @@ namespace con4gis\PwaBundle\Classes\Listener;
 
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
 use con4gis\PwaBundle\Entity\PushSubscription;
+use con4gis\PwaBundle\Entity\PushSubscriptionType;
 use con4gis\PwaBundle\Entity\WebPushConfiguration;
 use Contao\FilesModel;
 use Doctrine\ORM\EntityManager;
@@ -65,17 +66,47 @@ class PushNotificationListener
         EventDispatcherInterface $eventDispatcher
     ) {
         $types = $event->getSubscriptionTypes();
-        $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
-        $resSubscriptions = [];
-        if (count($types) > 0) {
-            foreach ($subscriptions as $subscription) {
-                if (array_intersect($types, $subscription->getTypes())) {
-                    $resSubscriptions[] = $subscription;
+        foreach ($types as $typeId) {
+            $type = $this->entityManager->getRepository(PushSubscriptionType::class)->findOneBy('id',$typeId);
+            if ($type) {
+                $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOneBy('id', $type->getPushConfig());
+                $filePath = FilesModel::findByUuid($webpushConfig->getIcon())->path;
+                $clickUrl = $event->getClickUrl();
+                if ($clickUrl && (substr($clickUrl, 0, 2) === '<a')) {
+                    // parse the href
+                    $dom = new \DOMDocument();
+                    $dom->loadHTML($clickUrl);
+                    $href = '';
+                    foreach ($dom->getElementsByTagName('a') as $node) {
+                        $href = $node->getAttribute('href');
+                    }
+                } else {
+                    $href = $clickUrl;
                 }
-            }
-        } else {
-            $resSubscriptions = $subscriptions;
+                $arrContent = [
+                    'title' => $event->getTitle(),
+                    'body' => $event->getMessage(),
+                    'click_action' => $href,
+                ];
+                if ($filePath) {
+                    $arrContent['icon'] = $filePath;
+                }
+
+                if (array_intersect([$typeId], $subscription->getTypes())) {
+                    $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
+                    $resSubscriptions = [];
+                    if (count($types) > 0) {
+                        foreach ($subscriptions as $subscription) {
+                            $subscription->setContent($arrContent);
+                            $resSubscriptions[] = $subscription;
+                        }
+                    }
+                }
+            } /*else {
+                $resSubscriptions = $subscriptions;
+            }*/ //ToDO
         }
+
         $event->setSubscriptions($resSubscriptions);
     }
 
@@ -90,40 +121,35 @@ class PushNotificationListener
         $eventName,
         EventDispatcherInterface $eventDispatcher
     ) {
-        $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOnly();
-        $filePath = FilesModel::findByUuid($webpushConfig->getIcon())->path;
-        $clickUrl = $event->getClickUrl();
-        if ($clickUrl && (substr($clickUrl, 0, 2) === '<a')) {
-            // parse the href
-            $dom = new \DOMDocument();
-            $dom->loadHTML($clickUrl);
-            $href = '';
-            foreach ($dom->getElementsByTagName('a') as $node) {
-                $href = $node->getAttribute('href');
-            }
-        } else {
-            $href = $clickUrl;
-        }
-        $arrContent = [
-            'title' => $event->getTitle(),
-            'body' => $event->getMessage(),
-            'click_action' => $href,
-        ];
-        if ($filePath) {
-            $arrContent['icon'] = $filePath;
-        }
-        $content = \GuzzleHttp\json_encode($arrContent);
-
         $subscriptions = $event->getSubscriptions();
         foreach ($subscriptions as $subscription) {
             try {
+                $auth = [
+                    'VAPID' => [
+                        'subject' => $webpushConfig->getVapidSubject(), // can be a mailto: or your website address
+                        'publicKey' => $webpushConfig->getVapidPublickey(), // (recommended) uncompressed public key P-256 encoded in Base64-URL
+                        'privateKey' => $webpushConfig->getVapidPrivatekey() // (recommended) in fact the secret multiplier of the private key encoded in Base64-URL
+                    ],
+                ];
+                $this->webPushService = new WebPush($auth);
+
                 $sub = Subscription::create([
                     'endpoint' => $subscription->getEndpoint(),
                     'contentEncoding' => 'aesgcm',
                     'publicKey' => $subscription->getP256dhKey(),
                     'authToken' => $subscription->getAuthKey(),
                 ]);
-                $res = $this->webPushService->sendNotification($sub, $content);
+
+                //ToDo form configuration
+                $defaultOptions = [
+                    'TTL' => intval($webpushConfig->getTtl()), // defaults to 4 weeks
+                    'urgency' => $webpushConfig->getUrgency(), // protocol defaults to "normal"
+                    'topic' => $webpushConfig->getTopic(), // not defined by default,
+                    'batchSize' => intval($webpushConfig->getBatchSize()), // defaults to 1000
+                ];
+
+                $this->webPushService->setDefaultOptions($defaultOptions);
+                $res = $this->webPushService->sendNotification($sub, \GuzzleHttp\json_encode($subscription->getContent()));
                 $reports = $this->webPushService->flush();
             } catch (\ErrorException $exception) {
                 // log error message with stack trace

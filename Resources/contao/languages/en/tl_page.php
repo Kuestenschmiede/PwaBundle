@@ -16,5 +16,4 @@ $GLOBALS['TL_LANG']['tl_page']['pwa_legend'] = 'Settings for Progressive Web App
 
 // fields
 $GLOBALS['TL_LANG']['tl_page']['pwaConfig'] = ['PWA configuration', 'Choose the configuration to load. These can be created in the PWA configuration backend module.'];
-$GLOBALS['TL_LANG']['tl_page']['pushConfig'] = ['Push configuration', 'Select the push configuration to be used. These can be created in the backend module of the same name.'];
 $GLOBALS['TL_LANG']['tl_page']['uncachedPages'] = ['Not cached pages', 'You can select single pages that should never be cached by the service worker.'];
