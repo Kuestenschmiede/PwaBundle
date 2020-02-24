@@ -176,35 +176,34 @@ async function createSubscriptionDialog(inputForm) {
 
 function registerForPush(pushManager) {
   jQuery.ajax('/con4gis/pushSubscription/getKey').done(function(data) {
-    let key = urlB64ToUint8Array(data.key);
-    const options = {userVisibleOnly: true, applicationServerKey: key};
-    const typeOptions = getTypeOptions();
-    const inputForm = getInputForm(typeOptions);
-    const selectionDisabled = getSelectionState();
-    pushManager.subscribe(options)
-      .then(async function (pushSubscription) {
-        let subscriptionType = "";
-        if (selectionDisabled) {
-          subscriptionType = Object.keys(typeOptions);
-        } else {
-          subscriptionType = await createSubscriptionDialog(inputForm);
-        }
-        // if (subscriptionType.length === 0) {
-        //   return false;
-        // }
+    let key = data.key ? urlB64ToUint8Array(decodeURIComponent(data.key)) : false;
+    if (key) {
+      const options = {userVisibleOnly: true, applicationServerKey: key};
+      const typeOptions = getTypeOptions();
+      const inputForm = getInputForm(typeOptions);
+      const selectionDisabled = getSelectionState();
+      pushManager.subscribe(options)
+          .then(async function (pushSubscription) {
+            let subscriptionType = "";
+            if (selectionDisabled) {
+              subscriptionType = Object.keys(typeOptions);
+            } else {
+              subscriptionType = await createSubscriptionDialog(inputForm);
+            }
 
-        let data = pushSubscription.toJSON();
-        data.subscriptionTypes = subscriptionType;
-        data.moduleId = window.moduleId;
-        jQuery.ajax('/con4gis/pushSubscription', {
-          method: 'POST',
-          data: data
-        }).done(function(data) {
-          updateSubscriptionButton(true);
-        });
-      }).catch(error => {
-      console.log(error);
-    });
+            let data = pushSubscription.toJSON();
+            data.subscriptionTypes = subscriptionType;
+            data.moduleId = window.moduleId;
+            jQuery.ajax('/con4gis/pushSubscription', {
+              method: 'POST',
+              data: data
+            }).done(function(data) {
+              updateSubscriptionButton(true);
+            });
+          }).catch(error => {
+        console.log(error);
+      });
+    }
   });
 }
 

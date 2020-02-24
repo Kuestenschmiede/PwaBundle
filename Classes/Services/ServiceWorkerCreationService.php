@@ -85,10 +85,7 @@ class ServiceWorkerCreationService
 
         $cacheName = 'pwa-con4gis-v' . $intVersion;
 
-        $path = $this->webPath . '/' . str_pad($pwaConfiguration->getId(), 3, '0', STR_PAD_LEFT);
-        if (!is_dir($path)) {
-            mkdir($path, 0777);
-        }
+        $path = $this->webPath . '/sw' . str_pad($pwaConfiguration->getId(), 3, '0', STR_PAD_LEFT);
         $this->createServiceWorkerFile(
             $arrPagenames,
             $cacheName,

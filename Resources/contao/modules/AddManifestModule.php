@@ -58,11 +58,10 @@ class AddManifestModule extends Module
                 $GLOBALS['TL_JAVASCRIPT'][] = 'assets/jquery/js/jquery.min.js|static';
             }
 
-            $scope = $path;
             // register service worker
             $GLOBALS['TL_HEAD'][] = '<script>
           if (\'serviceWorker\' in navigator) {
-            navigator.serviceWorker.register("'.$path.'.js")
+            navigator.serviceWorker.register("sw'.$path.'.js")
               .catch(err => console.log(err));
           }
         </script>';

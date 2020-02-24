@@ -16,6 +16,7 @@ namespace con4gis\PwaBundle\Controller;
 use con4gis\CoreBundle\Controller\BaseController;
 use con4gis\CoreBundle\Resources\contao\models\C4gLogModel;
 use con4gis\PwaBundle\Entity\PushSubscription;
+use con4gis\PwaBundle\Entity\WebPushConfiguration;
 use Contao\ModuleModel;
 use Contao\System;
 use Doctrine\ORM\EntityManager;
@@ -36,10 +37,14 @@ class PushController extends AbstractController
      */
     public function getPublicKeyAction(Request $request)
     {
-        $this->container->get('contao.framework')->initialize();
-        $container = System::getContainer();
-        $publicKey = $container->getParameter('minishlink_web_push.auth')['VAPID']['publicKey'];
-        return new JsonResponse(['key' => $publicKey]);
+       $em = $this->container->get('doctrine.orm.default_entity_manager');
+        $configurations = $em->getRepository(WebPushConfiguration::class)->findAll();
+        foreach ($configurations as $config) {
+            //ToDo find right key for multidomain applications
+            $publicKey = $config->getVapidPublickey();
+        }
+
+        return new JsonResponse(['key' => html_entity_decode($publicKey)]);
     }
     
     /**

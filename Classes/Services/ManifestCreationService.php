@@ -14,7 +14,9 @@
 namespace con4gis\PwaBundle\Classes\Services;
 
 use con4gis\PwaBundle\Entity\PwaConfiguration;
+use Contao\Controller;
 use Contao\FilesModel;
+use Contao\System;
 
 class ManifestCreationService
 {
@@ -35,9 +37,17 @@ class ManifestCreationService
             mkdir($this->webPath . '/' . $path);
         }
 
+        //ToDo set language
+        $language = Controller::replaceInsertTags('{{page::language}}') ?  Controller::replaceInsertTags('{{page::language}}') : substr($GLOBALS['_SERVER']['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        if ($language === 'de' || strpos($language, 'de-')) {
+            $language = 'de-DE';
+        } else {
+            $language = 'en-GB';
+        }
+
         $jsonTemplate = [
             'dir' => 'ltr',
-            'lang' => 'de-DE', //ToDo ???
+            'lang' => $language,
             'name' => '',
             'short_name' => '',
             'description' => '',
@@ -48,7 +58,7 @@ class ManifestCreationService
             'theme_color' => '',
             'icons' => [],
             'serviceworker' => [
-                'src' => $path . '.js',
+                'src' => 'sw'. $path . '.js',
                 'scope' => $pwaConfiguration->getScope(),
                 'update_via_cache' => $pwaConfiguration->getUpdateViaCache(),
             ],
