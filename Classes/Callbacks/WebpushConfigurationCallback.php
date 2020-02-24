@@ -13,15 +13,8 @@
 
 namespace con4gis\PwaBundle\Classes\Callbacks;
 
-use con4gis\CoreBundle\Resources\contao\models\C4gLogModel;
 use con4gis\PwaBundle\Entity\WebPushConfiguration;
 use Contao\Backend;
-use Contao\DataContainer;
-use Contao\System;
-use Database;
-use Minishlink\WebPush\VAPID;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
 
 class WebpushConfigurationCallback extends Backend
 {

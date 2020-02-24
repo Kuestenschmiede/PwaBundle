@@ -16,7 +16,6 @@ namespace con4gis\PwaBundle\Classes\Services;
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 use Contao\Controller;
 use Contao\FilesModel;
-use Contao\System;
 
 class ManifestCreationService
 {
@@ -58,7 +57,7 @@ class ManifestCreationService
             'theme_color' => '',
             'icons' => [],
             'serviceworker' => [
-                'src' => 'sw'. $path . '.js',
+                'src' => 'sw' . $path . '.js',
                 'scope' => $pwaConfiguration->getScope(),
                 'update_via_cache' => $pwaConfiguration->getUpdateViaCache(),
             ],

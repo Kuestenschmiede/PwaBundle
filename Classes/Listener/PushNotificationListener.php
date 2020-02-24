@@ -73,9 +73,9 @@ class PushNotificationListener
             $resSubscriptions = $subscriptions;
         } else {
             foreach ($types as $typeId) {
-                $type = $this->entityManager->getRepository(PushSubscriptionType::class)->findOneBy(['id'=>intval($typeId)]);
+                $type = $this->entityManager->getRepository(PushSubscriptionType::class)->findOneBy(['id' => intval($typeId)]);
                 if ($type) {
-                    $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOneBy(['id'=>$type->getPushConfig()]);
+                    $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOneBy(['id' => $type->getPushConfig()]);
                     $filePath = FilesModel::findByUuid($webpushConfig->getIcon())->path;
                     $clickUrl = $event->getClickUrl();
                     if ($clickUrl && (substr($clickUrl, 0, 2) === '<a')) {
@@ -101,8 +101,8 @@ class PushNotificationListener
                     $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
                     $resSubscriptions = [];
                     foreach ($subscriptions as $subscription) {
-                    if (array_intersect([$typeId], $subscription->getTypes())) {
-                        if (count($types) > 0) {
+                        if (array_intersect([$typeId], $subscription->getTypes())) {
+                            if (count($types) > 0) {
                                 $subscription->setContent($arrContent);
                                 $subscription->setConfig($webpushConfig);
                                 $resSubscriptions[] = $subscription;
@@ -135,7 +135,7 @@ class PushNotificationListener
                     'VAPID' => [
                         'subject' => html_entity_decode($webpushConfig->getVapidSubject()), // can be a mailto: or your website address
                         'publicKey' => html_entity_decode($webpushConfig->getVapidPublickey()), // (recommended) uncompressed public key P-256 encoded in Base64-URL
-                        'privateKey' => html_entity_decode($webpushConfig->getVapidPrivatekey()) // (recommended) in fact the secret multiplier of the private key encoded in Base64-URL
+                        'privateKey' => html_entity_decode($webpushConfig->getVapidPrivatekey()), // (recommended) in fact the secret multiplier of the private key encoded in Base64-URL
                     ],
                 ];
                 $this->webPushService = new WebPush($auth);

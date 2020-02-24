@@ -65,14 +65,14 @@ class ServiceWorkerFileWriter
      */
     public function createCachingCode($fileNames, $cacheName, $webPath)
     {
-        $pos = strpos($webPath,"/web/sw", 0) + 7;
+        $pos = strpos($webPath, '/web/sw', 0) + 7;
         $path = substr($webPath, $pos);
 
         $this->strContent .= "self.addEventListener('install', function(event) {\n";
         $this->strContent .= "\tevent.waitUntil(\n";
         $this->strContent .= "\tcaches.open('" . $cacheName . "').then(cache => \n";
         $this->strContent .= "\t\tcache.addAll(['.',\n";
-        $this->strContent .= "\t\t'".$path."/manifest.webmanifest',\n";
+        $this->strContent .= "\t\t'" . $path . "/manifest.webmanifest',\n";
         foreach ($fileNames as $fileName) {
             $this->strContent .= "\t\t'" . $fileName . "',\n";
         }

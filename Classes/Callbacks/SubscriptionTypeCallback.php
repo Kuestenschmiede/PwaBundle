@@ -1,8 +1,6 @@
 <?php
 
-
 namespace con4gis\PwaBundle\Classes\Callbacks;
-
 
 use con4gis\PwaBundle\Entity\WebPushConfiguration;
 use Contao\Backend;
