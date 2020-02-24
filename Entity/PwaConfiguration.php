@@ -25,6 +25,10 @@ use con4gis\CoreBundle\Entity\BaseEntity;
  */
 class PwaConfiguration extends BaseEntity
 {
+    const PWA_UPDATEVIACACHE_IMPORTS = 'imports';
+    const PWA_UPDATEVIACACHE_ALL = 'all';
+    const PWA_UPDATEVIACACHE_NONE = 'none';
+
     const PWA_DISPLAY_FULLSCREEN = 1;
     const PWA_DISPLAY_STANDALONE = 2;
     const PWA_DISPLAY_MINIMAL_UI = 3;
@@ -130,7 +134,13 @@ class PwaConfiguration extends BaseEntity
      * @ORM\Column(type="string")
      */
     private $scope = "";
-    
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $updateViaCache = "imports";
+
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
@@ -449,6 +459,22 @@ class PwaConfiguration extends BaseEntity
     public function setScope(string $scope): void
     {
         $this->scope = $scope;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdateViaCache(): string
+    {
+        return $this->updateViaCache;
+    }
+
+    /**
+     * @param string $updateViaCache
+     */
+    public function setUpdateViaCache(string $updateViaCache): void
+    {
+        $this->updateViaCache = $updateViaCache;
     }
     
     /**

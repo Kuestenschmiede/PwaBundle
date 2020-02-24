@@ -24,6 +24,18 @@ class PwaConfigurationCallback extends Backend
         \Contao\Message::addInfo($GLOBALS['TL_LANG']['tl_c4g_pwa_configuration']['infotext']);
     }
 
+    public function getUpdateViaCacheOptions()
+    {
+        $strName = 'tl_c4g_pwa_configuration';
+        $optionsLang = $GLOBALS['TL_LANG'][$strName]['updateViaCacheOptions'];
+
+        return [
+            PwaConfiguration::PWA_UPDATEVIACACHE_IMPORTS => $optionsLang[PwaConfiguration::PWA_UPDATEVIACACHE_IMPORTS],
+            PwaConfiguration::PWA_UPDATEVIACACHE_ALL => $optionsLang[PwaConfiguration::PWA_UPDATEVIACACHE_ALL],
+            PwaConfiguration::PWA_UPDATEVIACACHE_NONE => $optionsLang[PwaConfiguration::PWA_UPDATEVIACACHE_NONE],
+        ];
+    }
+
     public function getDisplayOptions()
     {
         $strName = 'tl_c4g_pwa_configuration';

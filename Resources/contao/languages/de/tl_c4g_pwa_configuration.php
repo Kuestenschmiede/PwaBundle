@@ -20,6 +20,7 @@ $GLOBALS['TL_LANG'][$strName]['shortName']  = ['Kurzform', 'Kurzform des Namens 
 $GLOBALS['TL_LANG'][$strName]['description'] = ['Beschreibung', 'Beschreibung der PWA'];
 $GLOBALS['TL_LANG'][$strName]['startUrl'] = ['Start-URL', 'Einstiegspunkt der Anwendung, wenn sie über den Home-Bildschirm aufgerufen wird.'];
 $GLOBALS['TL_LANG'][$strName]['scope'] = ['Navigationsscope', 'Geben Sie eine URL an. Nur diese URL und URLs die darunter liegen (bei www.example.com wäre das etwa www.example.com/page) dürfen von der Anwendung angesteuert werden.'];
+$GLOBALS['TL_LANG'][$strName]['updateViaCache'] = ['Update via Cache', 'Sollen Updates über den HTML-Cache durchgeführt werden?'];
 $GLOBALS['TL_LANG'][$strName]['themeColor'] = ['Theme-Farbe', 'Geben Sie eine Farbe für das Theme der PWA an.'];
 $GLOBALS['TL_LANG'][$strName]['backgroundColor'] = ['Hintergrund-Farbe', 'Geben sie eine Farbe für den Hintergrund der PWA an.'];
 $GLOBALS['TL_LANG'][$strName]['display'] = ['Anzeigemodus', 'Wählen Sie den gewünschten Anzeigemodus für die PWA aus.'];
@@ -48,6 +49,10 @@ $GLOBALS['TL_LANG'][$strName]['splashIpadThird'] = ['Icon für Splashscreen (Gr�
 $GLOBALS['TL_LANG'][$strName]['infotext'] = "Bitte beachten Sie, dass die Änderungen an der Konfiguration erst mit dem erneuten Speichern des Startpunktes der Website, dem die Konfiguration zugeordnet ist, wirksam werden.";
 
 // Options
+$GLOBALS['TL_LANG'][$strName]['updateViaCacheOptions'][PwaConfiguration::PWA_UPDATEVIACACHE_IMPORTS] = "imports (default, chrome >= 68)";
+$GLOBALS['TL_LANG'][$strName]['updateViaCacheOptions'][PwaConfiguration::PWA_UPDATEVIACACHE_ALL] = "all (chrome < 68)";
+$GLOBALS['TL_LANG'][$strName]['updateViaCacheOptions'][PwaConfiguration::PWA_UPDATEVIACACHE_NONE] = "none";
+
 $GLOBALS['TL_LANG'][$strName]['displayOptions'][PwaConfiguration::PWA_DISPLAY_FULLSCREEN] = "Vollbild";
 $GLOBALS['TL_LANG'][$strName]['displayOptions'][PwaConfiguration::PWA_DISPLAY_STANDALONE] = "Standalone";
 $GLOBALS['TL_LANG'][$strName]['displayOptions'][PwaConfiguration::PWA_DISPLAY_MINIMAL_UI] = "Minimale UI";

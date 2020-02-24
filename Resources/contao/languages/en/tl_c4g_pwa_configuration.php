@@ -20,6 +20,7 @@ $GLOBALS['TL_LANG'][$strName]['shortName']  = ['Abbreviation', 'Abbreviation of 
 $GLOBALS['TL_LANG'][$strName]['description'] = ['Description', 'Description of the pwa.'];
 $GLOBALS['TL_LANG'][$strName]['startUrl'] = ['Start URL', 'Entry point of the pwa. This URL will be visited when the pwa is started.'];
 $GLOBALS['TL_LANG'][$strName]['scope'] = ['Navigation scope', 'Specify an URL. Only this URL and its childs are allowed to be handled by the service worker (when the scope is "www.example.com", "www.example.com/page" is considered a child).'];
+$GLOBALS['TL_LANG'][$strName]['updateViaCache'] = ['Update via cache', 'Should updates be performed via the HTML cache?'];
 $GLOBALS['TL_LANG'][$strName]['themeColor'] = ['Theme color', 'Specify a theme color for the pwa.'];
 $GLOBALS['TL_LANG'][$strName]['backgroundColor'] = ['Background color', 'Specify a background color for the pwa.'];
 $GLOBALS['TL_LANG'][$strName]['display'] = ['Display mode', 'Choose the display mode of the pwa.'];
@@ -48,6 +49,10 @@ $GLOBALS['TL_LANG'][$strName]['splashIpadThird'] = ['Icon for the splashscreen (
 $GLOBALS['TL_LANG'][$strName]['infotext'] = "Please be aware of the fact that some changes on this configuration will only take place as soon as the associated page root is saved again.";
 
 // Options
+$GLOBALS['TL_LANG'][$strName]['updateViaCacheOptions'][PwaConfiguration::PWA_UPDATEVIACACHE_IMPORTS] = "imports (default, chrome >= 68)";
+$GLOBALS['TL_LANG'][$strName]['updateViaCacheOptions'][PwaConfiguration::PWA_UPDATEVIACACHE_ALL] = "all (chrome < 68)";
+$GLOBALS['TL_LANG'][$strName]['updateViaCacheOptions'][PwaConfiguration::PWA_UPDATEVIACACHE_NONE] = "none";
+
 $GLOBALS['TL_LANG'][$strName]['displayOptions'][PwaConfiguration::PWA_DISPLAY_FULLSCREEN] = "Fullscreen";
 $GLOBALS['TL_LANG'][$strName]['displayOptions'][PwaConfiguration::PWA_DISPLAY_STANDALONE] = "Standalone";
 $GLOBALS['TL_LANG'][$strName]['displayOptions'][PwaConfiguration::PWA_DISPLAY_MINIMAL_UI] = "Minimal UI";

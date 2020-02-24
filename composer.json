@@ -17,7 +17,7 @@
     "require": {
         "con4gis/core": "^3.3",
         "contao/core-bundle": "^4.4",
-        "minishlink/web-push-bundle": "^3",
+        "minishlink/web-push-bundle": "^5",
         "contao-components/jquery": "^3.0"
     },
     "conflict": {

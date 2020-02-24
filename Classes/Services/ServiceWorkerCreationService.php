@@ -41,7 +41,7 @@ class ServiceWorkerCreationService
     public function createServiceWorker(PwaConfiguration $pwaConfiguration, PageModel $pageRoot)
     {
         $suffix = $this->container->getParameter('contao.url_suffix');
-        ;
+        
         // TODO geht aktuell nur eine ebene tief
         $childPages = PageModel::findPublishedByPid($pageRoot->id);
         $arrPagenames = [];

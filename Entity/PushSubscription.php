@@ -74,6 +74,12 @@ class PushSubscription extends BaseEntity
      * @ORM\Column(type="array")
      */
     private $content = [];
+
+    /**
+     * @var object
+     * @ORM\Column(type="object")
+     */
+    private $config = [];
     
     /**
      * @return int
@@ -203,4 +209,19 @@ class PushSubscription extends BaseEntity
         $this->content = $content;
     }
 
+    /**
+     * @return object
+     */
+    public function getConfig(): object
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param object $config
+     */
+    public function setConfig(object $config): void
+    {
+        $this->config = $config;
+    }
 }

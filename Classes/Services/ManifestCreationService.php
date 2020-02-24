@@ -30,14 +30,14 @@ class ManifestCreationService
 
     public function createManifestFile(PwaConfiguration $pwaConfiguration)
     {
-        $path = '/' . str_pad($pwaConfiguration->getId(), 3, '0', STR_PAD_LEFT);
-        if (!is_dir($path)) {
-            mkdir($path, 0777);
+        $path = str_pad($pwaConfiguration->getId(), 3, '0', STR_PAD_LEFT);
+        if (!is_dir($this->webPath . '/' . $path)) {
+            mkdir($this->webPath . '/' . $path);
         }
 
         $jsonTemplate = [
             'dir' => 'ltr',
-            'lang' => 'de-DE',
+            'lang' => 'de-DE', //ToDo ???
             'name' => '',
             'short_name' => '',
             'description' => '',
@@ -48,22 +48,22 @@ class ManifestCreationService
             'theme_color' => '',
             'icons' => [],
             'serviceworker' => [
-                'src' => $path . '/sw.js',
+                'src' => $path . '.js',
                 'scope' => $pwaConfiguration->getScope(),
-                'update_via_cache' => 'none',
+                'update_via_cache' => $pwaConfiguration->getUpdateViaCache(),
             ],
         ];
         $manifestJson = $this->parseFromConfiguration($jsonTemplate, $pwaConfiguration);
 
-        $file = $this->webPath . $path . '/manifest.webmanifest';
+        $file = $this->webPath . '/' . $path . '/manifest.webmanifest';
         $this->writeManifestFile($file, $manifestJson);
     }
 
     private function parseFromConfiguration($arrJson, PwaConfiguration $configuration)
     {
-        $arrJson['name'] = $configuration->getName();
-        $arrJson['short_name'] = $configuration->getShortName();
-        $arrJson['description'] = $configuration->getDescription();
+        $arrJson['name'] = html_entity_decode($configuration->getName());
+        $arrJson['short_name'] = html_entity_decode($configuration->getShortName());
+        $arrJson['description'] = html_entity_decode($configuration->getDescription());
         $arrJson['display'] = $this->convertDisplayIdToManifestString($configuration->getDisplay());
         $arrJson['background_color'] = '#' . $configuration->getBackgroundColor();
         $arrJson['theme_color'] = '#' . $configuration->getThemeColor();
@@ -111,6 +111,7 @@ class ManifestCreationService
 
     private function writeManifestFile($file, $arrData)
     {
-        file_put_contents($file, json_encode($arrData, JSON_PRETTY_PRINT));
+        $content = json_encode($arrData, JSON_PRETTY_PRINT);
+        file_put_contents($file, $content);
     }
 }

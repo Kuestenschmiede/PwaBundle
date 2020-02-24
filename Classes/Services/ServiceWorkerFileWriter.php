@@ -38,7 +38,7 @@ class ServiceWorkerFileWriter
      */
     public function createServiceWorkerFile($fileNames, $cacheName, $webPath, $strOfflinePage, $intOfflineHandling, $blockedUrls)
     {
-        $this->createCachingCode($fileNames, $cacheName);
+        $this->createCachingCode($fileNames, $cacheName, $webPath);
         //$this->createActivationListener($cacheName);
         $urlFilterString = $this->createUrlFilterString($blockedUrls);
         if ($strOfflinePage) {
@@ -55,7 +55,7 @@ class ServiceWorkerFileWriter
         }
         $this->createPushCode();
         $this->createNotificationClickCode();
-        file_put_contents($webPath . '/sw.js', $this->strContent);
+        file_put_contents($webPath . '.js', $this->strContent);
     }
 
     /**
@@ -63,15 +63,18 @@ class ServiceWorkerFileWriter
      * @param $fileNames
      * @param $cacheName
      */
-    public function createCachingCode($fileNames, $cacheName)
+    public function createCachingCode($fileNames, $cacheName, $webPath)
     {
+        $pos = strpos($webPath,"/web/", 0) + 5;
+        $path = substr($webPath, $pos);
+
         $this->strContent .= "self.addEventListener('install', function(event) {\n";
         $this->strContent .= "\tevent.waitUntil(\n";
         $this->strContent .= "\tcaches.open('" . $cacheName . "').then(cache => \n";
-        $this->strContent .= "\t\tcache.addAll(['../',\n";
-        $this->strContent .= "\t\t'manifest.webmanifest',\n";
+        $this->strContent .= "\t\tcache.addAll(['.',\n";
+        $this->strContent .= "\t\t'".$path."/manifest.webmanifest',\n";
         foreach ($fileNames as $fileName) {
-            $this->strContent .= "\t\t'../" . $fileName . "',\n";
+            $this->strContent .= "\t\t'" . $fileName . "',\n";
         }
         $this->strContent .= "\t])";
         $this->strContent .= "\t).then(() => self.skipWaiting()));\n";

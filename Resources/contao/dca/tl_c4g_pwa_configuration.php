@@ -101,7 +101,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,shortName,description,startUrl,scope,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512;{expert_legend},additionalUrls,blockedUrls;
+        'default'   =>  '{data_legend},name,shortName,description,startUrl,scope,updateViaCache,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512;{expert_legend},additionalUrls,blockedUrls;
         {ios_legend},iosStyle,appleIcon120,appleIcon152,appleIcon180,appleIcon167,splashIphoneFirst,splashIphoneSecond,splashIphoneThird,splashIphoneFourth,splashIpadFirst,splashIpadSecond,splashIpadThird;',
     ),
     
@@ -146,6 +146,15 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+        ),
+
+        'updateViaCache' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['updateViaCache'],
+            'default'           => 'imports',
+            'inputType'         => 'select',
+            'options_callback'  => [PwaConfigurationCallback::class, 'getUpdateViaCacheOptions'],
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => false)
         ),
     
         'themeColor' => array

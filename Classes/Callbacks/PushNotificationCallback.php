@@ -22,7 +22,7 @@ class PushNotificationCallback extends Backend
         $event->setTitle($title);
         $event->setMessage($content);
         $eventDispatcher->dispatch($event::NAME, $event);
-        Controller::redirect('/contao?do=sendPush');
+        Controller::redirect('/contao?do=c4g_push_notification');
     }
 
     public function truncateTable(DataContainer $dc)
