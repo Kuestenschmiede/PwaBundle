@@ -133,9 +133,9 @@ class PushNotificationListener
                 $webpushConfig = $subscription->getConfig();
                 $auth = [
                     'VAPID' => [
-                        'subject' => $webpushConfig->getVapidSubject(), // can be a mailto: or your website address
-                        'publicKey' => $webpushConfig->getVapidPublickey(), // (recommended) uncompressed public key P-256 encoded in Base64-URL
-                        'privateKey' => $webpushConfig->getVapidPrivatekey() // (recommended) in fact the secret multiplier of the private key encoded in Base64-URL
+                        'subject' => html_entity_decode($webpushConfig->getVapidSubject()), // can be a mailto: or your website address
+                        'publicKey' => html_entity_decode($webpushConfig->getVapidPublickey()), // (recommended) uncompressed public key P-256 encoded in Base64-URL
+                        'privateKey' => html_entity_decode($webpushConfig->getVapidPrivatekey()) // (recommended) in fact the secret multiplier of the private key encoded in Base64-URL
                     ],
                 ];
                 $this->webPushService = new WebPush($auth);
