@@ -341,6 +341,10 @@ $GLOBALS['TL_DCA'][$strName] = array
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
         ),
+        'importId' => array
+        (
+            'eval'              => array('doNotCopy' => true)
+        ),
         
     )
 );

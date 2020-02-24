@@ -101,6 +101,10 @@ $GLOBALS['TL_DCA'][$strName] = array
             'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true),
             'sql'               => "int(10) unsigned NOT NULL default '0'"
             //ToDo xlabel
+        ],
+        'importId' =>
+        [
+           'eval'               => array('doNotCopy' => true)
         ]
     )
 );

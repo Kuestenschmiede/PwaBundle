@@ -75,6 +75,10 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
         (
             'sql' => "int(10) unsigned NOT NULL default '0'"
         ),
+        'importId' => array
+        (
+            'eval'              => array('doNotCopy' => true)
+        ),
         'messageTitle' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['messageTitle'],
