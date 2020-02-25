@@ -23,17 +23,10 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
     (
         'dataContainer'     => 'Table',
         'enableVersioning'  => false,
-        // 'notDeletable' => true,
-        // 'notCopyable' => true,
-        //'closed' => (\Input::get('id')),
-//        'onload_callback'			=> array
-//        (
-//            array('\con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback', 'loadDataset'),
-//        ),
-//        'onsubmit_callback'			=> array
-//        (
-//            array('\con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback', 'writeDataToConfig'),
-//        )
+        'onsubmit_callback'			=> array
+        (
+            array('\con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback', 'writeDataToConfig'),
+        )
     ),
     
     

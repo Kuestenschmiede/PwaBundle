@@ -15,9 +15,23 @@ namespace con4gis\PwaBundle\Classes\Callbacks;
 
 use con4gis\PwaBundle\Entity\WebPushConfiguration;
 use Contao\Backend;
+use Contao\DataContainer;
+use Minishlink\WebPush\VAPID;
 
 class WebpushConfigurationCallback extends Backend
 {
+    public function writeDataToConfig(DataContainer $dc)
+    {
+        if ($dc && !($dc->activeRecord->vapidPublickey && $dc->activeRecord->vapidPrivatekey)) {
+            // both keys are required, so create a new pair
+            $keys = VAPID::createVapidKeys();
+            $publicKey = $keys['publicKey'];
+            $privateKey = $keys['privateKey'];
+            $this->Database->prepare('UPDATE tl_c4g_webpush_configuration SET vapidPublickey=?, vapidPrivatekey=? WHERE id=? ')
+                ->execute($publicKey, $privateKey, $dc->activeRecord->id);
+        }
+    }
+
     public function getUrgencyOptions()
     {
         $strName = 'tl_c4g_webpush_configuration';
