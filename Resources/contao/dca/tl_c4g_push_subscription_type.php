@@ -99,8 +99,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'inputType'         => 'select',
             'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\SubscriptionTypeCallback', 'getPushConfigOptions'],
             'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true),
-            'sql'               => "int(10) unsigned NOT NULL default '0'"
-            //ToDo xlabel
+            'sql'               => "int(10) unsigned NOT NULL default '0'",
+            'xlabel'            => [[$strName, 'pushConfigLink']]
         ],
         'importId' =>
         [
@@ -108,4 +108,17 @@ $GLOBALS['TL_DCA'][$strName] = array
         ]
     )
 );
+
+/**
+ * Class tl_content_c4g_maps
+ */
+class tl_c4g_push_subscription_type extends Backend
+{
+
+    public function pushConfigLink(Contao\DataContainer $dc)
+    {
+        return ' <a href="contao/main.php?do=c4g_webpush_configuration&amp;table=tl_c4g_webpush_configuration&amp;id=' . $dc->activeRecord->pid . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN . '" title="' . Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['tl_c4g_push_subscriptions_type']['editPushConfigurations']) . '" onclick="Backend.openModalIframe({\'title\':\'' . Contao\StringUtil::specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['tl_c4g_push_subscriptions_type']['editPushConfigurations'])) . '\',\'url\':this.href});return false">' . Contao\Image::getHtml('edit.svg') . '</a>';
+    }
+}
+
 

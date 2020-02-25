@@ -6,6 +6,9 @@ $GLOBALS['TL_LANG'][$strName]['pushConfig'] = ['Push-Konfiguration', 'Wählen Si
 
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Allgemeine Daten';
 
+$GLOBALS['TL_LANG'][$strName]['editPushConfigurations'] = ['Push-Konfiguration bearbeiten.'];
+
+
 // operations
 $singular = 'Push-Abonnement-Typen';
 $GLOBALS['TL_LANG'][$strName]['new'] = array("$singular hinzufügen","$singular hinzufügen");

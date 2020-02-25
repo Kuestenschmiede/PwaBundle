@@ -6,6 +6,8 @@ $GLOBALS['TL_LANG'][$strName]['pushConfig'] = ['Push configuration', 'Select the
 
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'General data';
 
+$GLOBALS['TL_LANG'][$strName]['editPushConfigurations'] = ['Edit push configuration.'];
+
 // operations
 $singular = 'push subscription type';
 $GLOBALS['TL_LANG'][$strName]['new'] = array("Add $singular","Add $singular");
