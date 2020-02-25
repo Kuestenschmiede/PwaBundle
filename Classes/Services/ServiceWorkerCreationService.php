@@ -42,8 +42,9 @@ class ServiceWorkerCreationService
     {
         $suffix = $this->container->getParameter('contao.url_suffix');
 
-        // TODO geht aktuell nur eine ebene tief
-        $childPages = PageModel::findPublishedByPid($pageRoot->id);
+        //TODO currently only one level deep
+        $childPages = PageModel::findPublishedByPid($pageRoot->id, array('type'=>'regular'));
+
         $arrPagenames = [];
 
         if ($pwaConfiguration->getOfflinePage()) {
