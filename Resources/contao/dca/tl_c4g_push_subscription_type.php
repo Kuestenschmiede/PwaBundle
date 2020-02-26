@@ -91,7 +91,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['name'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ],
         'pushConfig' => [
             'label'             => $GLOBALS['TL_LANG'][$strName]['pushConfig'],
@@ -100,7 +101,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\SubscriptionTypeCallback', 'getPushConfigOptions'],
             'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true),
             'sql'               => "int(10) unsigned NOT NULL default '0'",
-            'xlabel'            => [[$strName, 'pushConfigLink']]
+            'xlabel'            => [[$strName, 'pushConfigLink']],
+            'exclude'           => true
         ],
         'importId' =>
         [

@@ -43,7 +43,7 @@ class ServiceWorkerCreationService
         $suffix = $this->container->getParameter('contao.url_suffix');
 
         //TODO currently only one level deep
-        $childPages = PageModel::findPublishedByPid($pageRoot->id, array('type'=>'regular'));
+        $childPages = PageModel::findPublishedByPid($pageRoot->id, ['type' => 'regular']);
 
         $arrPagenames = [];
 

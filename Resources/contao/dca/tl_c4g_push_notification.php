@@ -85,7 +85,8 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
-            'sql'               => "varchar(255) NOT NULL default ''"
+            'sql'               => "varchar(255) NOT NULL default ''",
+            'exclude'           => true
         ),
         'messageContent' => array
         (
@@ -93,7 +94,8 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
             'default'           => '',
             'inputType'         => 'textarea',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
-            'sql'               => "varchar(255) NOT NULL default ''"
+            'sql'               => "varchar(255) NOT NULL default ''",
+            'exclude'           => true
         ),
         'subscriptionTypes' => array
         (
@@ -102,7 +104,8 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
             'inputType'         => 'select',
             'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
             'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true, 'multiple' => true, 'chosen' => true),
-            'sql'               => "blob NULL"
+            'sql'               => "blob NULL",
+            'exclude'           => true
         )
     )
 );

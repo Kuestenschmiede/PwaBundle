@@ -20,5 +20,6 @@ $GLOBALS['TL_DCA']['tl_news']['fields']['pnSendDate'] = [
     'save_callback'           => array(array(EventsCallback::class, 'convertDateStringToTimeStamp')),
     'load_callback'           => array(array(EventsCallback::class, 'convertTimeStampToDateString')),
     'eval'                    => array('rgxp'=>'datim', 'mandatory' => false, 'datepicker' => true, 'tl_class' => 'clr'),
-    "sql" => "int(10) NOT NULL default 0"
+    "sql" => "int(10) NOT NULL default 0",
+    'exclude' => true
 ];

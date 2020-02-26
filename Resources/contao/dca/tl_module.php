@@ -22,7 +22,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pwaConfiguration'] = [
     'inputType'         => 'select',
     'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PageCallback', 'getPwaConfigOptions'],
     'eval'              => array('mandatory' => false, 'tl_class' => 'clr', 'includeBlankOption' => true),
-    'sql'               => "int(10) unsigned NOT NULL default 0"
+    'sql'               => "int(10) unsigned NOT NULL default 0",
+    'exclude'           => true
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['subscribeText'] = [
@@ -30,7 +31,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['subscribeText'] = [
     'default'           => 'Pushnachrichten abonnieren',
     'inputType'         => 'text',
     'eval'              => array('mandatory' => true, 'tl_class' => 'clr'),
-    'sql'               => "varchar(100) NOT NULL default ''"
+    'sql'               => "varchar(100) NOT NULL default ''",
+    'exclude'           => true
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['unsubscribeText'] = [
@@ -38,7 +40,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['unsubscribeText'] = [
     'default'           => 'Abonnement bearbeiten',
     'inputType'         => 'text',
     'eval'              => array('mandatory' => true, 'tl_class' => 'clr'),
-    'sql'               => "varchar(100) NOT NULL default ''"
+    'sql'               => "varchar(100) NOT NULL default ''",
+    'exclude'           => true
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['subscriptionTypes'] = [
@@ -47,7 +50,8 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['subscriptionTypes'] = [
     'inputType'         => 'select',
     'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
     'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true, 'multiple' => true, 'chosen' => true),
-    'sql'               => "blob NULL"
+    'sql'               => "blob NULL",
+    'exclude'           => true
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['disableSelection'] = [

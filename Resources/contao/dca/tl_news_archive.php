@@ -24,5 +24,6 @@ $GLOBALS['TL_DCA']['tl_news_archive']['fields']['subscriptionTypes'] = [
     'inputType'         => 'select',
     'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
     'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true, 'multiple' => true, 'chosen' => true),
-    'sql'               => "blob NULL"
+    'sql'               => "blob NULL",
+    'exclude'           => true
 ];

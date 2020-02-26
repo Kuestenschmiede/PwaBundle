@@ -113,7 +113,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['name'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
     
         'shortName' => array
@@ -121,7 +122,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['shortName'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
     
         'description' => array
@@ -129,7 +131,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['description'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
     
         'startUrl' => array
@@ -137,7 +140,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['startUrl'],
             'default'           => '/',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
     
         'scope' => array
@@ -145,7 +149,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['scope'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
 
         'updateViaCache' => array
@@ -154,7 +159,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => 'imports',
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getUpdateViaCacheOptions'],
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => false)
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => false),
+            'exclude'           => true
         ),
     
         'themeColor' => array
@@ -162,7 +168,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['themeColor'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'isHexColor'=>true, 'colorpicker'=>true, 'decodeEntities'=>true, 'tl_class'=>'long wizard')
+            'eval'              => array('mandatory' => true, 'isHexColor'=>true, 'colorpicker'=>true, 'decodeEntities'=>true, 'tl_class'=>'long wizard'),
+            'exclude'           => true
         ),
     
         'backgroundColor' => array
@@ -170,7 +177,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['backgroundColor'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'isHexColor'=>true, 'colorpicker'=>true, 'decodeEntities'=>true, 'tl_class'=>'long wizard')
+            'eval'              => array('mandatory' => true, 'isHexColor'=>true, 'colorpicker'=>true, 'decodeEntities'=>true, 'tl_class'=>'long wizard'),
+            'exclude'           => true
         ),
     
         'display' => array
@@ -179,7 +187,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '0',
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getDisplayOptions'],
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true),
+            'exclude'           => true
         ),
     
         'orientation' => array
@@ -188,7 +197,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '0',
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getOrientationOptions'],
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true)
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true),
+            'exclude'           => true
         ),
     
         'offlinePage' => array
@@ -206,7 +216,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '1',
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getOfflineHandlingOptions'],
-            'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true)
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true),
+            'exclude'           => true
         ),
     
         'icon192' => array
@@ -215,7 +226,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true],
+            'exclude'           => true
         ),
     
         'icon512' => array
@@ -224,7 +236,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true],
+            'exclude'           => true
         ),
     
         'additionalUrls' => array
@@ -232,7 +245,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['additionalUrls'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => false, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
     
         'blockedUrls' => array
@@ -240,7 +254,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['blockedUrls'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => false, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
     
         'iosStyle' => array
@@ -249,7 +264,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => 'black',
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getIosStyleOptions'],
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
     
         'appleIcon120' => array
@@ -258,7 +274,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
     
         'appleIcon152' => array
@@ -267,7 +284,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
     
         'appleIcon180' => array
@@ -276,7 +294,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
     
         'appleIcon167' => array
@@ -285,7 +304,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
     
         'splashIphoneFirst' => array
@@ -294,7 +314,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
     
         'splashIphoneSecond' => array
@@ -303,7 +324,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
     
         'splashIphoneThird' => array
@@ -312,7 +334,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
     
         'splashIphoneFourth' => array
@@ -321,7 +344,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
     
         'splashIpadFirst' => array
@@ -330,7 +354,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
     
         'splashIpadSecond' => array
@@ -339,7 +364,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
     
         'splashIpadThird' => array
@@ -348,7 +374,8 @@ $GLOBALS['TL_DCA'][$strName] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
         'importId' => array
         (

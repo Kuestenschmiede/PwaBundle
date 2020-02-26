@@ -45,7 +45,8 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['pwaConfig'] = [
         'inputType'         => 'select',
         'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PageCallback', 'getPwaConfigOptions'],
         'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true),
-        'sql'               => "int(10) unsigned NOT NULL default '0'"
+        'sql'               => "int(10) unsigned NOT NULL default '0'",
+        'exclude'           => true
 ];
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['uncachedPages'] = [

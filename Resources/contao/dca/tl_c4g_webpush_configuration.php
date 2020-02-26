@@ -108,28 +108,32 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['name'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ],
         'vapidSubject' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['vapidSubject'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
         'vapidPublickey' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['vapidPublickey'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => false, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
         'vapidPrivatekey' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['vapidPrivatekey'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => false, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
     
         'ttl' => array
@@ -137,7 +141,8 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['ttl'],
             'default'           => 2419200,
             'inputType'         => 'text',
-            'eval'              => array('rgxp' => 'digit','mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('rgxp' => 'digit','mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
     
         'urgency' => array
@@ -146,7 +151,8 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             'default'           => 'normal',
             'inputType'         => 'select',
             'options_callback'  => [WebpushConfigurationCallback::class, 'getUrgencyOptions'],
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
     
         'topic' => array
@@ -154,7 +160,8 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['topic'],
             'default'           => 'message',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
 
         'batchSize' => array
@@ -162,7 +169,8 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['batchSize'],
             'default'           => 1000,
             'inputType'         => 'text',
-            'eval'              => array('rgxp' => 'digit','mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('rgxp' => 'digit','mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
 
         'timeout' => array
@@ -170,7 +178,8 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             'label'             => $GLOBALS['TL_LANG'][$strName]['timeout'],
             'default'           => 30,
             'inputType'         => 'text',
-            'eval'              => array('rgxp' => 'digit','mandatory' => true, 'tl_class' => 'long')
+            'eval'              => array('rgxp' => 'digit','mandatory' => true, 'tl_class' => 'long'),
+            'exclude'           => true
         ),
     
         'icon' => array
@@ -179,7 +188,8 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
-            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false]
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
+            'exclude'           => true
         ),
         'importId' => array
         (
