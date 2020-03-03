@@ -175,7 +175,10 @@ async function createSubscriptionDialog(inputForm) {
 }
 
 function registerForPush(pushManager) {
-  jQuery.ajax('/con4gis/pushSubscription/getKey').done(function(data) {
+  jQuery.ajax('/con4gis/pushSubscription/getKey', {
+    method: 'GET',
+    data: {moduleId: window.moduleId}
+  }).done(function(data) {
     let key = data.key ? urlB64ToUint8Array(decodeURIComponent(data.key)) : false;
     if (key) {
       const options = {userVisibleOnly: true, applicationServerKey: key};

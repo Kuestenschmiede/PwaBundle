@@ -13,17 +13,15 @@
 
 namespace con4gis\PwaBundle\Controller;
 
-use con4gis\CoreBundle\Controller\BaseController;
 use con4gis\CoreBundle\Resources\contao\models\C4gLogModel;
 use con4gis\PwaBundle\Entity\PushSubscription;
 use con4gis\PwaBundle\Entity\WebPushConfiguration;
 use Contao\ModuleModel;
 use Contao\System;
+use Contao\Database;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,11 +35,27 @@ class PushController extends AbstractController
      */
     public function getPublicKeyAction(Request $request)
     {
-       $em = $this->container->get('doctrine.orm.default_entity_manager');
-        $configurations = $em->getRepository(WebPushConfiguration::class)->findAll();
-        foreach ($configurations as $config) {
-            //ToDo find right key for multidomain applications
-            $publicKey = $config->getVapidPublickey();
+        $em = $this->container->get('doctrine.orm.default_entity_manager');
+
+        $data = $request->query->all();
+        $moduleId = $data ? $data['moduleId'] : false;
+        $publicKey = false;
+        if ($moduleId) {
+            $this->get('contao.framework')->initialize();
+            $module = ModuleModel::findById($moduleId);
+            if ($module && $module->pushConfig) {
+                $config = $em->getRepository(WebPushConfiguration::class)->findOneBy(['id'=>$module->pushConfig]);
+                $publicKey = $config ? $config->getVapidPublickey() : false;
+            }
+        }
+
+        //if there are no config in module we take first publicKey
+        if (!$publicKey) {
+            $configurations = $em->getRepository(WebPushConfiguration::class)->findAll();
+            foreach ($configurations as $config) {
+                $publicKey = $config->getVapidPublickey();
+                break;
+            }
         }
 
         return new JsonResponse(['key' => html_entity_decode($publicKey)]);
