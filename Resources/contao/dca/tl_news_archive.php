@@ -5,9 +5,13 @@ use con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback;
 
 $GLOBALS['TL_DCA']['tl_news_archive']['palettes']['__selector__'][] = 'pushOnPublish';
 
-$GLOBALS['TL_DCA']['tl_news_archive']['palettes']['default'] .= ',pushOnPublish';
-
 $GLOBALS['TL_DCA']['tl_news_archive']['subpalettes']['pushOnPublish'] = 'subscriptionTypes';
+
+Contao\CoreBundle\DataContainer\PaletteManipulator::create()
+    ->addLegend('pwa_legend', 'expert_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_BEFORE)
+    ->addField(array('pushOnPublish'), 'pwa_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
+    ->applyToPalette('default', 'tl_news_archive');
+
 
 $GLOBALS['TL_DCA']['tl_news_archive']['fields']['pushOnPublish'] = [
     'label'                   => &$GLOBALS['TL_LANG']['tl_news_archive']['pushOnPublish'],

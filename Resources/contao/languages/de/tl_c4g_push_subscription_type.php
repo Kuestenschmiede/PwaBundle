@@ -8,6 +8,10 @@ $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Allgemeine Daten';
 
 $GLOBALS['TL_LANG'][$strName]['editPushConfigurations'] = ['Push-Konfiguration bearbeiten.'];
 
+$GLOBALS['TL_LANG']['tl_c4g_push_subscription_type']['infotext'] = 'Die Abonnement Typen können an verschiedenen Stellen im Contao Backend verknüpft werden. Bspw. bei den Termineinstellungen oder im Nachrichtenarchiv. '.
+    'Damit die Typen abonniert werden können, müssen diese im Frontend Modul "Pushnachrichten abonnieren" verknüpft sein. '.
+    'Mehr auf <a href="https://docs.con4gis.org/push-abonnement-typen" title="con4gis Docs PWA Push Abonnement Typen" target="_blank" rel="noopener"><b>docs.con4gis.org</b></a>';
+
 
 // operations
 $singular = 'Push-Abonnement-Typen';

@@ -23,6 +23,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
     (
         'dataContainer'     => 'Table',
         'enableVersioning'  => false,
+        'onload_callback' => [['\con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback', 'showInfoMessage']],
         'onsubmit_callback'			=> array
         (
             array('\con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback', 'writeDataToConfig'),

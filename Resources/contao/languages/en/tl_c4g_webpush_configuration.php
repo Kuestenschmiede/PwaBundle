@@ -34,4 +34,6 @@ $GLOBALS['TL_LANG'][$strName][WebPushConfiguration::URGENCY_HIGH] = 'High';
 // legends
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Configuration for web push';
 // infotext
-$GLOBALS['TL_LANG'][$strName]['infotext'] = "Please note that the cache has to be cleared (for example via the Contao-Manager) after changes to this configuration, so Symfony can read the new configuration.";
+$GLOBALS['TL_LANG'][$strName]['infotext'] = 'Here you configure the push messages. You should only create several configurations for a multi-domain application. '.
+    'The configuration must be linked to the subscription type and to the frontend module. Different configurations cannot be used within a "starting point of the website". '.
+    'More at <a href="https://docs.con4gis.org/webpush-nachrichten" title="con4gis Docs PWA Webpush Configuration" target="_blank" rel="noopener"><b>docs.con4gis.org</b></a>';

@@ -13,4 +13,4 @@
  */
 
 
-$GLOBALS['TL_LANG']['tl_news']['pnSendDate'] = ["Send date", "Choose a day on which the push notification should be sent."];
+$GLOBALS['TL_LANG']['tl_news']['pnSendDate'] = ["Send date (Push notifications)", "Choose a day on which the push notification should be sent. Sending must be activated on the archive."];

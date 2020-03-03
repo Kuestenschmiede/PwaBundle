@@ -16,10 +16,16 @@ namespace con4gis\PwaBundle\Classes\Callbacks;
 use con4gis\PwaBundle\Entity\WebPushConfiguration;
 use Contao\Backend;
 use Contao\DataContainer;
+use Contao\Message;
 use Minishlink\WebPush\VAPID;
 
 class WebpushConfigurationCallback extends Backend
 {
+    public function showInfoMessage(DataContainer $dc)
+    {
+        Message::addInfo($GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['infotext']);
+    }
+
     public function writeDataToConfig(DataContainer $dc)
     {
         if ($dc && !($dc->activeRecord->vapidPublickey && $dc->activeRecord->vapidPrivatekey)) {

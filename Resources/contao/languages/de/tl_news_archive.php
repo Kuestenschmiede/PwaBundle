@@ -5,3 +5,5 @@ $GLOBALS['TL_LANG']['tl_news_archive']['pushOnPublish'] = ['Bei Veröffentlichun
 $GLOBALS['TL_LANG']['tl_news_archive']['subscriptionTypes'] = ['Abonnement-Typen', 'Wählen Sie die Abonnement-Typen aus, an die die Push-Nachricht gesendet werden soll.'];
 $GLOBALS['TL_LANG']['tl_news_archive']['messageTitle'] = ['Titel der Push-Nachricht', 'Geben Sie den Titel der Push-Nachricht ein.'];
 $GLOBALS['TL_LANG']['tl_news_archive']['messageContent'] = ['Text der Push-Nachricht', 'Geben Sie den Text der Push-Nachricht ein.'];
+
+$GLOBALS['TL_LANG']['tl_news_archive']['pwa_legend'] = 'Pushnachrichten (con4gis/pwa)';

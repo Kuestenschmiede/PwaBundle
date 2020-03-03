@@ -46,7 +46,9 @@ $GLOBALS['TL_LANG'][$strName]['splashIpadFirst'] = ['Icon für Splashscreen (Gr�
 $GLOBALS['TL_LANG'][$strName]['splashIpadSecond'] = ['Icon für Splashscreen (Größe 1668x2224)', 'Wählen Sie ein Icon aus, welches auf iOS für den Splash-Screen der App verwendet wird.'];
 $GLOBALS['TL_LANG'][$strName]['splashIpadThird'] = ['Icon für Splashscreen (Größe 2048x2732)', 'Wählen Sie ein Icon aus, welches auf iOS für den Splash-Screen der App verwendet wird.'];
 
-$GLOBALS['TL_LANG'][$strName]['infotext'] = "Bitte beachten Sie, dass die Änderungen an der Konfiguration erst mit dem erneuten Speichern des Startpunktes der Website, dem die Konfiguration zugeordnet ist, wirksam werden.";
+$GLOBALS['TL_LANG'][$strName]['infotext'] = 'Die PWA Konfiguration wird zur Speicherug der Manifest-Datei und des Service Workers benötigt. '.
+    'Bitte beachten Sie, dass die Änderungen an der Konfiguration erst mit dem erneuten Speichern des Startpunktes der Website, dem die Konfiguration zugeordnet ist, wirksam werden. '.
+    'Mehr auf <a href="https://docs.con4gis.org/pwa-konfiguration" title="con4gis Docs PWA Konfiguration" target="_blank" rel="noopener"><b>docs.con4gis.org</b></a>';
 
 // Options
 $GLOBALS['TL_LANG'][$strName]['updateViaCacheOptions'][PwaConfiguration::PWA_UPDATEVIACACHE_IMPORTS] = "imports (default, chrome >= 68)";

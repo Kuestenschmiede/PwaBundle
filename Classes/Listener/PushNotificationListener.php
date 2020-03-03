@@ -104,7 +104,7 @@ class PushNotificationListener
                         if (array_intersect([$typeId], $subscription->getTypes())) {
                             if (count($types) > 0) {
                                 $subscription->setContent($arrContent);
-                                $subscription->setConfig($webpushConfig);
+                                $subscription->setConfig((object)$webpushConfig);
                                 $resSubscriptions[] = $subscription;
                             }
                         }

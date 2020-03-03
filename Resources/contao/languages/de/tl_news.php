@@ -13,4 +13,4 @@
  */
 
 
-$GLOBALS['TL_LANG']['tl_news']['pnSendDate'] = ["Versendungsdatum", "Geben Sie ein Datum an, an dem für dieses Event eine Push-Benachrichtigung versendet werden soll."];
+$GLOBALS['TL_LANG']['tl_news']['pnSendDate'] = ["Versendungsdatum (Pushnachrichten)", "Geben Sie ein Datum an, an dem für dieses Event eine Push-Benachrichtigung versendet werden soll. Am Archiv muss das Versenden aktiviert sein."];

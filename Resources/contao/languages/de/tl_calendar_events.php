@@ -18,3 +18,5 @@ $GLOBALS['TL_LANG']['tl_calendar_events']['pnSendDate'] = ["Versendungsdatum", "
 $GLOBALS['TL_LANG']['tl_calendar_events']['sendDoublePn'] = ["An einem bestimmten Datum Push-Nachricht versenden", "Setzen Sie diese Checkbox, wenn Sie zur Veröffentlichung und zusätzlich zu einem angegebenen Zeitpunkt eine Push-Nachricht versenden wollen."];
 $GLOBALS['TL_LANG']['tl_calendar_events']['sendPn'] = ["PN senden", "Senden Sie eine Pushnachricht für dieses Event."];
 $GLOBALS['TL_LANG']['tl_calendar_events']['resetSentFlag'] = ["PN Sendestatus zurücksetzen", "Setzt den Status in der Datenbank zurück, sodass erneut eine automatiserte Pushnachricht für dieses Event versendet wird."];
+
+$GLOBALS['TL_LANG']['tl_calendar_events']['pwa_legend'] = 'Pushnachrichten (con4gis/pwa)';
