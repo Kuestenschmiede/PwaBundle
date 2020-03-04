@@ -107,25 +107,31 @@ function updateSubscription(pushManager) {
       let endpoint = subscription.endpoint;
       jQuery.ajax('/con4gis/pushSubscription', {
         method: 'GET',
-        data: {endpoint: endpoint}
+        data: {endpoint: endpoint},
+        moduleId: window.moduleId
       }).done(async function(data) {
         let subscribedTypes = data.types;
-        updateInputForm(inputForm, subscribedTypes);
-        let subscriptionTypes = await createSubscriptionDialog(inputForm);
-        if (subscriptionTypes.length === 0) {
+        if (subscribedTypes.length === 0) {
+          // normal unsubscription
           unsubscribeNotifications(pushManager);
         } else {
-          jQuery.ajax('/con4gis/pushSubscription', {
-            method: "PUT",
-            data: {
-              endpoint: endpoint,
-              types: subscriptionTypes,
-              moduleId: window.moduleId
-            }
-          });
+          updateInputForm(inputForm, subscribedTypes);
+          let subscriptionTypes = await createSubscriptionDialog(inputForm);
+          if (subscriptionTypes.length === 0) {
+            unsubscribeNotifications(pushManager);
+          } else {
+            jQuery.ajax('/con4gis/pushSubscription', {
+              method: 'PUT',
+              data: {
+                endpoint: endpoint,
+                types: subscriptionTypes,
+                moduleId: window.moduleId
+              }
+            });
+          }
         }
       });
-    })
+    });
   }
 }
 

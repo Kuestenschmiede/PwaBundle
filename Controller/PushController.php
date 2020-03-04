@@ -83,7 +83,8 @@ class PushController extends AbstractController
             $response->setData($arrData);
         } else {
             $response = new JsonResponse();
-            $response->setStatusCode(404);
+            $arrData['types'] = [];
+            $response->setData($arrData);
         }
         return $response;
     }

@@ -13,6 +13,7 @@
 
 namespace con4gis\PwaBundle\Classes\Listener;
 
+use con4gis\CoreBundle\Resources\contao\models\C4gLogModel;
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
 use con4gis\PwaBundle\Entity\PushSubscription;
 use con4gis\PwaBundle\Entity\PushSubscriptionType;
@@ -104,7 +105,7 @@ class PushNotificationListener
                         if (array_intersect([$typeId], $subscription->getTypes())) {
                             if (count($types) > 0) {
                                 $subscription->setContent($arrContent);
-                                $subscription->setConfig((object)$webpushConfig);
+                                $subscription->setConfig($webpushConfig);
                                 $resSubscriptions[] = $subscription;
                             }
                         }
@@ -130,7 +131,7 @@ class PushNotificationListener
         $subscriptions = $event->getSubscriptions();
         foreach ($subscriptions as $subscription) {
             try {
-                $webpushConfig = $subscription->getConfig();
+                $webpushConfig = (object) $subscription->getConfig();
                 $auth = [
                     'VAPID' => [
                         'subject' => html_entity_decode($webpushConfig->getVapidSubject()), // can be a mailto: or your website address
@@ -157,10 +158,17 @@ class PushNotificationListener
 
                 $this->webPushService->setDefaultOptions($defaultOptions);
                 $res = $this->webPushService->sendNotification($sub, \GuzzleHttp\json_encode($subscription->getContent()));
-                $reports = $this->webPushService->flush();
+                if ($res) {
+                    $reports = $this->webPushService->flush();
+                    foreach ($reports as $report) {
+                        if (!$report->isSuccess()) {
+                            C4gLogModel::addLogEntry('pwa', $report->getReason());
+                        }
+                    }
+                }
             } catch (\ErrorException $exception) {
                 // log error message with stack trace
-                $this->logger->error($exception->getMessage() . "\n" . $exception->getTrace());
+                C4gLogModel::addLogEntry('pwa', $exception->getMessage() . "\n" . $exception->getTrace());
             }
         }
     }
