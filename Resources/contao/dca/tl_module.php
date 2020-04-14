@@ -57,11 +57,11 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['subscriptionTypes'] = [
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pushConfig'] = [
     'label'             => $GLOBALS['TL_LANG']['tl_module']['pushConfig'],
-    'default'           => '',
+    'default'           => 0,
     'inputType'         => 'select',
     'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\SubscriptionTypeCallback', 'getPushConfigOptions'],
     'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true),
-    'sql'               => "int(10) unsigned default NULL",
+    'sql'               => "int(10) unsigned",
     'xlabel'            => [['tl_c4g_pwa_module', 'pushConfigLink']],
     'exclude'           => true
 ];
