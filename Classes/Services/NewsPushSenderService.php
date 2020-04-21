@@ -15,6 +15,7 @@ namespace con4gis\PwaBundle\Classes\Services;
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
 use Contao\Controller;
 use Contao\Database;
+use Contao\NewsArchiveModel;
 use Contao\System;
 
 class NewsPushSenderService
@@ -42,15 +43,19 @@ class NewsPushSenderService
                 }
 
                 $sendEvent = new PushNotificationEvent();
-                $sendEvent->setTitle($news['title'] ?: '');
+                $sendEvent->setTitle($news['headline'] ?: '');
                 $sendEvent->setMessage(strip_tags($news['teaser']) ?: '');
                 if ($url) {
                     $sendEvent->setClickUrl($url);
                 }
-                $sendEvent->setSubscriptionTypes($news['subscriptionTypes'] ? unserialize($news['subscriptionTypes']) : []);
-                System::getContainer()->get('event_dispatcher')->dispatch($sendEvent::NAME, $sendEvent);
-                $db->prepare('UPDATE tl_news SET pnSent = 1 WHERE id = ?')
-                    ->execute($news['id']);
+                $archive = NewsArchiveModel::findByPk($news['pid']);
+                $subscriptionTypes = unserialize($archive->subscriptionTypes);
+                if ($subscriptionTypes && count($subscriptionTypes) > 0) {
+                    $sendEvent->setSubscriptionTypes($subscriptionTypes);
+                    System::getContainer()->get('event_dispatcher')->dispatch($sendEvent::NAME, $sendEvent);
+                    $db->prepare('UPDATE tl_news SET pnSent = 1 WHERE id = ?')
+                        ->execute($news['id']);
+                }
             }
         }
     }
