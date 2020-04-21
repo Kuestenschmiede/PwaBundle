@@ -67,11 +67,9 @@ class PushNotificationListener
         EventDispatcherInterface $eventDispatcher
     ) {
         $types = $event->getSubscriptionTypes();
-
-        //ToDo check
+        
         if (!$types || (count($types) == 0)) {
-            $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
-            $resSubscriptions = $subscriptions;
+            return;
         } else {
             foreach ($types as $typeId) {
                 $type = $this->entityManager->getRepository(PushSubscriptionType::class)->findOneBy(['id' => intval($typeId)]);

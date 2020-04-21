@@ -90,7 +90,8 @@ class EventsCallback extends Backend
                 $url = $calendarEvent->url;
             }
             $event = new PushNotificationEvent();
-            $event->setSubscriptionTypes(unserialize($calendarEvent->subscriptionTypes) ?: []);
+            $subscriptionTypes = unserialize($calendarEvent->subscriptionTypes) ?: [];
+            $event->setSubscriptionTypes($subscriptionTypes);
             $event->setTitle($calendarEvent->title);
             $event->setMessage(strip_tags($calendarEvent->teaser));
 
@@ -98,8 +99,13 @@ class EventsCallback extends Backend
             if ($url) {
                 $event->setClickUrl($url);
             }
-            System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
-            Message::addInfo('Es wurde eine Pushnachricht für das Event "' . $calendarEvent->title . '" versendet.');
+            if (count($subscriptionTypes) > 0) {
+                System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
+                Message::addInfo('Es wurde eine Pushnachricht für das Event "' . $calendarEvent->title . '" versendet.');
+            } else {
+                Message::addInfo('Es wurde keine Pushnachricht für das Event "' . $calendarEvent->title . '" versendet, da keine Abonnement-Typen ausgewählt sind, an die die Nachricht gesendet werden könnte.');
+            }
+            
             Controller::redirect('contao?do=calendar&table=tl_calendar_events&id=' . $calendarEvent->pid);
         }
     }
