@@ -105,7 +105,7 @@ class EventsCallback extends Backend
             } else {
                 Message::addInfo('Es wurde keine Pushnachricht für das Event "' . $calendarEvent->title . '" versendet, da keine Abonnement-Typen ausgewählt sind, an die die Nachricht gesendet werden könnte.');
             }
-            
+
             Controller::redirect('contao?do=calendar&table=tl_calendar_events&id=' . $calendarEvent->pid);
         }
     }

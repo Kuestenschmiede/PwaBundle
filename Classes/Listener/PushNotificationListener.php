@@ -67,45 +67,44 @@ class PushNotificationListener
         EventDispatcherInterface $eventDispatcher
     ) {
         $types = $event->getSubscriptionTypes();
-        
+
         if (!$types || (count($types) == 0)) {
             return;
-        } else {
-            foreach ($types as $typeId) {
-                $type = $this->entityManager->getRepository(PushSubscriptionType::class)->findOneBy(['id' => intval($typeId)]);
-                if ($type) {
-                    $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOneBy(['id' => $type->getPushConfig()]);
-                    $filePath = FilesModel::findByUuid($webpushConfig->getIcon())->path;
-                    $clickUrl = $event->getClickUrl();
-                    if ($clickUrl && (substr($clickUrl, 0, 2) === '<a')) {
-                        // parse the href
-                        $dom = new \DOMDocument();
-                        $dom->loadHTML($clickUrl);
-                        $href = '';
-                        foreach ($dom->getElementsByTagName('a') as $node) {
-                            $href = $node->getAttribute('href');
-                        }
-                    } else {
-                        $href = $clickUrl;
+        }
+        foreach ($types as $typeId) {
+            $type = $this->entityManager->getRepository(PushSubscriptionType::class)->findOneBy(['id' => intval($typeId)]);
+            if ($type) {
+                $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOneBy(['id' => $type->getPushConfig()]);
+                $filePath = FilesModel::findByUuid($webpushConfig->getIcon())->path;
+                $clickUrl = $event->getClickUrl();
+                if ($clickUrl && (substr($clickUrl, 0, 2) === '<a')) {
+                    // parse the href
+                    $dom = new \DOMDocument();
+                    $dom->loadHTML($clickUrl);
+                    $href = '';
+                    foreach ($dom->getElementsByTagName('a') as $node) {
+                        $href = $node->getAttribute('href');
                     }
-                    $arrContent = [
+                } else {
+                    $href = $clickUrl;
+                }
+                $arrContent = [
                         'title' => $event->getTitle(),
                         'body' => $event->getMessage(),
                         'click_action' => $href,
                     ];
-                    if ($filePath) {
-                        $arrContent['icon'] = $filePath;
-                    }
+                if ($filePath) {
+                    $arrContent['icon'] = $filePath;
+                }
 
-                    $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
-                    $resSubscriptions = [];
-                    foreach ($subscriptions as $subscription) {
-                        if (array_intersect([$typeId], $subscription->getTypes())) {
-                            if (count($types) > 0) {
-                                $subscription->setContent($arrContent);
-                                $subscription->setConfig($webpushConfig);
-                                $resSubscriptions[] = $subscription;
-                            }
+                $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
+                $resSubscriptions = [];
+                foreach ($subscriptions as $subscription) {
+                    if (array_intersect([$typeId], $subscription->getTypes())) {
+                        if (count($types) > 0) {
+                            $subscription->setContent($arrContent);
+                            $subscription->setConfig($webpushConfig);
+                            $resSubscriptions[] = $subscription;
                         }
                     }
                 }
