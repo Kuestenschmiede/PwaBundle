@@ -16,8 +16,8 @@
     },
     "require": {
         "con4gis/core": "^4.0",
-        "contao/core-bundle": "^4.4",
-        "minishlink/web-push-bundle": "^5",
+        "contao/core-bundle": "^4.9",
+        "minishlink/web-push-bundle": "^6",
         "contao-components/jquery": "^3.0"
     },
     "conflict": {

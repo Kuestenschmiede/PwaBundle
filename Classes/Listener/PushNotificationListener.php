@@ -126,47 +126,52 @@ class PushNotificationListener
         EventDispatcherInterface $eventDispatcher
     ) {
         $subscriptions = $event->getSubscriptions();
-        foreach ($subscriptions as $subscription) {
-            try {
-                $webpushConfig = (object) $subscription->getConfig();
-                $auth = [
-                    'VAPID' => [
-                        'subject' => html_entity_decode($webpushConfig->getVapidSubject()), // can be a mailto: or your website address
-                        'publicKey' => html_entity_decode($webpushConfig->getVapidPublickey()), // (recommended) uncompressed public key P-256 encoded in Base64-URL
-                        'privateKey' => html_entity_decode($webpushConfig->getVapidPrivatekey()), // (recommended) in fact the secret multiplier of the private key encoded in Base64-URL
-                    ],
-                ];
-                $this->webPushService = new WebPush($auth);
+        try {
+            foreach ($subscriptions as $subscription) {
+                    $webpushConfig = (object) $subscription->getConfig();
+                    $auth = [
+                        'VAPID' => [
+                            'subject' => html_entity_decode($webpushConfig->getVapidSubject()), // can be a mailto: or your website address
+                            'publicKey' => html_entity_decode($webpushConfig->getVapidPublickey()), // (recommended) uncompressed public key P-256 encoded in Base64-URL
+                            'privateKey' => html_entity_decode($webpushConfig->getVapidPrivatekey()), // (recommended) in fact the secret multiplier of the private key encoded in Base64-URL
+                        ],
+                    ];
+                    $this->webPushService = new WebPush($auth);
 
-                $sub = Subscription::create([
-                    'endpoint' => $subscription->getEndpoint(),
-                    'contentEncoding' => 'aesgcm',
-                    'publicKey' => $subscription->getP256dhKey(),
-                    'authToken' => $subscription->getAuthKey(),
-                ]);
+                    $sub = Subscription::create([
+                        'endpoint' => $subscription->getEndpoint(),
+                        'contentEncoding' => 'aesgcm',
+                        'publicKey' => $subscription->getP256dhKey(),
+                        'authToken' => $subscription->getAuthKey(),
+                    ]);
 
-                //ToDo form configuration
-                $defaultOptions = [
-                    'TTL' => intval($webpushConfig->getTtl()), // defaults to 4 weeks
-                    'urgency' => $webpushConfig->getUrgency(), // protocol defaults to "normal"
-                    'topic' => $webpushConfig->getTopic(), // not defined by default,
-                    'batchSize' => intval($webpushConfig->getBatchSize()), // defaults to 1000
-                ];
+                    //ToDo form configuration
+                    $defaultOptions = [
+                        'TTL' => intval($webpushConfig->getTtl()), // defaults to 4 weeks
+                        'urgency' => $webpushConfig->getUrgency(), // protocol defaults to "normal"
+                        'topic' => $webpushConfig->getTopic(), // not defined by default,
+                        'batchSize' => intval($webpushConfig->getBatchSize()), // defaults to 1000
+                    ];
 
-                $this->webPushService->setDefaultOptions($defaultOptions);
-                $res = $this->webPushService->sendNotification($sub, \GuzzleHttp\json_encode($subscription->getContent()));
-                if ($res) {
-                    $reports = $this->webPushService->flush();
-                    foreach ($reports as $report) {
-                        if (!$report->isSuccess()) {
-                            C4gLogModel::addLogEntry('pwa', $report->getReason());
-                        }
-                    }
-                }
-            } catch (\ErrorException $exception) {
-                // log error message with stack trace
-                C4gLogModel::addLogEntry('pwa', $exception->getMessage() . "\n" . $exception->getTrace());
+                    $this->webPushService->queueNotification($sub, \GuzzleHttp\json_encode($subscription->getContent()));
             }
+
+            $this->webPushService->setDefaultOptions($defaultOptions);
+
+            foreach ($this->webPushService->flush() as $report) {
+                $endpoint = $report->getRequest()->getUri()->__toString();
+
+                if ($report->isSuccess()) {
+                    C4gLogModel::addLogEntry('pwa', "[v] Message sent successfully for subscription {$endpoint}.");
+                } else {
+                    C4gLogModel::addLogEntry('pwa', "[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}");
+                }
+            }
+
+        } catch (\ErrorException $exception) {
+            // log error message with stack trace
+            C4gLogModel::addLogEntry('pwa', $exception->getMessage() . "\n" . $exception->getTrace());
         }
+
     }
 }
