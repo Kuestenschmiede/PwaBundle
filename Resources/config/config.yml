@@ -8,8 +8,10 @@ doctrine:
 minishlink_web_push:
   VAPID:
     subject: https://yoursite.com # can be an URL or a mailto:
-    publicKey: ~88 chars          # uncompressed public key P-256 encoded in Base64-URL
-    privateKey: ~44 chars         # the secret multiplier of the private key encoded in Base64-URL
+    # uncompressed public key P-256 encoded in Base64-URL
+    publicKey: BGqTP-2E0LBWdUQPLaHTZB-_8AoZtC6KsMXV7knrsqHLLYyDoM3J3ufUgi7l2utvmSqL0PXpKFxe_ejk1YEE0G0 # default value, use the value in db push configuration
+    # the secret multiplier of the private key encoded in Base64-URL
+    privateKey: HciZEmHZGdJF3fwzB37ovOOe7GC5GHUBDWhrcZncRXw # default value, use the value in db push configuration
   ttl: 2419200                    # Time to Live of notifications in seconds
   urgency: ~                      # can be very-low / low / normal / high
   topic: ~                        # default identifier for your notifications
