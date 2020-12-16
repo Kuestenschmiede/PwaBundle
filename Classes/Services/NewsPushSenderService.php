@@ -32,9 +32,13 @@ class NewsPushSenderService
                      = 1')
             ->execute()->fetchAllAssoc();
         foreach ($arrNews as $news) {
-            if ((!$news['pnSendDate'] || ($news['pnSendDate'] <= $currentTime)) &&
-                (!$news['start'] || ($currentTime >= $news['start'])) &&
-                (!$news['stop'] || ($currentTime <= $news['stop']))) {
+            $sendDate = intval($news['pnSendDate']);
+            $startDate = intval($news['start']);
+            $endDate = intval($news['stop']);
+            $sendDateIsPastOrUnspecified = (!$sendDate || ($sendDate <= $currentTime));
+            $isNewsDisplayed = !$startDate || ($currentTime >= $startDate)
+                && (!$endDate || ($currentTime <= $endDate));
+            if ($sendDateIsPastOrUnspecified && $isNewsDisplayed) {
                 $url = Controller::replaceInsertTags('{{news::' . $news['id'] . '}}');
 
                 //ToDo ask for url selection
