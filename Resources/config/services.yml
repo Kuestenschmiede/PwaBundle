@@ -23,7 +23,6 @@ services:
       - { name: kernel.event_listener, event: con4gis.notification.send, method: onPushNotificationGetSubscriptions, priority: 2048 }
     arguments:
       - '@doctrine.orm.default_entity_manager'
-      - '@minishlink_web_push'
       - '@logger'
 
   pwa.onPushNotificationSendNotifications:
@@ -32,5 +31,4 @@ services:
       - { name: kernel.event_listener, event: con4gis.notification.send, method: onPushNotificationSendNotifications, priority: 1024 }
     arguments:
       - '@doctrine.orm.default_entity_manager'
-      - '@minishlink_web_push'
       - '@logger'

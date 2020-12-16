@@ -15,6 +15,7 @@ namespace con4gis\PwaBundle\Command;
 
 
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
+use con4gis\PwaBundle\Classes\Services\NewsPushSenderService;
 use con4gis\PwaBundle\Entity\PushSubscription;
 use Contao\System;
 use Minishlink\WebPush\Subscription;
@@ -69,6 +70,7 @@ class SendPushNotificationCommand extends Command
         $event->setTitle($title);
         $event->setMessage($content);
         $event->setClickUrl($input->getArgument('url') ?: "https://www.con4gis.org");
+        $event->setSubscriptionTypes([1]);
         $eventDispatcher->dispatch($event::NAME, $event);
     }
     
