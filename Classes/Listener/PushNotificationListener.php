@@ -70,6 +70,7 @@ class PushNotificationListener
         if (!$types || (count($types) == 0)) {
             return;
         }
+        $resSubscriptions = [];
         foreach ($types as $typeId) {
             $type = $this->entityManager->getRepository(PushSubscriptionType::class)->findOneBy(['id' => intval($typeId)]);
             if ($type) {
@@ -97,13 +98,12 @@ class PushNotificationListener
                 }
 
                 $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
-                $resSubscriptions = [];
                 foreach ($subscriptions as $subscription) {
                     if (array_intersect([$typeId], $subscription->getTypes())) {
                         if (count($types) > 0) {
                             $subscription->setContent($arrContent);
                             $subscription->setConfig($webpushConfig);
-                            $resSubscriptions[] = $subscription;
+                            $resSubscriptions[$subscription->getId()] = $subscription;
                         }
                     }
                 }
