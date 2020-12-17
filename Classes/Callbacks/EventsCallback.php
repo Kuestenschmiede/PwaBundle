@@ -11,6 +11,7 @@ use Contao\Database;
 use Contao\DataContainer;
 use Contao\DC_Table;
 use Contao\Message;
+use Contao\StringUtil;
 use Contao\System;
 
 class EventsCallback extends Backend
@@ -33,7 +34,7 @@ class EventsCallback extends Backend
             if ($activeRecord->pushOnPublish) {
                 if (!$activeRecord->pnSent) {
                     $event = new PushNotificationEvent();
-                    $event->setSubscriptionTypes(unserialize($activeRecord->subscriptionTypes) ?: []);
+                    $event->setSubscriptionTypes(StringUtil::deserialize($activeRecord->subscriptionTypes, true) ?: []);
                     $event->setTitle($activeRecord->title);
                     $event->setMessage(strip_tags($activeRecord->teaser));
                     if ($url) {
