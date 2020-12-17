@@ -77,7 +77,8 @@ class ServiceWorkerFileWriter
             $this->strContent .= "\t\t'" . $fileName . "',\n";
         }
         $this->strContent .= "\t])";
-        $this->strContent .= "\t).then(() => self.skipWaiting()));\n";
+        $this->strContent .= "\t).catch(() => {console.warn(\"Error caching some of the pages...\"); self.skipWaiting();})\n";
+        $this->strContent .= "\t.then(() => self.skipWaiting()));\n";
 //        $this->strContent .= "\tself.skipWaiting();\n";
         $this->strContent .= "});\n";
     }
