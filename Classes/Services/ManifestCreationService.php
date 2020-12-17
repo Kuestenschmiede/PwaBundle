@@ -78,6 +78,7 @@ class ManifestCreationService
         $arrJson['theme_color'] = '#' . $configuration->getThemeColor();
         $icon192 = FilesModel::findByUuid($configuration->getIcon192());
         $icon512 = FilesModel::findByUuid($configuration->getIcon512());
+        $maskableIcon = FilesModel::findByUuid($configuration->getMaskableIcon());
         $arrJson['icons'] = [
             [
                 'src' => '../' . $icon192->path,
@@ -89,6 +90,12 @@ class ManifestCreationService
                 'sizes' => '512x512',
                 'type' => 'image/png',
             ],
+            [
+                'src' => '../' . $maskableIcon->path,
+                'sizes' => $configuration->getMaskableIconSize(), // TODO dynamic
+                'type' => 'image/png',
+                'purpose' => "any maskable"
+            ]
         ];
 
         return $arrJson;

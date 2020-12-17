@@ -29,6 +29,8 @@ $GLOBALS['TL_LANG'][$strName]['offlinePage'] = ['Offline-Seite', 'Wählen Sie di
 $GLOBALS['TL_LANG'][$strName]['offlineHandling'] = ['Offline-Verhalten', 'Wählen Sie das Offline-Verhalten aus, welches die PWA haben soll.'];
 $GLOBALS['TL_LANG'][$strName]['icon192'] = ['Icon der Größe 192x192', 'Wählen Sie ein Icon für die PWA aus (Maße 192x192).'];
 $GLOBALS['TL_LANG'][$strName]['icon512'] = ['Icon der Größe 512x512', 'Wählen Sie ein Icon für die PWA aus (Maße 512x512).'];
+$GLOBALS['TL_LANG'][$strName]['maskableIcon'] = ['Maskable Icon', 'Wählen Sie ein "maskable Icon" aus. Dies kann <a href="https://maskable.app/editor">hier</a> generiert werden. Diese Icons passen sich optimal an die App-Icon-Größe an.'];
+$GLOBALS['TL_LANG'][$strName]['maskableIconSize'] = ['Bildgröße Maskable Icon', 'Geben Sie die Größe des "maskable" Icon an, z.B. "192x192"'];
 $GLOBALS['TL_LANG'][$strName]['serviceWorkerGen'] = ['Art der Service Worker Generierung', 'Wählen Sie aus, ob ein Service worker generiert werden soll oder ob ein eigener verwendet werden soll.'];
 $GLOBALS['TL_LANG'][$strName]['additionalUrls'] = ['Zusätzliche URLs', 'Hier können Sie eine kommagetrennte Liste weiterer URLs angeben, die zusätzlich vom Service worker gecached werden sollen.'];
 $GLOBALS['TL_LANG'][$strName]['blockedUrls'] = ['Blockierte URLs', 'Hier können Sie eine kommagetrennte Liste von URLs oder URL-Fragmenten angeben, bei deren Vorkommen in der Request-URL der Service worker in keinem Fall etwas tut außer den Request normal auszuführen.'];

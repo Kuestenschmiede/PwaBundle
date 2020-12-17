@@ -101,7 +101,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,shortName,description,startUrl,scope,updateViaCache,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512;{expert_legend},additionalUrls,blockedUrls;
+        'default'   =>  '{data_legend},name,shortName,description,startUrl,scope,updateViaCache,themeColor,backgroundColor,display,orientation,offlinePage,offlineHandling,icon192,icon512,maskableIcon,maskableIconSize;{expert_legend},additionalUrls,blockedUrls;
         {ios_legend},iosStyle,appleIcon120,appleIcon152,appleIcon180,appleIcon167,splashIphoneFirst,splashIphoneSecond,splashIphoneThird,splashIphoneFourth,splashIpadFirst,splashIpadSecond,splashIpadThird;',
     ),
     
@@ -237,6 +237,25 @@ $GLOBALS['TL_DCA'][$strName] = array
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true],
+            'exclude'           => true
+        ),
+    
+        'maskableIcon' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['maskableIcon'],
+            'default'           => '',
+            'inputType'         => 'fileTree',
+            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true],
+            'exclude'           => true
+        ),
+    
+        'maskableIconSize' => array
+        (
+            'label'             => $GLOBALS['TL_LANG'][$strName]['maskableIconSize'],
+            'default'           => '',
+            'inputType'         => 'text',
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
             'exclude'           => true
         ),
     

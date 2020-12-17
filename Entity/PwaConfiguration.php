@@ -155,6 +155,18 @@ class PwaConfiguration extends BaseEntity
     
     /**
      * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $maskableIcon = null;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=50)
+     */
+    private $maskableIconSize = "";
+    
+    /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $additionalUrls = "";
@@ -507,6 +519,38 @@ class PwaConfiguration extends BaseEntity
     public function setIcon512(string $icon512): void
     {
         $this->icon512 = $icon512;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getMaskableIcon(): ?string
+    {
+        return $this->maskableIcon;
+    }
+    
+    /**
+     * @param string $maskableIcon
+     */
+    public function setMaskableIcon(?string $maskableIcon): void
+    {
+        $this->maskableIcon = $maskableIcon;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getMaskableIconSize(): string
+    {
+        return $this->maskableIconSize;
+    }
+    
+    /**
+     * @param string $maskableIconSize
+     */
+    public function setMaskableIconSize(string $maskableIconSize): void
+    {
+        $this->maskableIconSize = $maskableIconSize;
     }
     
     /**
