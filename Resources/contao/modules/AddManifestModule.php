@@ -21,6 +21,8 @@ use Contao\System;
 
 class AddManifestModule extends Module
 {
+    protected $strTemplate = "mod_manifest";
+    
     public function generate()
     {
         if (TL_MODE == 'BE') {
