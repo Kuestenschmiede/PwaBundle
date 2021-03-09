@@ -94,8 +94,8 @@ class ManifestCreationService
                 'src' => '../' . $maskableIcon->path,
                 'sizes' => $configuration->getMaskableIconSize(), // TODO dynamic
                 'type' => 'image/png',
-                'purpose' => "any maskable"
-            ]
+                'purpose' => 'any maskable',
+            ],
         ];
 
         return $arrJson;

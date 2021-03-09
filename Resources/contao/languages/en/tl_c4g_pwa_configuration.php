@@ -29,6 +29,8 @@ $GLOBALS['TL_LANG'][$strName]['offlinePage'] = ['Offline page', 'Choose a page t
 $GLOBALS['TL_LANG'][$strName]['offlineHandling'] = ['Offline handling', 'Choose the offline handling that the pwa should use.'];
 $GLOBALS['TL_LANG'][$strName]['icon192'] = ['Icon (192x192)', 'Choose an icon for the pwa (192x192).'];
 $GLOBALS['TL_LANG'][$strName]['icon512'] = ['Icon (512x512)', 'Choose an icon for the pwa (512x512).'];
+$GLOBALS['TL_LANG'][$strName]['maskableIcon'] = ['Maskable Icon', 'Select a "maskable icon". This can be generated <a href="https://maskable.app/editor">here</a>. These icons will fit the app icon size perfectly.'];
+$GLOBALS['TL_LANG'][$strName]['maskableIconSize'] = ['Image size maskable icon', 'Specify the size of the "maskable" icon, e.g. "192x192".'];
 $GLOBALS['TL_LANG'][$strName]['serviceWorkerGen'] = ['Type of service worker generation', 'Select whether you want to generate a service worker or use your own.'];
 $GLOBALS['TL_LANG'][$strName]['additionalUrls'] = ['Additional URLs', 'Specify a list of additional URLs that should be cached by the service worker.'];
 $GLOBALS['TL_LANG'][$strName]['blockedUrls'] = ['Blocked URLs', 'Specify a list of URLs or URL fragments. When any of these occurs in the requested url, the service worker will do nothing.'];

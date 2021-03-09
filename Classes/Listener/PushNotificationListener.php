@@ -125,6 +125,7 @@ class PushNotificationListener
         EventDispatcherInterface $eventDispatcher
     ) {
         $subscriptions = $event->getSubscriptions();
+
         try {
             foreach ($subscriptions as $subscription) {
                 $webpushConfig = (object) $subscription->getConfig();
@@ -159,16 +160,15 @@ class PushNotificationListener
             // log error message with stack trace
             C4gLogModel::addLogEntry('pwa', $exception->getMessage() . "\n" . $exception->getTrace());
         }
-
     }
-    
+
     private function handleSendingForService(WebPush $webPushService, array $defaultOptions)
     {
         $webPushService->setDefaultOptions($defaultOptions);
-    
+
         foreach ($webPushService->flush() as $report) {
             $endpoint = $report->getRequest()->getUri()->__toString();
-        
+
             if ($report->isSuccess()) {
                 C4gLogModel::addLogEntry('pwa', "[v] Message sent successfully for subscription {$endpoint}.");
             } else {

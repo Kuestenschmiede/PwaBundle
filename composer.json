@@ -15,8 +15,8 @@
         "email": "support@con4gis.org"
     },
     "require": {
-        "con4gis/core": "^4.0",
         "contao/core-bundle": "^4.9",
+        "con4gis/core": "^4.1",
         "minishlink/web-push-bundle": "^6",
         "contao-components/jquery": "^3.0"
     },

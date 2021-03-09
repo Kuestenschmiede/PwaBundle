@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * This file is part of con4gis,
+ * the gis-kit for Contao CMS.
+ *
+ * @package    con4gis
+ * @version    7
+ * @author     con4gis contributors (see "authors.txt")
+ * @license    LGPL-3.0-or-later
+ * @copyright  Küstenschmiede GmbH Software & Design
+ * @link       https://www.con4gis.org
+ */
 namespace con4gis\PwaBundle\Classes\Callbacks;
 
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
@@ -32,22 +42,22 @@ class PushNotificationCallback extends Backend
 
     public function loadDataset()
     {
-        $objConfig = \Database::getInstance()->prepare('SELECT id FROM tl_c4g_push_notification')->execute();
+        $objConfig = \Contao\Database::getInstance()->prepare('SELECT id FROM tl_c4g_push_notification')->execute();
 
-        if (\Input::get('key')) {
+        if (\Contao\Input::get('key')) {
             return;
         }
 
-        if (!$objConfig->numRows && !\Input::get('act')) {
+        if (!$objConfig->numRows && !\Contao\Input::get('act')) {
             $this->redirect($this->addToUrl('act=create'));
         }
 
-        if (!\Input::get('id') && !\Input::get('act')) {
+        if (!\Contao\Input::get('id') && !\Contao\Input::get('act')) {
             $GLOBALS['TL_DCA']['tl_c4g_push_notification']['config']['notCreatable'] = true;
             $this->redirect($this->addToUrl('act=edit&id=' . $objConfig->id));
         }
 
-        \Message::addInfo($GLOBALS['TL_LANG']['tl_c4g_push_notification']['infoText']);
+        \Contao\Message::addInfo($GLOBALS['TL_LANG']['tl_c4g_push_notification']['infoText']);
     }
 
     public function getSubscriptionTypes()

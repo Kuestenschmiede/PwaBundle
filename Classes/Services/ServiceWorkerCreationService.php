@@ -43,7 +43,7 @@ class ServiceWorkerCreationService
         $suffix = $this->container->getParameter('contao.url_suffix');
         $prependLocale = $this->container->getParameter('contao.prepend_locale');
         $locale = $pageRoot->language;
-        $urlLocalePart = $prependLocale ? $locale . "/" : "";
+        $urlLocalePart = $prependLocale ? $locale . '/' : '';
         //TODO currently only one level deep
         $childPages = PageModel::findPublishedByPid($pageRoot->id, ['type' => 'regular']);
 
@@ -51,7 +51,7 @@ class ServiceWorkerCreationService
 
         if ($pwaConfiguration->getOfflinePage()) {
             $offlinePage = PageModel::findById($pwaConfiguration->getOfflinePage());
-            $arrPagenames[] = $urlLocalePart.$offlinePage->alias . $suffix;
+            $arrPagenames[] = $urlLocalePart . $offlinePage->alias . $suffix;
         }
 
         if (!($pwaConfiguration->getOfflinePage()) || ($pwaConfiguration->getOfflinePage() && $pwaConfiguration->getOfflineHandling() == 2)) {
@@ -61,11 +61,10 @@ class ServiceWorkerCreationService
             foreach ($childPages as $childPage) {
                 if (!in_array($childPage->id, $pageIds) && $childPage->isPublic) {
                     if ($prependLocale) {
-                        $arrPagenames[] = $urlLocalePart.$childPage->alias . $suffix;
+                        $arrPagenames[] = $urlLocalePart . $childPage->alias . $suffix;
                     } else {
                         $arrPagenames[] = $childPage->alias . $suffix;
                     }
-                    
                 }
             }
         }
