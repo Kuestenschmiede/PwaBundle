@@ -10,7 +10,6 @@
  * @copyright  Küstenschmiede GmbH Software & Design
  * @link       https://www.con4gis.org
  */
-
 namespace con4gis\PwaBundle\Classes\Callbacks;
 
 use con4gis\PwaBundle\Entity\PwaConfiguration;
