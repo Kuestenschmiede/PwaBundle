@@ -7,7 +7,3 @@
  * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
  * @link https://www.con4gis.org
  */
-
-.tl_empty {
-    display: none;
-}
