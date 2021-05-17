@@ -35,7 +35,7 @@ $GLOBALS['BE_MOD']['con4gis'] = array_merge($GLOBALS['BE_MOD']['con4gis'], [
     'c4g_push_notification' => array(
         'brick' => 'pwa',
         'tables' => array('tl_c4g_push_notification'),
-        'stylesheet' => "bundles/con4gispwa/css/backend-push.css",
+        'stylesheet' => "bundles/con4gispwa/dist/css/backend-push.min.css",
         'icon' => 'bundles/con4gispwa/images/be-icons/push_example.svg'
     ),
     'c4g_push_subscription_type' => [
