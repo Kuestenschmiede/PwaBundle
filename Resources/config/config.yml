@@ -1,10 +1,3 @@
-doctrine:
-  orm:
-    entity_managers:
-      default:
-        mappings:
-          con4gisPwaBundle: ~
-
 minishlink_web_push:
   VAPID:
     subject: https://yoursite.com # can be an URL or a mailto:
