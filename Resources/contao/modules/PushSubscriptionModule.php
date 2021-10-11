@@ -40,6 +40,7 @@ class PushSubscriptionModule extends Module
     protected function compile()
     {
         // add manifest entry
+        
         ResourceLoader::loadJavaScriptResource('bundles/con4gispwa/build/PushSubscription.js', ResourceLoader::HEAD);
         ResourceLoader::loadCssResource('bundles/con4gispwa/dist/css/push-subscription.min.css');
         $arrTypeIds = unserialize($this->subscriptionTypes);
