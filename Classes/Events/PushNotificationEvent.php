@@ -11,7 +11,7 @@
 
 namespace con4gis\PwaBundle\Classes\Events;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class PushNotificationEvent extends Event
 {

@@ -29,7 +29,7 @@ class PushNotificationCallback extends Backend
         $event->setSubscriptionTypes(unserialize($dc->activeRecord->subscriptionTypes) ?: []);
         $event->setTitle($title);
         $event->setMessage($content);
-        $eventDispatcher->dispatch($event::NAME, $event);
+        $eventDispatcher->dispatch($event, $event::NAME);
         Controller::redirect('/contao?do=c4g_push_notification');
     }
 
