@@ -24,3 +24,8 @@ services:
     arguments:
       - '@doctrine.orm.default_entity_manager'
       - '@logger'
+
+  con4gis\PwaBundle\Controller\PushController:
+    class: con4gis\PwaBundle\Controller\PushController
+    autowire: true
+    public: true
