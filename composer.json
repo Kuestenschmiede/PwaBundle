@@ -15,8 +15,8 @@
         "email": "support@con4gis.org"
     },
     "require": {
-        "contao/core-bundle": "^4.4",
-        "con4gis/core": "^5.0",
+        "contao/core-bundle": "^4.9",
+        "con4gis/core": "^5.1.0",
         "doctrine/orm": "^2.8.4",
         "doctrine/data-fixtures": "^1.4.4",
         "doctrine/persistence": "^2.1.0",
@@ -29,16 +29,16 @@
     },
     "autoload": {
         "psr-4": {
-            "con4gis\\PwaBundle\\": ""
+            "con4gis\\PwaBundle\\": "src/"
         },
         "classmap": [
-            "Resources/contao/"
+            "src/Resources/contao/"
         ],
         "exclude-from-classmap": [
-            "Resources/contao/config/",
-            "Resources/contao/dca/",
-            "Resources/contao/languages/",
-            "Resources/contao/templates/"
+            "src/Resources/contao/config/",
+            "src/Resources/contao/dca/",
+            "src/Resources/contao/languages/",
+            "src/Resources/contao/templates/"
         ]
     },
     "config": {

@@ -16,7 +16,7 @@ const notify = require('gulp-notify');
 const cleanCSS = require('gulp-clean-css');
 const rename = require('gulp-rename');
 
-const customPath = 'Resources/public/';
+const customPath = 'src/Resources/public/';
 
 const paths = {
     src: {

@@ -10,11 +10,11 @@
 
 var path = require('path');
 var config = {
-  entry: './Resources/public/js/PushSubscription.js',
+  entry: './src/Resources/public/js/PushSubscription.js',
   mode: "development",
   output: {
     filename: 'PushSubscription.js',
-    path: path.resolve('./Resources/public/build/')
+    path: path.resolve('./src/Resources/public/build/')
   },
   devtool: "inline-source-map",
   module: {
