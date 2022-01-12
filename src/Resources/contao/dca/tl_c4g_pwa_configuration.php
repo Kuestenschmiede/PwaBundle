@@ -211,7 +211,7 @@ $GLOBALS['TL_DCA'][$strName] = array
         'offlineHandling' => array
         (
             'label'             => $GLOBALS['TL_LANG'][$strName]['offlineHandling'],
-            'default'           => '1',
+            'default'           => 1,
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getOfflineHandlingOptions'],
             'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true),

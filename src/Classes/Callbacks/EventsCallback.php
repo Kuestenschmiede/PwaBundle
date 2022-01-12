@@ -42,13 +42,13 @@ class EventsCallback extends Backend
             if ($activeRecord->pushOnPublish) {
                 if (!$activeRecord->pnSent) {
                     $event = new PushNotificationEvent();
-                    $event->setSubscriptionTypes(StringUtil::deserialize($activeRecord->subscriptionTypes, true) ?: []);
+                    $event->setSubscriptionTypes(StringUtil::deserialize($activeRecord->subscriptionTypes, true));
                     $event->setTitle($activeRecord->title);
                     $event->setMessage(strip_tags($activeRecord->teaser));
                     if ($url) {
                         $event->setClickUrl($url);
                     }
-                    System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
+                    System::getContainer()->get('event_dispatcher')->dispatch($event, $event::NAME);
                     Database::getInstance()->prepare('UPDATE tl_calendar_events SET pnSent = 1 WHERE id = ?')
                         ->execute($activeRecord->id);
                 }
@@ -72,7 +72,7 @@ class EventsCallback extends Backend
                     if ($url) {
                         $event->setClickUrl($url);
                     }
-                    System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
+                    System::getContainer()->get('event_dispatcher')->dispatch($event, $event::NAME);
                     Database::getInstance()->prepare('UPDATE tl_calendar_events SET pnSent = 2 WHERE id = ?')
                         ->execute($activeRecord->id);
                 }
@@ -109,7 +109,7 @@ class EventsCallback extends Backend
                 $event->setClickUrl($url);
             }
             if (count($subscriptionTypes) > 0) {
-                System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
+                System::getContainer()->get('event_dispatcher')->dispatch($event, $event::NAME);
                 Message::addInfo('Es wurde eine Pushnachricht für das Event "' . $calendarEvent->title . '" versendet.');
             } else {
                 Message::addInfo('Es wurde keine Pushnachricht für das Event "' . $calendarEvent->title . '" versendet, da keine Abonnement-Typen ausgewählt sind, an die die Nachricht gesendet werden könnte.');

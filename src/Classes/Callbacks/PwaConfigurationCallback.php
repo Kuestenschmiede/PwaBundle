@@ -87,9 +87,11 @@ class PwaConfigurationCallback extends Backend
 
     public function convertBinToUuid($varValue)
     {
-        $uuid = StringUtil::binToUuid($varValue);
-
-        return $uuid;
+        if ($varValue) {
+            $varValue = StringUtil::binToUuid($varValue);
+        }
+        
+        return $varValue;
     }
 
     public static function getAllowedImageExtensions()

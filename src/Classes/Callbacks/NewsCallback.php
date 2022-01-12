@@ -51,7 +51,7 @@ class NewsCallback extends Backend
                     if ($url) {
                         $event->setClickUrl($url);
                     }
-                    System::getContainer()->get('event_dispatcher')->dispatch($event::NAME, $event);
+                    System::getContainer()->get('event_dispatcher')->dispatch($event, $event::NAME);
                     Database::getInstance()->prepare('UPDATE tl_news SET pnSent = 1 WHERE id = ?')
                         ->execute($activeRecord->id);
                 }

@@ -16,6 +16,7 @@ use Contao\Backend;
 use Contao\Controller;
 use Contao\Database;
 use Contao\DataContainer;
+use Contao\StringUtil;
 use Contao\System;
 
 class PushNotificationCallback extends Backend
@@ -26,7 +27,7 @@ class PushNotificationCallback extends Backend
         $content = $dc->activeRecord->messageContent;
         $eventDispatcher = System::getContainer()->get('event_dispatcher');
         $event = new PushNotificationEvent();
-        $event->setSubscriptionTypes(unserialize($dc->activeRecord->subscriptionTypes) ?: []);
+        $event->setSubscriptionTypes(StringUtil::deserialize($dc->activeRecord->subscriptionTypes, true));
         $event->setTitle($title);
         $event->setMessage($content);
         $eventDispatcher->dispatch($event, $event::NAME);

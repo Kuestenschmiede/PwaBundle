@@ -14,6 +14,7 @@ namespace con4gis\PwaBundle\Classes\Services;
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 use Contao\Database;
 use Contao\PageModel;
+use Contao\StringUtil;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ServiceWorkerCreationService
@@ -54,7 +55,7 @@ class ServiceWorkerCreationService
 
         if (!($pwaConfiguration->getOfflinePage()) || ($pwaConfiguration->getOfflinePage() && $pwaConfiguration->getOfflineHandling() == 2)) {
             // cache all pages except the exceptions
-            $pageIds = unserialize($pageRoot->uncachedPages);
+            $pageIds = StringUtil::deserialize($pageRoot->uncachedPages, true);
 
             foreach ($childPages as $childPage) {
                 if (!in_array($childPage->id, $pageIds) && $childPage->isPublic) {

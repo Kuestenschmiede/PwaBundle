@@ -73,7 +73,7 @@ class PushNotificationListener
             $type = $this->entityManager->getRepository(PushSubscriptionType::class)->findOneBy(['id' => intval($typeId)]);
             if ($type) {
                 $webpushConfig = $this->entityManager->getRepository(WebPushConfiguration::class)->findOneBy(['id' => $type->getPushConfig()]);
-                $filePath = FilesModel::findByUuid($webpushConfig->getIcon())->path;
+                
                 $clickUrl = $event->getClickUrl();
                 if ($clickUrl && (substr($clickUrl, 0, 2) === '<a')) {
                     // parse the href
@@ -91,9 +91,15 @@ class PushNotificationListener
                         'body' => $event->getMessage(),
                         'click_action' => $href,
                     ];
-                if ($filePath) {
+    
+                $iconModel = FilesModel::findByUuid($webpushConfig->getIcon());
+                
+                if ($iconModel !== null) {
+                    $filePath = $iconModel->path;
+                    
                     $arrContent['icon'] = $filePath;
                 }
+                
 
                 $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
                 foreach ($subscriptions as $subscription) {
@@ -150,6 +156,10 @@ class PushNotificationListener
                     'topic' => $webpushConfig->getTopic(), // not defined by default,
                     'batchSize' => intval($webpushConfig->getBatchSize()), // defaults to 1000
                 ];
+                
+                if ($defaultOptions['batchSize'] === 0) {
+                    $defaultOptions['batchSize'] = 1000;
+                }
 
                 $this->webPushService->queueNotification($sub, \GuzzleHttp\json_encode($subscription->getContent()));
                 $this->handleSendingForService($this->webPushService, $defaultOptions);
