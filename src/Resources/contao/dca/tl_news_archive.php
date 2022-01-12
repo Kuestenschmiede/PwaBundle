@@ -32,7 +32,7 @@ if (class_exists('Contao\NewsBundle\ContaoNewsBundle')) {
     ];
     
     $GLOBALS['TL_DCA']['tl_news_archive']['fields']['subscriptionTypes'] = [
-        'label'             => $GLOBALS['TL_LANG']['tl_news_archive']['subscriptionTypes'],
+        'label'             => &$GLOBALS['TL_LANG']['tl_news_archive']['subscriptionTypes'],
         'default'           => [],
         'inputType'         => 'select',
         'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],

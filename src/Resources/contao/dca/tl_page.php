@@ -38,7 +38,7 @@ if ($rootfallback) {
 }
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['pwaConfig'] = [
-        'label'             => $GLOBALS['TL_LANG']['tl_page']['pwaConfig'],
+        'label'             => &$GLOBALS['TL_LANG']['tl_page']['pwaConfig'],
         'default'           => '0',
         'inputType'         => 'select',
         'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PageCallback', 'getPwaConfigOptions'],
@@ -48,7 +48,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['pwaConfig'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['uncachedPages'] = [
-    'label'                   => $GLOBALS['TL_LANG']['tl_page']['uncachedPages'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_page']['uncachedPages'],
     'exclude'                 => true,
     'default'                 => '',
     'inputType'               => 'pageTree',

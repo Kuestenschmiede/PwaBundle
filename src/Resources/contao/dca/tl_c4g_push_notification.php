@@ -59,7 +59,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
         (
             'edit' => array
             (
-                'label'         => $GLOBALS['TL_LANG']['tl_c4g_push_notification']['edit'],
+                'label'         => &$GLOBALS['TL_LANG']['tl_c4g_push_notification']['edit'],
                 'href'          => 'act=edit',
                 'icon'          => 'edit.svg',
             )
@@ -90,7 +90,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
         ),
         'messageTitle' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['messageTitle'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['messageTitle'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
@@ -99,7 +99,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
         ),
         'messageContent' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['messageContent'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['messageContent'],
             'default'           => '',
             'inputType'         => 'textarea',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
@@ -108,7 +108,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
         ),
         'subscriptionTypes' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['subscriptionTypes'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['subscriptionTypes'],
             'default'           => [],
             'inputType'         => 'select',
             'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],

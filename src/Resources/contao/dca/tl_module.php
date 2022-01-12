@@ -15,7 +15,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['pwa'] = "{title_legend},name,type,p
 $GLOBALS['TL_DCA']['tl_module']['palettes']['push-subscription'] = "{title_legend},name,type,subscribeText,unsubscribeText,subscriptionTypes,pushConfig,disableSelection";
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pwaConfiguration'] = [
-    'label'             => $GLOBALS['TL_LANG']['tl_module']['pwaConfiguration'],
+    'label'             => &$GLOBALS['TL_LANG']['tl_module']['pwaConfiguration'],
     'default'           => 0,
     'inputType'         => 'select',
     'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PageCallback', 'getPwaConfigOptions'],
@@ -25,7 +25,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pwaConfiguration'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['subscribeText'] = [
-    'label'             => $GLOBALS['TL_LANG']['tl_module']['subscribeText'],
+    'label'             => &$GLOBALS['TL_LANG']['tl_module']['subscribeText'],
     'default'           => 'Pushnachrichten abonnieren',
     'inputType'         => 'text',
     'eval'              => array('mandatory' => true, 'tl_class' => 'clr'),
@@ -34,7 +34,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['subscribeText'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['unsubscribeText'] = [
-    'label'             => $GLOBALS['TL_LANG']['tl_module']['unsubscribeText'],
+    'label'             => &$GLOBALS['TL_LANG']['tl_module']['unsubscribeText'],
     'default'           => 'Abonnement bearbeiten',
     'inputType'         => 'text',
     'eval'              => array('mandatory' => true, 'tl_class' => 'clr'),
@@ -43,7 +43,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['unsubscribeText'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['subscriptionTypes'] = [
-    'label'             => $GLOBALS['TL_LANG']['tl_module']['subscriptionTypes'],
+    'label'             => &$GLOBALS['TL_LANG']['tl_module']['subscriptionTypes'],
     'default'           => [],
     'inputType'         => 'select',
     'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
@@ -54,7 +54,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['subscriptionTypes'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pushConfig'] = [
-    'label'             => $GLOBALS['TL_LANG']['tl_module']['pushConfig'],
+    'label'             => &$GLOBALS['TL_LANG']['tl_module']['pushConfig'],
     'default'           => 0,
     'inputType'         => 'select',
     'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\SubscriptionTypeCallback', 'getPushConfigOptions'],
@@ -65,7 +65,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['pushConfig'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['disableSelection'] = [
-    'label'                   => $GLOBALS['TL_LANG']['tl_module']['disableSelection'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['disableSelection'],
     'exclude'                 => true,
     'default'                 => '',
     'inputType'               => 'checkbox',
@@ -73,7 +73,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['disableSelection'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['cronActivation'] = [
-    'label'                   => $GLOBALS['TL_LANG']['tl_module']['cronActivation'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cronActivation'],
     'exclude'                 => true,
     'default'                 => '',
     'inputType'               => 'checkbox',

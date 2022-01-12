@@ -60,7 +60,7 @@ if (class_exists('Contao\CalendarBundle\ContaoCalendarBundle')) {
     ];
     
     $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['subscriptionTypes'] = [
-        'label'             => $GLOBALS['TL_LANG']['tl_calendar_events']['subscriptionTypes'],
+        'label'             => &$GLOBALS['TL_LANG']['tl_calendar_events']['subscriptionTypes'],
         'default'           => [],
         'inputType'         => 'select',
         'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],

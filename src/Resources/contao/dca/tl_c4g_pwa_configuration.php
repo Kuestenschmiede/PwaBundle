@@ -52,7 +52,7 @@ $GLOBALS['TL_DCA'][$strName] = array
         'global_operations' => array
         (
             'all' => [
-                'label'         => $GLOBALS['TL_LANG']['MSC']['all'],
+                'label'         => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'          => 'act=select',
                 'class'         => 'header_edit_all',
                 'attributes'    => 'onclick="Backend.getScrollOffSet()" accesskey="e"'
@@ -70,26 +70,26 @@ $GLOBALS['TL_DCA'][$strName] = array
         (
             'edit' => array
             (
-                'label'         => $GLOBALS['TL_LANG'][$strName]['edit'],
+                'label'         => &$GLOBALS['TL_LANG'][$strName]['edit'],
                 'href'          => 'act=edit',
                 'icon'          => 'edit.svg',
             ),
             'copy' => array
             (
-                'label'         => $GLOBALS['TL_LANG'][$strName]['copy'],
+                'label'         => &$GLOBALS['TL_LANG'][$strName]['copy'],
                 'href'          => 'act=copy',
                 'icon'          => 'copy.svg',
             ),
             'delete' => array
             (
-                'label'         => $GLOBALS['TL_LANG'][$strName]['delete'],
+                'label'         => &$GLOBALS['TL_LANG'][$strName]['delete'],
                 'href'          => 'act=delete',
                 'icon'          => 'delete.svg',
                 'attributes'    => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false;Backend.getScrollOffset()"',
             ),
             'show' => array
             (
-                'label'         => $GLOBALS['TL_LANG'][$strName]['show'],
+                'label'         => &$GLOBALS['TL_LANG'][$strName]['show'],
                 'href'          => 'act=show',
                 'icon'          => 'show.svg',
             ),
@@ -108,7 +108,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     (
         'name' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['name'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['name'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
@@ -117,7 +117,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'shortName' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['shortName'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['shortName'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
@@ -126,7 +126,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'description' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['description'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['description'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
@@ -135,7 +135,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'startUrl' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['startUrl'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['startUrl'],
             'default'           => '/',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
@@ -144,7 +144,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'scope' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['scope'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['scope'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
@@ -153,7 +153,7 @@ $GLOBALS['TL_DCA'][$strName] = array
 
         'updateViaCache' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['updateViaCache'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['updateViaCache'],
             'default'           => 'imports',
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getUpdateViaCacheOptions'],
@@ -163,7 +163,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'themeColor' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['themeColor'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['themeColor'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'isHexColor'=>true, 'colorpicker'=>true, 'decodeEntities'=>true, 'tl_class'=>'long wizard'),
@@ -172,7 +172,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'backgroundColor' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['backgroundColor'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['backgroundColor'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'isHexColor'=>true, 'colorpicker'=>true, 'decodeEntities'=>true, 'tl_class'=>'long wizard'),
@@ -181,7 +181,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'display' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['display'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['display'],
             'default'           => '0',
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getDisplayOptions'],
@@ -191,7 +191,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'orientation' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['orientation'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['orientation'],
             'default'           => '0',
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getOrientationOptions'],
@@ -201,7 +201,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'offlinePage' => array
         (
-            'label'                   => $GLOBALS['TL_LANG'][$strName]['offlinePage'],
+            'label'                   => &$GLOBALS['TL_LANG'][$strName]['offlinePage'],
             'exclude'                 => true,
             'default'                 => 0,
             'inputType'               => 'pageTree',
@@ -210,7 +210,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'offlineHandling' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['offlineHandling'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['offlineHandling'],
             'default'           => 1,
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getOfflineHandlingOptions'],
@@ -220,7 +220,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'icon192' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['icon192'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['icon192'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -230,7 +230,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'icon512' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['icon512'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['icon512'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -240,7 +240,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'maskableIcon' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['maskableIcon'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['maskableIcon'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -250,7 +250,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'maskableIconSize' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['maskableIconSize'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['maskableIconSize'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
@@ -259,7 +259,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'additionalUrls' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['additionalUrls'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['additionalUrls'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
@@ -268,7 +268,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'blockedUrls' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['blockedUrls'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['blockedUrls'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
@@ -277,7 +277,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'iosStyle' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['iosStyle'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['iosStyle'],
             'default'           => 'black',
             'inputType'         => 'select',
             'options_callback'  => [PwaConfigurationCallback::class, 'getIosStyleOptions'],
@@ -287,7 +287,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'appleIcon120' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['appleIcon120'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['appleIcon120'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -297,7 +297,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'appleIcon152' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['appleIcon152'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['appleIcon152'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -307,7 +307,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'appleIcon180' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['appleIcon180'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['appleIcon180'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -317,7 +317,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'appleIcon167' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['appleIcon167'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['appleIcon167'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -327,7 +327,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'splashIphoneFirst' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIphoneFirst'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIphoneFirst'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -337,7 +337,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'splashIphoneSecond' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIphoneSecond'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIphoneSecond'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -347,7 +347,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'splashIphoneThird' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIphoneThird'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIphoneThird'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -357,7 +357,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'splashIphoneFourth' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIphoneFourth'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIphoneFourth'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -367,7 +367,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'splashIpadFirst' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIpadFirst'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIpadFirst'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -377,7 +377,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'splashIpadSecond' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIpadSecond'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIpadSecond'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
@@ -387,7 +387,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     
         'splashIpadThird' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['splashIpadThird'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIpadThird'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],

@@ -50,7 +50,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
         'global_operations' => array
         (
             'all' => [
-                'label'         => $GLOBALS['TL_LANG']['MSC']['all'],
+                'label'         => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'          => 'act=select',
                 'class'         => 'header_edit_all',
                 'attributes'    => 'onclick="Backend.getScrollOffSet()" accesskey="e"'
@@ -68,26 +68,26 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
         (
             'edit' => array
             (
-                'label'         => $GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['edit'],
+                'label'         => &$GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['edit'],
                 'href'          => 'act=edit',
                 'icon'          => 'edit.svg',
             ),
             'copy' => array
             (
-                'label'         => $GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['copy'],
+                'label'         => &$GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['copy'],
                 'href'          => 'act=copy',
                 'icon'          => 'copy.svg',
             ),
             'delete' => array
             (
-                'label'         => $GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['delete'],
+                'label'         => &$GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['delete'],
                 'href'          => 'act=delete',
                 'icon'          => 'delete.svg',
                 'attributes'    => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false;Backend.getScrollOffset()"',
             ),
             'show' => array
             (
-                'label'         => $GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['show'],
+                'label'         => &$GLOBALS['TL_LANG']['tl_c4g_webpush_configuration']['show'],
                 'href'          => 'act=show',
                 'icon'          => 'show.svg',
             ),
@@ -104,7 +104,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
     'fields' => array
     (
         'name' => [
-            'label'             => $GLOBALS['TL_LANG'][$strName]['name'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['name'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
@@ -112,7 +112,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
         ],
         'vapidSubject' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['vapidSubject'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['vapidSubject'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
@@ -120,7 +120,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
         ),
         'vapidPublickey' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['vapidPublickey'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['vapidPublickey'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
@@ -128,7 +128,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
         ),
         'vapidPrivatekey' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['vapidPrivatekey'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['vapidPrivatekey'],
             'default'           => '',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
@@ -137,7 +137,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
     
         'ttl' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['ttl'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['ttl'],
             'default'           => 2419200,
             'inputType'         => 'text',
             'eval'              => array('rgxp' => 'digit','mandatory' => true, 'tl_class' => 'long'),
@@ -146,7 +146,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
     
         'urgency' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['urgency'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['urgency'],
             'default'           => 'normal',
             'inputType'         => 'select',
             'options_callback'  => [WebpushConfigurationCallback::class, 'getUrgencyOptions'],
@@ -156,7 +156,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
     
         'topic' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['topic'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['topic'],
             'default'           => 'message',
             'inputType'         => 'text',
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
@@ -165,7 +165,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
 
         'batchSize' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['batchSize'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['batchSize'],
             'default'           => 1000,
             'inputType'         => 'text',
             'eval'              => array('rgxp' => 'digit','mandatory' => true, 'tl_class' => 'long'),
@@ -174,7 +174,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
 
         'timeout' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['timeout'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['timeout'],
             'default'           => 30,
             'inputType'         => 'text',
             'eval'              => array('rgxp' => 'digit','mandatory' => true, 'tl_class' => 'long'),
@@ -183,7 +183,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
     
         'icon' => array
         (
-            'label'             => $GLOBALS['TL_LANG'][$strName]['icon'],
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['icon'],
             'default'           => '',
             'inputType'         => 'fileTree',
             'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
