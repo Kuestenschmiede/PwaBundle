@@ -51,7 +51,7 @@ class EventPushSenderService
                 if ($url) {
                     $sendEvent->setClickUrl($url);
                 }
-                $sendEvent->setSubscriptionTypes($event['subscriptionTypes'] ? unserialize($event['subscriptionTypes']) : []);
+                $sendEvent->setSubscriptionTypes($event['subscriptionTypes'] ? \Contao\StringUtil::deserialize($event['subscriptionTypes']) : []);
                 System::getContainer()->get('event_dispatcher')->dispatch($sendEvent, $sendEvent::NAME);
                 $db->prepare('UPDATE tl_calendar_events SET pnSent = 1 WHERE id = ?')
                     ->execute($event['id']);

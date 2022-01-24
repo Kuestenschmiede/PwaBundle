@@ -43,7 +43,7 @@ class PushSubscriptionModule extends Module
         
         ResourceLoader::loadJavaScriptResource('bundles/con4gispwa/build/PushSubscription.js', ResourceLoader::HEAD);
         ResourceLoader::loadCssResource('bundles/con4gispwa/dist/css/push-subscription.min.css');
-        $arrTypeIds = unserialize($this->subscriptionTypes);
+        $arrTypeIds = \Contao\StringUtil::deserialize($this->subscriptionTypes);
         $types = System::getContainer()->get('doctrine.orm.default_entity_manager')
             ->getRepository(PushSubscriptionType::class)->findBy(['id' => $arrTypeIds]);
         $arrTypes = [];

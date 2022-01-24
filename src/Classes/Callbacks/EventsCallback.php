@@ -66,7 +66,7 @@ class EventsCallback extends Backend
                     // send at date but also now on publish
                     // do not set pnSent flag so the cronjob triggers regularly
                     $event = new PushNotificationEvent();
-                    $event->setSubscriptionTypes(unserialize($activeRecord->subscriptionTypes) ?: []);
+                    $event->setSubscriptionTypes(\Contao\StringUtil::deserialize($activeRecord->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->title);
                     $event->setMessage(strip_tags($activeRecord->teaser));
                     if ($url) {
@@ -99,7 +99,7 @@ class EventsCallback extends Backend
                 $url = $calendarEvent->url;
             }
             $event = new PushNotificationEvent();
-            $subscriptionTypes = unserialize($calendarEvent->subscriptionTypes) ?: [];
+            $subscriptionTypes = \Contao\StringUtil::deserialize($calendarEvent->subscriptionTypes) ?: [];
             $event->setSubscriptionTypes($subscriptionTypes);
             $event->setTitle($calendarEvent->title);
             $event->setMessage(strip_tags($calendarEvent->teaser));

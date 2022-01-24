@@ -45,7 +45,7 @@ class NewsCallback extends Backend
                 }
                 if (!$sendTime || ($sendTime <= $currentTime)) {
                     $event = new PushNotificationEvent();
-                    $event->setSubscriptionTypes(unserialize($archive->subscriptionTypes) ?: []);
+                    $event->setSubscriptionTypes(\Contao\StringUtil::deserialize($archive->subscriptionTypes) ?: []);
                     $event->setTitle($activeRecord->headline);
                     $event->setMessage(strip_tags($activeRecord->teaser));
                     if ($url) {

@@ -51,7 +51,7 @@ class NewsPushSenderService
                     $sendEvent->setClickUrl($url);
                 }
                 $archive = NewsArchiveModel::findByPk($news['pid']);
-                $subscriptionTypes = unserialize($archive->subscriptionTypes);
+                $subscriptionTypes = \Contao\StringUtil::deserialize($archive->subscriptionTypes);
                 if ($subscriptionTypes && count($subscriptionTypes) > 0) {
                     $sendEvent->setSubscriptionTypes($subscriptionTypes);
                     System::getContainer()->get('event_dispatcher')->dispatch($sendEvent, $sendEvent::NAME);

@@ -196,7 +196,7 @@ class PushController extends AbstractController
         $module = ModuleModel::findById($moduleId);
         $resultingTypes = [];
         if ($module && $module->subscriptionTypes) {
-            $allowedTypes = unserialize($module->subscriptionTypes);
+            $allowedTypes = \Contao\StringUtil::deserialize($module->subscriptionTypes);
             foreach ($subscriptionTypes as $key => $value) {
                 if (in_array($value, $allowedTypes)) {
                     $resultingTypes[] = $value;

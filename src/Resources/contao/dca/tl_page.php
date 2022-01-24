@@ -9,33 +9,12 @@
  * @link https://www.con4gis.org
  */
 
-use Contao\CoreBundle\Util\PackageUtil;
-
 $GLOBALS['TL_DCA']['tl_page']['config']['onsubmit_callback'][] = ['con4gis\PwaBundle\Classes\Callbacks\PageCallback', 'createServiceWorker'];
 
-//do not apply to rootfallback palette before 4.9
-$version = explode('.', PackageUtil::getContaoVersion());
-$rootfallback = true;
-if ($version) {
-    $major   = intval($version[0]);
-    $minor   = intval($version[1]);
-    if ($major && $minor && (intval($major) <= 4) && (intval($minor) <= 8)) {
-        $rootfallback = false;
-    }
-}
-
-if ($rootfallback) {
-    Contao\CoreBundle\DataContainer\PaletteManipulator::create()
-        ->addLegend('pwa_legend', 'layout_legend')
-        ->addField(array('pwaConfig','uncachedPages'), 'pwa_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
-        ->applyToPalette('root', 'tl_page')
-        ->applyToPalette('rootfallback', 'tl_page');
-} else {
-    Contao\CoreBundle\DataContainer\PaletteManipulator::create()
-        ->addLegend('pwa_legend', 'layout_legend')
-        ->addField(array('pwaConfig','uncachedPages'), 'pwa_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
-        ->applyToPalette('root', 'tl_page');
-}
+Contao\CoreBundle\DataContainer\PaletteManipulator::create()
+    ->addLegend('pwa_legend', 'layout_legend')
+    ->addField(array('pwaConfig','uncachedPages'), 'pwa_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
+    ->applyToPalette('root', 'tl_page');
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['pwaConfig'] = [
         'label'             => &$GLOBALS['TL_LANG']['tl_page']['pwaConfig'],
