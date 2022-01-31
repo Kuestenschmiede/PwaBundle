@@ -16,10 +16,10 @@
     },
     "require": {
         "contao/core-bundle": "^4.9",
-        "con4gis/core": "^5.1.0",
+        "con4gis/core": "^6.0.0",
         "doctrine/orm": "^2.8.4",
         "doctrine/data-fixtures": "^1.4.4",
-        "doctrine/persistence": "^2.1.0",
+        "doctrine/persistence": "^2.3.0",
         "minishlink/web-push-bundle": "^6",
         "contao-components/jquery": "^3.6"
     },
