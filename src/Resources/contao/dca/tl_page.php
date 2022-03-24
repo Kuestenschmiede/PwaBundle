@@ -14,14 +14,15 @@ $GLOBALS['TL_DCA']['tl_page']['config']['onsubmit_callback'][] = ['con4gis\PwaBu
 Contao\CoreBundle\DataContainer\PaletteManipulator::create()
     ->addLegend('pwa_legend', 'layout_legend')
     ->addField(array('pwaConfig','uncachedPages'), 'pwa_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
-    ->applyToPalette('root', 'tl_page');
+    ->applyToPalette('root', 'tl_page')
+    ->applyToPalette('rootfallback', 'tl_page');
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['pwaConfig'] = [
         'label'             => &$GLOBALS['TL_LANG']['tl_page']['pwaConfig'],
         'default'           => '0',
         'inputType'         => 'select',
         'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\PageCallback', 'getPwaConfigOptions'],
-        'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true),
+        'eval'              => array('mandatory' => false, 'tl_class' => 'clr', 'includeBlankOption' => true),
         'sql'               => "int(10) unsigned NOT NULL default '0'",
         'exclude'           => true
 ];
