@@ -63,14 +63,21 @@ class ServiceWorkerFileWriter
      */
     public function createCachingCode($fileNames, $cacheName, $webPath)
     {
-        $pos = strpos($webPath, '/web/sw', 0) + 7;
-        $path = substr($webPath, $pos);
+        // new folder location https://docs.contao.org/manual/en/migration/#document-root
+        $pos = strpos($webPath, '/public/sw', 0);
+        if ($pos === false) {
+            // old folder location
+            $pos = strpos($webPath, '/web/sw', 0);
+        }
+        $path = substr($webPath, $pos + 7);
 
         $this->strContent .= "self.addEventListener('install', function(event) {\n";
         $this->strContent .= "\tevent.waitUntil(\n";
         $this->strContent .= "\tcaches.open('" . $cacheName . "').then(cache => \n";
         $this->strContent .= "\t\tcache.addAll(['.',\n";
-        $this->strContent .= "\t\t'" . $path . "/manifest.webmanifest',\n";
+        if ($pos !== false) {
+            $this->strContent .= "\t\t'" . $path . "/manifest.webmanifest',\n";
+        }
         foreach ($fileNames as $fileName) {
             $this->strContent .= "\t\t'" . $fileName . "',\n";
         }
@@ -217,7 +224,7 @@ self.addEventListener('notificationclick', event => {
     // event.notification.close();
     if (self.click_action && (self.click_action !== undefined)) {
     const chain = clients.openWindow(self.click_action);
-    event.waitUntil(chain);     
+    event.waitUntil(chain);
     }
 }, false);
 JS;
