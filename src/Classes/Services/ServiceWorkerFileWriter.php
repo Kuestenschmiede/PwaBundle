@@ -65,11 +65,13 @@ class ServiceWorkerFileWriter
     {
         // new folder location https://docs.contao.org/manual/en/migration/#document-root
         $pos = strpos($webPath, '/public/sw', 0);
+        $strip = 10;
         if ($pos === false) {
             // old folder location
             $pos = strpos($webPath, '/web/sw', 0);
+            $strip = 7;
         }
-        $path = substr($webPath, $pos + 7);
+        $path = substr($webPath, $pos + $strip);
 
         $this->strContent .= "self.addEventListener('install', function(event) {\n";
         $this->strContent .= "\tevent.waitUntil(\n";
