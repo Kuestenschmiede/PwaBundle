@@ -84,7 +84,7 @@ class ServiceWorkerFileWriter
             $this->strContent .= "\t\t'" . $fileName . "',\n";
         }
         $this->strContent .= "\t])";
-        $this->strContent .= "\t).catch(() => {console.warn(\"Error caching some of the pages...\"); self.skipWaiting();})\n";
+        $this->strContent .= "\t).catch((ex) => {console.warn(\"Error caching some of the pages: \"+ex); self.skipWaiting();})\n";
         $this->strContent .= "\t.then(() => self.skipWaiting()));\n";
 //        $this->strContent .= "\tself.skipWaiting();\n";
         $this->strContent .= "});\n";
@@ -195,8 +195,8 @@ JS;
     {
         $this->strContent .= <<< JS
 self.addEventListener('push', event => {
-  const notification = event.data.json();
-  if (notification.click_action && notification.click_action !== undefined) {
+  const notification = event.data && event.data.text() ? event.data.text() : event.data.json();
+  if (notification !== "string" && notification.click_action && notification.click_action !== undefined) {
       self.click_action = notification.click_action;
       event.waitUntil(self.registration.showNotification(notification.title, {
         body: notification.body,
@@ -204,6 +204,12 @@ self.addEventListener('push', event => {
         badge: notification.badge,
         image: notification.image,
         click_action: notification.click_action
+      }));
+  } else if (notification.title === undefined) { 
+     self.click_action = undefined;
+      event.waitUntil(self.registration.showNotification(notification, {
+        body: notification,
+        click_action: undefined
       }));
   } else {
       self.click_action = undefined;
