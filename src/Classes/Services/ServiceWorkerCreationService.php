@@ -12,6 +12,7 @@
 namespace con4gis\PwaBundle\Classes\Services;
 
 use con4gis\PwaBundle\Entity\PwaConfiguration;
+use Contao\Controller;
 use Contao\Database;
 use Contao\PageModel;
 use Contao\StringUtil;
@@ -80,6 +81,9 @@ class ServiceWorkerCreationService
         // check for additional urls to cache
         if ($pwaConfiguration->getAdditionalUrls()) {
             $arrUrls = explode(',', $pwaConfiguration->getAdditionalUrls());
+            foreach ($arrUrls as $key=>$arrUrl) {
+                $arrUrls[$key] = Controller::replaceInsertTags($arrUrl);
+            }
             $arrPagenames = array_merge($arrPagenames, $arrUrls);
         }
 
