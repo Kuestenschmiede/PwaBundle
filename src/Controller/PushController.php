@@ -11,6 +11,7 @@
 
 namespace con4gis\PwaBundle\Controller;
 
+use con4gis\CoreBundle\Controller\BaseController;
 use con4gis\CoreBundle\Resources\contao\models\C4gLogModel;
 use con4gis\PwaBundle\Entity\PushSubscription;
 use con4gis\PwaBundle\Entity\WebPushConfiguration;
@@ -23,9 +24,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Contao\CoreBundle\Framework\ContaoFramework;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class PushController extends AbstractController
+class PushController extends BaseController
 {
+    public function __construct(
+        ContainerInterface $container,
+        ContaoFramework $framework
+    ) {
+        parent::__construct($container);
+        $framework->initialize(true);
+    }
+
+    protected function initialize($withEntityManager = true)
+    {
+        parent::initialize(false);
+    }
+
     /**
      * @Route("/con4gis/pushSubscription/getKey", name="getPushPublicKey", methods={"GET"})
      * @param $request

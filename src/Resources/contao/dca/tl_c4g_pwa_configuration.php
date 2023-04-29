@@ -15,6 +15,7 @@
  */
 
 use con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback;
+use Contao\DC_Table;
 
 $strName = 'tl_c4g_pwa_configuration';
 
@@ -23,9 +24,9 @@ $GLOBALS['TL_DCA'][$strName] = array
     //config
     'config' => array
     (
-        'dataContainer'     => 'Table',
+        'dataContainer'     => DC_Table::class,
         'enableVersioning'  => true,
-        'onload_callback'			=> array
+        'onload_callback'	=> array
         (
             array('\con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback', 'showHint'),
         )

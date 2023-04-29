@@ -10,6 +10,7 @@
  */
 
 use con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback;
+use Contao\DC_Table;
 
 $strName = 'tl_c4g_push_subscription_type';
 
@@ -18,7 +19,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     //config
     'config' => array
     (
-        'dataContainer'     => 'Table',
+        'dataContainer'     => DC_Table::class,
         'enableVersioning'  => true,
         'onload_callback' => [['tl_c4g_push_subscription_type', 'showInfoMessage']],
     ),
@@ -124,7 +125,7 @@ $GLOBALS['TL_DCA'][$strName] = array
 /**
  * Class tl_content_c4g_maps
  */
-class tl_c4g_push_subscription_type extends Backend
+class tl_c4g_push_subscription_type extends \Contao\Backend
 {
 
     /**

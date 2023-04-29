@@ -83,7 +83,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['cronActivation'] = [
 /**
  * Class tl_c4g_pwa_module
  */
-class tl_c4g_pwa_module extends Backend
+class tl_c4g_pwa_module extends \Contao\Backend
 {
     public function typeLink(Contao\DataContainer $dc)
     {

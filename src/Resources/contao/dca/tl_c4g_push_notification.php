@@ -10,6 +10,7 @@
  */
 
 use con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback;
+use Contao\DC_Table;
 
 $strName = 'tl_c4g_push_notification';
 $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
@@ -18,11 +19,11 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
     // Config
     'config' => array
     (
-        'dataContainer'     => 'Table',
+        'dataContainer'     => DC_Table::class,
         'enableVersioning'  => false,
         'notDeletable' => true,
         'notCopyable' => true,
-        'closed' => (\Input::get('id')),
+        'closed' => (\Contao\Input::get('id')),
         'onload_callback'			=> array
         (
             array(PushNotificationCallback::class, 'loadDataset'),

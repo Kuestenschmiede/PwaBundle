@@ -29,3 +29,8 @@ services:
     class: con4gis\PwaBundle\Controller\PushController
     autowire: true
     public: true
+    calls:
+      - setContainer: [ '@service_container' ]
+    arguments:
+      - "@service_container"
+      - "@contao.framework"

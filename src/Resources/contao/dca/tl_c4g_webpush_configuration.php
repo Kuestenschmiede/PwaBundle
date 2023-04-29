@@ -11,6 +11,7 @@
 
 use con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback;
 use con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback;
+use Contao\DC_Table;
 
 $strName = 'tl_c4g_webpush_configuration';
 $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
@@ -19,7 +20,7 @@ $GLOBALS['TL_DCA']['tl_c4g_webpush_configuration'] = array
     // Config
     'config' => array
     (
-        'dataContainer'     => 'Table',
+        'dataContainer'     => DC_Table::class,
         'enableVersioning'  => false,
         'onload_callback' => [['\con4gis\PwaBundle\Classes\Callbacks\WebpushConfigurationCallback', 'showInfoMessage']],
         'onsubmit_callback'			=> array

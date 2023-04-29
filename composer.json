@@ -16,9 +16,9 @@
     },
     "require": {
         "php": "^7.4 || ^8.0",
-        "contao/core-bundle": "^4.9",
-        "con4gis/core": "^6.0.9",
-        "doctrine/orm": "^2.8.4",
+        "contao/core-bundle": "^4.9 || ^5.0",
+        "con4gis/core": "^6.0 || ^7.0",
+        "doctrine/orm": "^2.8.5",
         "doctrine/data-fixtures": "^1.4.4",
         "doctrine/persistence": "^2.3.0",
         "minishlink/web-push-bundle": "^6",
