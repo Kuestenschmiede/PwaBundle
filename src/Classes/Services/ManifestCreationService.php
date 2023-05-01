@@ -14,6 +14,7 @@ namespace con4gis\PwaBundle\Classes\Services;
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 use Contao\Controller;
 use Contao\FilesModel;
+use Contao\System;
 
 class ManifestCreationService
 {
@@ -35,7 +36,8 @@ class ManifestCreationService
         }
 
         //ToDo set language
-        $language = Controller::replaceInsertTags('{{page::language}}') ?  Controller::replaceInsertTags('{{page::language}}') : substr($GLOBALS['_SERVER']['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        $parser = System::getContainer()->get('contao.insert_tag.parser');
+        $language = $parser->replace('{{page::language}}') ?  Controller::replaceInsertTags('{{page::language}}') : substr($GLOBALS['_SERVER']['HTTP_ACCEPT_LANGUAGE'], 0, 2);
         if ($language === 'de' || strpos($language, 'de-')) {
             $language = 'de-DE';
         } else {

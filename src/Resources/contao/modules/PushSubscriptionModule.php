@@ -14,6 +14,7 @@ namespace con4gis\PwaBundle\Resources\contao\modules;
 
 use con4gis\CoreBundle\Classes\ResourceLoader;
 use con4gis\PwaBundle\Entity\PushSubscriptionType;
+use Contao\BackendTemplate;
 use Contao\Module;
 use Contao\System;
 
@@ -23,8 +24,9 @@ class PushSubscriptionModule extends Module
     
     public function generate()
     {
-        if (TL_MODE == 'BE') {
-            $objTemplate = new \BackendTemplate('be_wildcard');
+        if (System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create('')))
+        {
+            $objTemplate = new BackendTemplate('be_wildcard');
             
             $objTemplate->wildcard = '### '.$GLOBALS['TL_LANG']['FMD']['push-subscription'][0].' ###';
             $objTemplate->title = $this->headline;

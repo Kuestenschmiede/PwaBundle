@@ -29,7 +29,8 @@ class EventsCallback extends Backend
         $activeRecord = $dc->activeRecord;
         $pid = $activeRecord->pid;
         //$calendar = CalendarModel::findByPk($pid);
-        $url = Controller::replaceInsertTags('{{event_url::' . $activeRecord->id . '}}');
+        $parser = System::getContainer()->get('contao.insert_tag.parser');
+        $url = $parser->replace('{{event_url::' . $activeRecord->id . '}}');
         if ($activeRecord->url) {
             $url = $activeRecord->url;
         }
@@ -94,7 +95,8 @@ class EventsCallback extends Backend
             && (!$calendarEvent->stop || ($currentTime <= $calendarEvent->stop))
         ) {
             $pid = $calendarEvent->pid;
-            $url = Controller::replaceInsertTags('{{event::' . $calendarEvent->id . '}}');
+            $parser = System::getContainer()->get('contao.insert_tag.parser');
+            $url = $parser->replace('{{event::' . $calendarEvent->id . '}}');
             if ($calendarEvent->url) {
                 $url = $calendarEvent->url;
             }

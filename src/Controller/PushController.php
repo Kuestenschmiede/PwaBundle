@@ -55,7 +55,6 @@ class PushController extends BaseController
         $moduleId = $data ? $data['moduleId'] : false;
         $publicKey = false;
         if ($moduleId) {
-            $this->get('contao.framework')->initialize();
             $module = ModuleModel::findById($moduleId);
             if ($module && $module->pushConfig) {
                 $config = $em->getRepository(WebPushConfiguration::class)->findOneBy(['id'=>$module->pushConfig]);

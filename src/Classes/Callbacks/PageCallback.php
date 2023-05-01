@@ -13,6 +13,7 @@ namespace con4gis\PwaBundle\Classes\Callbacks;
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 use Contao\Backend;
 use Contao\DataContainer;
+use Contao\PageModel;
 use Contao\System;
 
 class PageCallback extends Backend
@@ -28,7 +29,7 @@ class PageCallback extends Backend
                 $manifestService = System::getContainer()->get('con4gis_pwa_manifest');
                 $serviceWorkerService = System::getContainer()->get('con4gis_pwa_service_worker');
                 $manifestService->createManifestFile($config);
-                $serviceWorkerService->createServiceWorker($config, \PageModel::findByPk($dc->activeRecord->id));
+                $serviceWorkerService->createServiceWorker($config, PageModel::findByPk($dc->activeRecord->id));
             }
         }
     }

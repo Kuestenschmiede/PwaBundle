@@ -134,7 +134,8 @@ class tl_c4g_push_subscription_type extends \Contao\Backend
      */
     public function pushConfigLink(Contao\DataContainer $dc)
     {
-        return ' <a href="contao/main.php?do=c4g_webpush_configuration&amp;table=tl_c4g_webpush_configuration&amp;id=' . $dc->activeRecord->pid . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN . '" title="' . Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['tl_c4g_push_subscriptions_type']['editPushConfigurations']) . '" onclick="Backend.openModalIframe({\'title\':\'' . Contao\StringUtil::specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['tl_c4g_push_subscriptions_type']['editPushConfigurations'])) . '\',\'url\':this.href});return false">' . Contao\Image::getHtml('edit.svg') . '</a>';
+        $requestToken = System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
+        return ' <a href="contao/main.php?do=c4g_webpush_configuration&amp;table=tl_c4g_webpush_configuration&amp;id=' . $dc->activeRecord->pid . '&amp;popup=1&amp;nb=1&amp;rt=' . $requestToken . '" title="' . Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['tl_c4g_push_subscriptions_type']['editPushConfigurations']) . '" onclick="Backend.openModalIframe({\'title\':\'' . Contao\StringUtil::specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['tl_c4g_push_subscriptions_type']['editPushConfigurations'])) . '\',\'url\':this.href});return false">' . Contao\Image::getHtml('edit.svg') . '</a>';
     }
 
     /**

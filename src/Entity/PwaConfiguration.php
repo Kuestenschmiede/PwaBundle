@@ -78,24 +78,24 @@ class PwaConfiguration extends BaseEntity
      * @ORM\Column(type="string")
      */
     private $shortName = "";
-    
+
     /**
      * @var int
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"default":0})
      */
     private $display = 0;
-    
+
     /**
      * @var int
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"default":0})
      */
     private $orientation = 0;
     
     /**
-     * @var int
-     * @ORM\Column(type="integer")
+     * @var string
+     * @ORM\Column(type="string")
      */
-    private $offlinePage = 0;
+    private $offlinePage = "";
     
     /**
      * @var int

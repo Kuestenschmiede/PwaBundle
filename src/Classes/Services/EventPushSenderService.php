@@ -39,7 +39,8 @@ class EventPushSenderService
                     ))) {
                 //$pid = $event['pid'];
 
-                $url = Controller::replaceInsertTags('{{event_url::' . $event['id'] . '}}');
+                $parser = System::getContainer()->get('contao.insert_tag.parser');
+                $url = $parser->replace('{{event_url::' . $event['id'] . '}}');
 
                 //ToDo ask for url selection
                 if ($event['url']) {

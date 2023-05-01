@@ -32,7 +32,8 @@ class NewsCallback extends Backend
             $pid = $activeRecord->pid;
             $archive = NewsArchiveModel::findById($pid);
             if ($archive->pushOnPublish) {
-                $url = Controller::replaceInsertTags('{{news::' . $activeRecord->id . '}}');
+                $parser = System::getContainer()->get('contao.insert_tag.parser');
+                $url = $parser->replace('{{news::' . $activeRecord->id . '}}');
 
                 //ToDo ask for url selection
                 if ($activeRecord->url) {

@@ -37,7 +37,8 @@ class NewsPushSenderService
             $isNewsDisplayed = !$startDate || ($currentTime >= $startDate)
                 && (!$endDate || ($currentTime <= $endDate));
             if ($sendDateIsPastOrUnspecified && $isNewsDisplayed) {
-                $url = Controller::replaceInsertTags('{{news::' . $news['id'] . '}}');
+                $parser = System::getContainer()->get('contao.insert_tag.parser');
+                $url = $parser->replace('{{news::' . $news['id'] . '}}');
 
                 //ToDo ask for url selection
                 if ($news['url']) {

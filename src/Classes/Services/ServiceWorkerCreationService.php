@@ -12,10 +12,12 @@
 namespace con4gis\PwaBundle\Classes\Services;
 
 use con4gis\PwaBundle\Entity\PwaConfiguration;
+use Contao\Config;
 use Contao\Controller;
 use Contao\Database;
 use Contao\PageModel;
 use Contao\StringUtil;
+use Contao\System;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ServiceWorkerCreationService
@@ -40,8 +42,8 @@ class ServiceWorkerCreationService
 
     public function createServiceWorker(PwaConfiguration $pwaConfiguration, PageModel $pageRoot)
     {
-        $suffix = $this->container->getParameter('contao.url_suffix');
-        $prependLocale = $this->container->getParameter('contao.prepend_locale');
+        $suffix = Config::get('url_suffix');
+        $prependLocale = Config::get('prepend_locale');
         $locale = $pageRoot->language;
         $urlLocalePart = $prependLocale ? $locale . '/' : '';
         //TODO currently only one level deep
@@ -82,7 +84,8 @@ class ServiceWorkerCreationService
         if ($pwaConfiguration->getAdditionalUrls()) {
             $arrUrls = explode(',', $pwaConfiguration->getAdditionalUrls());
             foreach ($arrUrls as $key=>$arrUrl) {
-                $arrUrls[$key] = Controller::replaceInsertTags($arrUrl);
+                $parser = System::getContainer()->get('contao.insert_tag.parser');
+                $arrUrls['key'] = $parser->replace($arrUrl);
             }
             $arrPagenames = array_merge($arrPagenames, $arrUrls);
         }
