@@ -19,7 +19,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
     // Config
     'config' => array
     (
-        'dataContainer'     => DC_Table::class,
+        'dataContainer' => DC_Table::class,
         'enableVersioning'  => false,
         'notDeletable' => true,
         'notCopyable' => true,

@@ -85,7 +85,7 @@ class ServiceWorkerCreationService
             $arrUrls = explode(',', $pwaConfiguration->getAdditionalUrls());
             foreach ($arrUrls as $key=>$arrUrl) {
                 $parser = System::getContainer()->get('contao.insert_tag.parser');
-                $arrUrls['key'] = $parser->replace($arrUrl);
+                $arrUrls[$key] = $parser->replace($arrUrl);
             }
             $arrPagenames = array_merge($arrPagenames, $arrUrls);
         }
