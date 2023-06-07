@@ -161,7 +161,8 @@ class PushNotificationListener
                     $defaultOptions['batchSize'] = 1000;
                 }
 
-                $this->webPushService->queueNotification($sub, \GuzzleHttp\json_encode($subscription->getContent()));
+//                $this->webPushService->queueNotification($sub, \GuzzleHttp\json_encode($subscription->getContent()));
+                $this->webPushService->queueNotification($sub, json_encode($subscription->getContent(), JSON_UNESCAPED_UNICODE));
                 $this->handleSendingForService($this->webPushService, $defaultOptions);
             }
         } catch (\ErrorException $exception) {
