@@ -82,16 +82,18 @@ class ServiceWorkerCreationService
 
         // check for additional urls to cache
         if ($pwaConfiguration->getAdditionalUrls()) {
+            $additionalUrls = [];
             $arrUrls = explode(',', $pwaConfiguration->getAdditionalUrls());
             foreach ($arrUrls as $arrUrl) {
                 $parser = System::getContainer()->get('contao.insert_tag.parser');
-
-                $entries = explode(',', $arrUrl);
+                $entries = explode(',', $parser->replace($arrUrl));
                 foreach ($entries as $entry) {
-                    $arrUrls[] = trim($entry);
+                    $entry = str_replace('"','',$entry);
+                    $entry = str_replace("'", "", $entry);
+                    $additionalUrls[] = trim($entry);
                 }
             }
-            $arrPagenames = array_merge($arrPagenames, $arrUrls);
+            $arrPagenames = array_merge($arrPagenames, $additionalUrls);
         }
 
         $blockedUrls = [];
