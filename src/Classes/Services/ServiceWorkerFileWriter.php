@@ -80,8 +80,14 @@ class ServiceWorkerFileWriter
         if ($pos !== false) {
             $this->strContent .= "\t\t'" . $path . "/manifest.webmanifest',\n";
         }
-        foreach ($fileNames as $fileName) {
-            $this->strContent .= "\t\t'" . $fileName . "',\n";
+        $lastIndex = count($fileNames) - 1;
+        foreach ($fileNames as $index => $fileName) {
+            $this->strContent .= "\t\t'" . $fileName . "'";
+            if ($index !== $lastIndex) {
+                $this->strContent .= ",\n";
+            } else {
+                $this->strContent .= "\n";
+            }
         }
         $this->strContent .= "\t])";
         $this->strContent .= "\t).catch((ex) => {console.warn(\"Error caching some of the pages: \"+ex); self.skipWaiting();})\n";
