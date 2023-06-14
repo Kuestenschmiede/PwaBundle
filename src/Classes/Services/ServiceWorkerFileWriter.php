@@ -201,7 +201,13 @@ JS;
     {
         $this->strContent .= <<< JS
 self.addEventListener('push', event => {
-  const notification = event.data && event.data.text() ? JSON.parse(event.data.text()) : event.data.json();
+  let notification;
+  try {
+    notification = JSON.parse(event.data.text());
+  } catch (error) {
+    notification = event.data.text();
+  }
+  
   if (notification !== "string" && notification.click_action && notification.click_action !== undefined) {
       self.click_action = notification.click_action;
       event.waitUntil(self.registration.showNotification(notification.title, {
