@@ -162,8 +162,7 @@ class PushNotificationListener
                 }
 
 //                $this->webPushService->queueNotification($sub, \GuzzleHttp\json_encode($subscription->getContent()));
-//                $this->webPushService->queueNotification($sub, json_encode($subscription->getContent()));
-                $this->webPushService->queueNotification($sub, json_encode($subscription->getContent(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+                $this->webPushService->queueNotification($sub, json_encode($subscription->getContent(), JSON_UNESCAPED_UNICODE));
                 $this->handleSendingForService($this->webPushService, $defaultOptions);
             }
         } catch (\ErrorException $exception) {
