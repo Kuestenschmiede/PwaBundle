@@ -53,7 +53,7 @@ class ServiceWorkerCreationService
 
         if ($pwaConfiguration->getOfflinePage()) {
             $offlinePage = PageModel::findById($pwaConfiguration->getOfflinePage());
-            $arrPagenames[] = $urlLocalePart . $offlinePage->alias . $suffix;
+            $arrPagenames[] = $urlLocalePart . '/' . $offlinePage->alias . $suffix;
         }
 
         if (!($pwaConfiguration->getOfflinePage()) || ($pwaConfiguration->getOfflinePage() && $pwaConfiguration->getOfflineHandling() == 2)) {
@@ -63,9 +63,9 @@ class ServiceWorkerCreationService
             foreach ($childPages as $childPage) {
                 if (!in_array($childPage->id, $pageIds) && $childPage->published == "1" && $childPage->alias != "") {
                     if ($prependLocale) {
-                        $arrPagenames[] = $urlLocalePart . $childPage->alias . $suffix;
+                        $arrPagenames[] = $urlLocalePart . '/' . $childPage->alias . $suffix;
                     } else {
-                        $arrPagenames[] = $childPage->alias . $suffix;
+                        $arrPagenames[] = '/' . $childPage->alias . $suffix;
                     }
                 }
             }
@@ -90,7 +90,7 @@ class ServiceWorkerCreationService
                 foreach ($entries as $entry) {
                     $entry = str_replace('"','',$entry);
                     $entry = str_replace("'", "", $entry);
-                    $additionalUrls[] = trim($entry);
+                    $additionalUrls[] = '/' . trim($entry);
                 }
             }
             $arrPagenames = array_merge($arrPagenames, $additionalUrls);

@@ -71,7 +71,7 @@ class ServiceWorkerFileWriter
             $pos = strpos($webPath, '/web/sw', 0);
             $strip = 7;
         }
-        $path = substr($webPath, $pos + $strip);
+        $path = '/' . substr($webPath, $pos + $strip);
 
         $this->strContent .= "self.addEventListener('install', function(event) {\n";
         $this->strContent .= "\tevent.waitUntil(\n";
