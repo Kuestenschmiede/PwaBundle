@@ -61,7 +61,7 @@ class ServiceWorkerCreationService
             $pageIds = StringUtil::deserialize($pageRoot->uncachedPages, true);
 
             foreach ($childPages as $childPage) {
-                if (!in_array($childPage->id, $pageIds) && $childPage->isPublic) {
+                if (!in_array($childPage->id, $pageIds) && $childPage->published == "1" && $childPage->alias != "") {
                     if ($prependLocale) {
                         $arrPagenames[] = $urlLocalePart . $childPage->alias . $suffix;
                     } else {
