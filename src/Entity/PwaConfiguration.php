@@ -358,11 +358,11 @@ class PwaConfiguration extends BaseEntity
     {
         $this->orientation = $orientation;
     }
-    
+
     /**
-     * @return int
+     * @return string
      */
-    public function getOfflinePage(): int
+    public function getOfflinePage(): string
     {
         return $this->offlinePage;
     }
