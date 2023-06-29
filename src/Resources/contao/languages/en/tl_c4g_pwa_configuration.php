@@ -24,7 +24,7 @@ $GLOBALS['TL_LANG'][$strName]['backgroundColor'] = ['Background color', 'Specify
 $GLOBALS['TL_LANG'][$strName]['display'] = ['Display mode', 'Choose the display mode of the pwa.'];
 $GLOBALS['TL_LANG'][$strName]['orientation'] = ['Orientation', 'Choose the orientation of the pwa.'];
 $GLOBALS['TL_LANG'][$strName]['offlinePage'] = ['Offline page', 'Choose a page that should be served as fallback when in offline mode.'];
-$GLOBALS['TL_LANG'][$strName]['offlineHandling'] = ['Offline handling', 'Choose the offline handling that the pwa should use.'];
+$GLOBALS['TL_LANG'][$strName]['offlineHandling'] = ['Offline handling', 'Choose the offline handling that the pwa should use. To cache all pages, the starting point of the website must be selected.'];
 $GLOBALS['TL_LANG'][$strName]['icon192'] = ['Icon (192x192)', 'Choose an icon for the pwa (192x192).'];
 $GLOBALS['TL_LANG'][$strName]['icon512'] = ['Icon (512x512)', 'Choose an icon for the pwa (512x512).'];
 $GLOBALS['TL_LANG'][$strName]['maskableIcon'] = ['Maskable Icon', 'Select a "maskable icon". This can be generated <a href="https://maskable.app/editor">here</a>. These icons will fit the app icon size perfectly.'];
