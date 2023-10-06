@@ -28,7 +28,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "echo-loader": "0.0.1",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
+    "gulp-autoprefixer": "^8.0.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-include": "^2.4.1",
     "gulp-notify": "^4.0.0",
