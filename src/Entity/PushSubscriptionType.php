@@ -42,7 +42,19 @@ class PushSubscriptionType extends BaseEntity
      * @ORM\Column(type="integer", options={"default":0})
      */
     protected $importId = 0;
-    
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    protected $notifyUpcomingEvents = 0;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", options={"default":"-"})
+     */
+    protected $gutesioEventTypes = "";
+
     /**
      * @var string
      * @ORM\Column(type="string")
@@ -134,4 +146,25 @@ class PushSubscriptionType extends BaseEntity
     {
         $this->pushConfig = $pushConfig;
     }
+
+    public function getNotifyUpcomingEvents(): int
+    {
+        return $this->notifyUpcomingEvents;
+    }
+
+    public function setNotifyUpcomingEvents(int $notifyUpcomingEvents): void
+    {
+        $this->notifyUpcomingEvents = $notifyUpcomingEvents;
+    }
+
+    public function getGutesioEventTypes(): string
+    {
+        return $this->gutesioEventTypes;
+    }
+
+    public function setGutesioEventTypes(string $gutesioEventTypes): void
+    {
+        $this->gutesioEventTypes = $gutesioEventTypes;
+    }
+
 }
