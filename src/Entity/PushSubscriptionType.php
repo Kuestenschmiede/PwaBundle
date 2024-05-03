@@ -47,7 +47,7 @@ class PushSubscriptionType extends BaseEntity
      * @var int
      * @ORM\Column(type="integer", options={"default":0})
      */
-    protected $notifyUpcomingEvents = 0;
+//    protected $notifyUpcomingEvents = false;
 
     /**
      * @var string
@@ -147,15 +147,15 @@ class PushSubscriptionType extends BaseEntity
         $this->pushConfig = $pushConfig;
     }
 
-    public function getNotifyUpcomingEvents(): int
-    {
-        return $this->notifyUpcomingEvents;
-    }
+//    public function getNotifyUpcomingEvents(): bool
+//    {
+//        return $this->notifyUpcomingEvents;
+//    }
 
-    public function setNotifyUpcomingEvents(int $notifyUpcomingEvents): void
-    {
-        $this->notifyUpcomingEvents = $notifyUpcomingEvents;
-    }
+//    public function setNotifyUpcomingEvents(int $notifyUpcomingEvents): void
+//    {
+//        $this->notifyUpcomingEvents = $notifyUpcomingEvents;
+//    }
 
     public function getGutesioEventTypes(): string
     {
