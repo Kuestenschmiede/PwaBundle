@@ -16,11 +16,11 @@
     },
     "require": {
         "php": "^7.4 || ^8.0",
-        "contao/core-bundle": "^4.9 || ^5.0",
+        "contao/core-bundle": "^4.13 || ^5.0",
         "con4gis/core": "^6.0 || ^7.0",
         "doctrine/orm": "^2.8.5",
         "doctrine/data-fixtures": "^1.4.4",
-        "doctrine/persistence": "^2.3.0",
+        "doctrine/persistence": "^2|^3",
         "minishlink/web-push-bundle": "^6.1.0",
         "contao-components/jquery": "^3.6"
     },
