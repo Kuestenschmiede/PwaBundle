@@ -45,9 +45,9 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['unsubscribeText'] = [
 $GLOBALS['TL_DCA']['tl_module']['fields']['subscriptionTypes'] = [
     'label'             => &$GLOBALS['TL_LANG']['tl_module']['subscriptionTypes'],
     'default'           => [],
-    'inputType'         => 'select',
+    'inputType'         => 'checkboxWizard',
     'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
-    'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true, 'multiple' => true, 'chosen' => true),
+    'eval'              => array('mandatory' => false, 'tl_class' => 'long', /*'includeBlankOption' => true, */'multiple' => true/*, 'chosen' => true*/),
     'sql'               => "blob NULL",
     'xlabel'            => [['tl_c4g_pwa_module', 'typeLink']],
     'exclude'           => true

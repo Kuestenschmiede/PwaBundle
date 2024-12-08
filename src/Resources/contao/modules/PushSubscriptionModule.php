@@ -42,18 +42,23 @@ class PushSubscriptionModule extends Module
     protected function compile()
     {
         // add manifest entry
-        
+
         ResourceLoader::loadJavaScriptResource('bundles/con4gispwa/build/PushSubscription.js', ResourceLoader::HEAD);
         ResourceLoader::loadCssResource('bundles/con4gispwa/dist/css/push-subscription.min.css');
         $arrTypeIds = \Contao\StringUtil::deserialize($this->subscriptionTypes);
-        $types = System::getContainer()->get('doctrine.orm.default_entity_manager')
-            ->getRepository(PushSubscriptionType::class)->findBy(['id' => $arrTypeIds]);
+        $typeRepo = System::getContainer()->get('doctrine.orm.default_entity_manager')
+            ->getRepository(PushSubscriptionType::class);
+        foreach ($arrTypeIds as $id) {
+            $type = $typeRepo->findOneBy(['id' => $id]);
+            if ($type !== null) {
+                $types[] = $type;
+            }
+        }
+
         $arrTypes = [];
         foreach ($types as $type) {
             $arrTypes[$type->getId()] = $type->getName();
         }
-
-        asort($arrTypes, SORT_STRING | SORT_FLAG_CASE | SORT_NATURAL);
 
         $this->Template->subscriptionTypes = $arrTypes;
         $this->Template->disableSelection = $this->disableSelection;
