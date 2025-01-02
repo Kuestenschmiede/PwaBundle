@@ -2,10 +2,10 @@
 /*
  * This file is part of con4gis, the gis-kit for Contao CMS.
  * @package con4gis
- * @version 8
+ * @version 10
  * @author con4gis contributors (see "authors.txt")
  * @license LGPL-3.0-or-later
- * @copyright (c) 2010-2022, by Küstenschmiede GmbH Software & Design
+ * @copyright (c) 2010-2025, by Küstenschmiede GmbH Software & Design
  * @link https://www.con4gis.org
  */
 namespace con4gis\PwaBundle\Classes\Callbacks;
@@ -117,7 +117,7 @@ class EventsCallback extends Backend
                 Message::addInfo('Es wurde keine Pushnachricht für das Event "' . $calendarEvent->title . '" versendet, da keine Abonnement-Typen ausgewählt sind, an die die Nachricht gesendet werden könnte.');
             }
 
-            Controller::redirect('contao?do=calendar&table=tl_calendar_events&id=' . $calendarEvent->pid);
+            Controller::redirect(System::getContainer()->get('router')->generate('contao_backend').'?do=calendar&table=tl_calendar_events&id=' . $calendarEvent->pid);
         }
     }
 
@@ -133,7 +133,7 @@ class EventsCallback extends Backend
         $row = Database::getInstance()
             ->prepare('SELECT * FROM tl_calendar_events WHERE id = ?')
             ->execute($dc->id)->fetchAssoc();
-        Controller::redirect('contao?do=calendar&table=tl_calendar_events&id=' . $row['pid']);
+        Controller::redirect(System::getContainer()->get('router')->generate('contao_backend').'?do=calendar&table=tl_calendar_events&id=' . $row['pid']);
     }
 
     public function convertDateStringToTimeStamp($value, $dc)

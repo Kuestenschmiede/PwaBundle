@@ -2,14 +2,15 @@
 /*
  * This file is part of con4gis, the gis-kit for Contao CMS.
  * @package con4gis
- * @version 8
+ * @version 10
  * @author con4gis contributors (see "authors.txt")
  * @license LGPL-3.0-or-later
- * @copyright (c) 2010-2022, by Küstenschmiede GmbH Software & Design
+ * @copyright (c) 2010-2025, by Küstenschmiede GmbH Software & Design
  * @link https://www.con4gis.org
  */
 
 use con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback;
+use Contao\System;
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pwa'] = "{title_legend},name,type,pwaConfiguration,cronActivation";
 $GLOBALS['TL_DCA']['tl_module']['palettes']['push-subscription'] = "{title_legend},name,type,subscribeText,unsubscribeText,subscriptionTypes,pushConfig,disableSelection";
@@ -88,12 +89,12 @@ class tl_c4g_pwa_module extends \Contao\Backend
     public function typeLink(Contao\DataContainer $dc)
     {
         $requestToken = System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
-        return ' <a href="contao/main.php?do=c4g_push_subscription_type&amp;table=tl_c4g_push_subscription_type&amp;id=' . $dc->activeRecord->pid . '&amp;popup=1&amp;nb=1&amp;rt=' . $requestToken . '" title="' . Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['tl_module']['editSubscriptionType']) . '" onclick="Backend.openModalIframe({\'title\':\'' . Contao\StringUtil::specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['tl_module']['editSubscriptionType'])) . '\',\'url\':this.href});return false">' . Contao\Image::getHtml('edit.svg') . '</a>';
+        return ' <a href="'.System::getContainer()->get('router')->generate('contao_backend').'/main.php?do=c4g_push_subscription_type&amp;table=tl_c4g_push_subscription_type&amp;id=' . $dc->activeRecord->pid . '&amp;popup=1&amp;nb=1&amp;rt=' . $requestToken . '" title="' . Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['tl_module']['editSubscriptionType']) . '" onclick="Backend.openModalIframe({\'title\':\'' . Contao\StringUtil::specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['tl_module']['editSubscriptionType'])) . '\',\'url\':this.href});return false">' . Contao\Image::getHtml('edit.svg') . '</a>';
     }
 
     public function pushConfigLink(Contao\DataContainer $dc)
     {
         $requestToken = System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
-        return ' <a href="contao/main.php?do=c4g_webpush_configuration&amp;table=tl_c4g_webpush_configuration&amp;id=' . $dc->activeRecord->pid . '&amp;popup=1&amp;nb=1&amp;rt=' . $requestToken . '" title="' . Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['tl_module']['editPushConfigurations']) . '" onclick="Backend.openModalIframe({\'title\':\'' . Contao\StringUtil::specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['tl_module']['editPushConfigurations'])) . '\',\'url\':this.href});return false">' . Contao\Image::getHtml('edit.svg') . '</a>';
+        return ' <a href="'.System::getContainer()->get('router')->generate('contao_backend').'/main.php?do=c4g_webpush_configuration&amp;table=tl_c4g_webpush_configuration&amp;id=' . $dc->activeRecord->pid . '&amp;popup=1&amp;nb=1&amp;rt=' . $requestToken . '" title="' . Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['tl_module']['editPushConfigurations']) . '" onclick="Backend.openModalIframe({\'title\':\'' . Contao\StringUtil::specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['tl_module']['editPushConfigurations'])) . '\',\'url\':this.href});return false">' . Contao\Image::getHtml('edit.svg') . '</a>';
     }
 }

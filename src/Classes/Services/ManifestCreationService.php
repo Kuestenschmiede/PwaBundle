@@ -2,15 +2,16 @@
 /*
  * This file is part of con4gis, the gis-kit for Contao CMS.
  * @package con4gis
- * @version 8
+ * @version 10
  * @author con4gis contributors (see "authors.txt")
  * @license LGPL-3.0-or-later
- * @copyright (c) 2010-2022, by Küstenschmiede GmbH Software & Design
+ * @copyright (c) 2010-2025, by Küstenschmiede GmbH Software & Design
  * @link https://www.con4gis.org
  */
 
 namespace con4gis\PwaBundle\Classes\Services;
 
+use con4gis\CoreBundle\Classes\C4GUtils;
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 use Contao\Controller;
 use Contao\FilesModel;
@@ -36,8 +37,7 @@ class ManifestCreationService
         }
 
         //ToDo set language
-        $parser = System::getContainer()->get('contao.insert_tag.parser');
-        $language = $parser->replace('{{page::language}}') ?  Controller::replaceInsertTags('{{page::language}}') : substr($GLOBALS['_SERVER']['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        $language = C4GUtils::replaceInsertTags('{{page::language}}') ?: substr($GLOBALS['_SERVER']['HTTP_ACCEPT_LANGUAGE'], 0, 2);
         if ($language === 'de' || strpos($language, 'de-')) {
             $language = 'de-DE';
         } else {
