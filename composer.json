@@ -15,8 +15,8 @@
         "email": "support@con4gis.org"
     },
     "require": {
-        "php": "^8.0",
-        "contao/core-bundle": "^4.13 || ^5.0",
+        "php": "^8.1",
+        "contao/core-bundle": "^4.13 || ^5.3",
         "con4gis/core": "^7.2",
         "doctrine/orm": "^2.8.5",
         "doctrine/data-fixtures": "^1.4.4",

@@ -43,10 +43,14 @@ class PushController extends BaseController
     }
 
     /**
-     * @Route("/con4gis/pushSubscription/getKey", name="getPushPublicKey", methods={"GET"})
      * @param $request
      * @return JsonResponse
      */
+    #[Route(
+        path: '/con4gis/pushSubscription/getKey',
+        name: 'getPushPublicKey',
+        methods: ['GET']
+    )]
     public function getPublicKeyAction(Request $request)
     {
         $em = $this->container->get('doctrine.orm.default_entity_manager');
@@ -75,10 +79,14 @@ class PushController extends BaseController
     }
     
     /**
-     * @Route("/con4gis/pushSubscription/", name="getPushSubscription", methods={"GET"})
      * @param $request
      * @return JsonResponse
      */
+    #[Route(
+        path: '/con4gis/pushSubscription/',
+        name: 'getPushSubscription',
+        methods: ['GET']
+    )]
     public function getSubscriptionAction(Request $request)
     {
         $data = $request->query->all();
@@ -103,10 +111,14 @@ class PushController extends BaseController
     }
     
     /**
-     * @Route("/con4gis/pushSubscription", name="createPushSubscription", methods={"POST"})
      * @param $request
      * @return JsonResponse
      */
+    #[Route(
+        path: '/con4gis/pushSubscription',
+        name: 'createPushSubscription',
+        methods: ['POST']
+    )]
     public function createSubscription(Request $request)
     {
         $this->container->get('contao.framework')->initialize();
@@ -141,10 +153,14 @@ class PushController extends BaseController
     }
     
     /**
-     * @Route("/con4gis/pushSubscription", name="updatePushSubscription", methods={"PUT"})
      * @param $request
      * @return JsonResponse
      */
+    #[Route(
+        path: '/con4gis/pushSubscription',
+        name: 'updatePushSubscription',
+        methods: ['PUT']
+    )]
     public function updateSubscriptionAction(Request $request)
     {
         $this->get('contao.framework')->initialize();
@@ -173,10 +189,14 @@ class PushController extends BaseController
     }
     
     /**
-     * @Route("/con4gis/pushSubscription", name="deleteSubscriptionAction", methods={"DELETE"})
      * @param Request $request
      * @return JsonResponse
      */
+    #[Route(
+        path: '/con4gis/pushSubscription',
+        name: 'deleteSubscriptionAction',
+        methods: ['DELETE']
+    )]
     public function deleteSubscriptionAction(Request $request)
     {
         $this->container->get('contao.framework')->initialize();
