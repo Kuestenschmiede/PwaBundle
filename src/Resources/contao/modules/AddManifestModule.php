@@ -87,7 +87,7 @@ class AddManifestModule extends Module
         $apple180Icon = FilesModel::findByUuid($config->getAppleIcon180());
         $apple167Icon = FilesModel::findByUuid($config->getAppleIcon167());
         
-        $GLOBALS['TL_HEAD'][] = '<meta name="apple-mobile-web-app-capable" content="yes">';
+        $GLOBALS['TL_HEAD'][] = '<meta name="mobile-web-app-capable" content="yes">';
         $GLOBALS['TL_HEAD'][] = '<meta name="apple-mobile-web-app-status-bar-style" content="' . $config->getIosStyle() . '">';
         $GLOBALS['TL_HEAD'][] = '<meta name="apple-mobile-web-app-title" content="' . $config->getName() . '">';
         if ($apple120Icon) {
