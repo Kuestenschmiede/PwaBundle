@@ -17,12 +17,12 @@
     "require": {
         "php": "^8.1",
         "contao/core-bundle": "^4.13 || ^5.3",
-        "con4gis/core": "^7.2",
+        "con4gis/core": "^8.0",
         "doctrine/orm": "^2.8.5",
         "doctrine/data-fixtures": "^1.4.4",
         "doctrine/persistence": "^2|^3",
-        "minishlink/web-push-bundle": "^6.1.0",
-        "contao-components/jquery": "^3.6"
+        "minishlink/web-push-bundle": "^v6.2.0",
+        "contao-components/jquery": "^3.7"
     },
     "conflict": {
         "contao/core": "*",

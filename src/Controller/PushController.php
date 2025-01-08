@@ -43,6 +43,11 @@ class PushController extends BaseController
     }
 
     /**
+     * @Route(
+     *      path="/con4gis/pushSubscription/getKey",
+     *      name="getPushPublicKey",
+     *      methods={"GET"}
+     *  )
      * @param $request
      * @return JsonResponse
      */
@@ -79,6 +84,11 @@ class PushController extends BaseController
     }
     
     /**
+     * @Route(
+     *      path="/con4gis/pushSubscription/",
+     *      name="getPushSubscription",
+     *      methods={"GET"}
+     *  )
      * @param $request
      * @return JsonResponse
      */
@@ -111,6 +121,11 @@ class PushController extends BaseController
     }
     
     /**
+     * @Route(
+     *      path="/con4gis/pushSubscription",
+     *      name="createPushSubscription",
+     *      methods={"POST"}
+     *  )
      * @param $request
      * @return JsonResponse
      */
@@ -153,6 +168,11 @@ class PushController extends BaseController
     }
     
     /**
+     * @Route(
+     *      path="/con4gis/pushSubscription",
+     *      name="updatePushSubscription",
+     *      methods={"PUT"}
+     *  )
      * @param $request
      * @return JsonResponse
      */
@@ -189,6 +209,11 @@ class PushController extends BaseController
     }
     
     /**
+     * @Route(
+     *      path="/con4gis/pushSubscription",
+     *      name="deleteSubscriptionAction",
+     *      methods={"DELETE"}
+     *  )
      * @param Request $request
      * @return JsonResponse
      */
