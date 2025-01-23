@@ -173,7 +173,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['themeColor'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'isHexColor'=>true, 'colorpicker'=>true, 'decodeEntities'=>true, 'tl_class'=>'long wizard'),
+            'eval'              => array('mandatory' => true, 'isHexColor'=>true, 'colorpicker'=>true, 'decodeEntities'=>true, 'tl_class'=>'clr wizard m12'),
             'exclude'           => true,
             'sql'               => null
         ),
@@ -183,7 +183,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['backgroundColor'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'isHexColor'=>true, 'colorpicker'=>true, 'decodeEntities'=>true, 'tl_class'=>'long wizard'),
+            'eval'              => array('mandatory' => true, 'isHexColor'=>true, 'colorpicker'=>true, 'decodeEntities'=>true, 'tl_class'=>'clr wizard m12'),
             'exclude'           => true,
             'sql'               => null
         ),

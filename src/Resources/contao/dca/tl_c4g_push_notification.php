@@ -46,6 +46,9 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
     //List
     'list' => array
     (
+        'label' => [
+            'format' => ""
+        ],
         'global_operations' => [
             'back' =>
                 [
