@@ -163,11 +163,13 @@ class PushNotificationListener
 
 //                $this->webPushService->queueNotification($sub, \GuzzleHttp\json_encode($subscription->getContent()));
                 $this->webPushService->queueNotification($sub, json_encode($subscription->getContent(), JSON_UNESCAPED_UNICODE));
+                $this->logger->error("Push notification queued for sending: " . json_encode($subscription->getContent(), JSON_UNESCAPED_UNICODE));
                 $this->handleSendingForService($this->webPushService, $defaultOptions);
             }
         } catch (\ErrorException $exception) {
             // log error message with stack trace
-            C4gLogModel::addLogEntry('pwa', $exception->getMessage() . "\n" . $exception->getTrace());
+            $this->logger->error($exception->getMessage());
+            C4gLogModel::addLogEntry('pwa', $exception->getMessage() . "\n" . $exception->getTraceAsString());
         }
     }
 
@@ -175,14 +177,21 @@ class PushNotificationListener
     {
         $webPushService->setDefaultOptions($defaultOptions);
 
-        foreach ($webPushService->flush() as $report) {
-            $endpoint = $report->getRequest()->getUri()->__toString();
+        try {
+            foreach ($webPushService->flush() as $report) {
+                $endpoint = $report->getRequest()->getUri()->__toString();
 
-            if ($report->isSuccess()) {
-                C4gLogModel::addLogEntry('pwa', "[v] Message sent successfully for subscription {$endpoint}.");
-            } else {
-                C4gLogModel::addLogEntry('pwa', "[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}");
+                if ($report->isSuccess()) {
+                    $this->logger->error("[v] Message sent successfully for subscription {$endpoint}.");
+                    C4gLogModel::addLogEntry('pwa', "[v] Message sent successfully for subscription {$endpoint}.");
+                } else {
+                    $this->logger->error("[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}");
+                    C4gLogModel::addLogEntry('pwa', "[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}");
+                }
             }
+        } catch (\ErrorException $e) {
+            $this->logger->error("Error occured on flusing the webPushService...");
+            $this->logger->error($e->getMessage());
         }
     }
 }
