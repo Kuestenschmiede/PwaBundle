@@ -93,7 +93,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,pushConfig;'
+        'default'   =>  '{data_legend},name,pushConfig,postals;'
     ),
     
     //Fields
@@ -119,7 +119,14 @@ $GLOBALS['TL_DCA'][$strName] = array
         'importId' =>
         [
            'eval'               => array('doNotCopy' => true)
-        ]
+        ],
+        'postals' => [
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['postals'],
+            'default'           => '',
+            'inputType'         => 'text',
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
+            'exclude'           => true
+        ],
     )
 );
 

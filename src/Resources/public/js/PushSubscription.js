@@ -128,6 +128,17 @@ function updateSubscription(pushManager) {
             });
           }
         }
+      }).fail((data) => {
+        let jsonData = data.responseJSON;
+        console.error("An error occured...");
+        if (jsonData.error) {
+          Swal.fire({
+            title: "Fehler",
+            text: jsonData.error,
+            icon: "error"
+          });
+          console.error(jsonData.error);
+        }
       });
     });
   }

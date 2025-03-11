@@ -60,6 +60,12 @@ class PushSubscriptionType extends BaseEntity
      * @ORM\Column(type="integer")
      */
     protected $pushConfig = 0;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $postals = "";
     
     /**
      * @return int
@@ -151,4 +157,13 @@ class PushSubscriptionType extends BaseEntity
         $this->gutesioEventTypes = $gutesioEventTypes;
     }
 
+    public function getPostals(): string
+    {
+        return $this->postals;
+    }
+
+    public function setPostals(string $postals): void
+    {
+        $this->postals = $postals;
+    }
 }

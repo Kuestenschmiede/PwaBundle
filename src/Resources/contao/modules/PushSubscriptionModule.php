@@ -15,6 +15,7 @@ namespace con4gis\PwaBundle\Resources\contao\modules;
 use con4gis\CoreBundle\Classes\ResourceLoader;
 use con4gis\PwaBundle\Entity\PushSubscriptionType;
 use Contao\BackendTemplate;
+use Contao\FrontendUser;
 use Contao\Module;
 use Contao\System;
 
@@ -46,6 +47,7 @@ class PushSubscriptionModule extends Module
         ResourceLoader::loadJavaScriptResource('bundles/con4gispwa/build/PushSubscription.js', ResourceLoader::HEAD);
         ResourceLoader::loadCssResource('bundles/con4gispwa/dist/css/push-subscription.min.css');
         $arrTypeIds = \Contao\StringUtil::deserialize($this->subscriptionTypes);
+        $types = [];
         $typeRepo = System::getContainer()->get('doctrine.orm.default_entity_manager')
             ->getRepository(PushSubscriptionType::class);
         foreach ($arrTypeIds as $id) {
@@ -55,9 +57,49 @@ class PushSubscriptionModule extends Module
             }
         }
 
+        $user = FrontendUser::getInstance();
+        $userLoggedIn = $user !== null;
+
         $arrTypes = [];
+        /** @var PushSubscriptionType $type */
         foreach ($types as $type) {
-            $arrTypes[$type->getId()] = $type->getName();
+
+            if ($type->getPostals()) {
+
+                if (!$userLoggedIn) {
+                    // postal restricted types are only available for authenticated members
+                    continue;
+                }
+
+                // only show types with matching postals for members
+                $arrPostals = explode(",", $type->getPostals());
+                $match = false;
+                foreach ($arrPostals as $postal) {
+                    if (str_contains($postal, "*")) {
+                        // wildcard postal
+                        $postal = str_replace("*", "", $postal);
+                        if (str_starts_with($user->postal, $postal)) {
+                            $match = true;
+                            // one match is enough
+                            break;
+                        }
+                    } else {
+                        if ($user->postal === $postal) {
+                            $match = true;
+                            // one match is enough
+                            break;
+                        }
+                    }
+                }
+
+                if ($match) {
+                    $arrTypes[$type->getId()] = $type->getName();
+                }
+
+            } else {
+                $arrTypes[$type->getId()] = $type->getName();
+            }
+
         }
 
         $this->Template->subscriptionTypes = $arrTypes;

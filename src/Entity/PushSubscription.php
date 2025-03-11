@@ -78,6 +78,12 @@ class PushSubscription extends BaseEntity
      * @ORM\Column(type="object")
      */
     private $config = [];
+
+    /**
+     * @var int|null
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $memberId = null;
     
     /**
      * @return int
@@ -221,5 +227,15 @@ class PushSubscription extends BaseEntity
     public function setConfig(object $config): void
     {
         $this->config = $config;
+    }
+
+    public function getMemberId(): ?int
+    {
+        return $this->memberId;
+    }
+
+    public function setMemberId(?int $memberId): void
+    {
+        $this->memberId = $memberId;
     }
 }

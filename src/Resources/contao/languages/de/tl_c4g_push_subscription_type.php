@@ -13,6 +13,7 @@ $strName = 'tl_c4g_push_subscription_type';
 
 $GLOBALS['TL_LANG'][$strName]['name'] = ['Name des Abonnement-Typs', 'Geben Sie einen Namen für den Abonnement-Typ ein.'];
 $GLOBALS['TL_LANG'][$strName]['pushConfig'] = ['Push-Konfiguration', 'Wählen Sie die zu verwendende Push-Konfiguration aus. Diese können im gleichnamigen Backend-Modul angelegt werden.'];
+$GLOBALS['TL_LANG'][$strName]['postals'] = ['PLZ-Einschränkung', 'Hier können Sie eine kommagetrennte Liste von Postleitzahlen angeben. Nachrichten für diesen Abonnement-Typ werden dann nur an abonnierte Mitglieder versendet, die in einem dieser Postleitzahlengebiete sind.'];
 
 $GLOBALS['TL_LANG'][$strName]['data_legend'] = 'Allgemeine Daten';
 

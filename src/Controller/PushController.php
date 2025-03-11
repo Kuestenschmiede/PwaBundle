@@ -15,6 +15,7 @@ use con4gis\CoreBundle\Controller\BaseController;
 use con4gis\CoreBundle\Resources\contao\models\C4gLogModel;
 use con4gis\PwaBundle\Entity\PushSubscription;
 use con4gis\PwaBundle\Entity\WebPushConfiguration;
+use Contao\FrontendUser;
 use Contao\ModuleModel;
 use Contao\System;
 use Contao\Database;
@@ -102,11 +103,21 @@ class PushController extends BaseController
         $data = $request->query->all();
         $endpoint = $data['endpoint'];
         if (!$endpoint) {
-            return JsonResponse::create()->setStatusCode(400);
+            return (new JsonResponse())->setStatusCode(400);
         }
         $em = $this->container->get('doctrine.orm.default_entity_manager');
+
         $subscription = $em->getRepository(PushSubscription::class)
             ->findOneBy(['endpoint' => $endpoint]);
+
+        if ($subscription->getMemberId() !== null) {
+            if (($user = FrontendUser::getInstance()) !== null) {
+                if ($user->id !== $subscription->getMemberId()) {
+                    return (new JsonResponse(['error' => 'Abonnement gehört einem anderen Mitglied und kann nicht bearbeitet werden.']))->setStatusCode(403);
+                }
+            }
+        }
+
         if ($subscription) {
             $response = new JsonResponse();
             $arrData = [];
@@ -136,7 +147,7 @@ class PushController extends BaseController
     )]
     public function createSubscription(Request $request)
     {
-        $this->container->get('contao.framework')->initialize();
+//        $this->container->get('contao.framework')->initialize();
         $entityManager = System::getContainer()->get('doctrine.orm.default_entity_manager');
         $arrData = $request->request->all();
         $endpoint = $arrData['endpoint'];
@@ -149,6 +160,13 @@ class PushController extends BaseController
         
         $subsRepo = $entityManager->getRepository(PushSubscription::class);
         if ($subsRepo->findOneBy(['endpoint' => $endpoint]) === null) {
+            // check user
+            if (($user = FrontendUser::getInstance()) !== null) {
+                $memberId = $user->id;
+            } else {
+                $memberId = null;
+            }
+
             // subscription is new, persist it
             $subscription = new PushSubscription();
             $subscription->setEndpoint($endpoint);
@@ -156,6 +174,7 @@ class PushController extends BaseController
             $subscription->setP256dhKey($arrData['keys']['p256dh']);
             $subscription->setTstamp(time());
             $subscription->setTypes($subscriptionTypes);
+            $subscription->setMemberId($memberId);
             try {
                 $entityManager->persist($subscription);
                 $entityManager->flush();
@@ -183,29 +202,38 @@ class PushController extends BaseController
     )]
     public function updateSubscriptionAction(Request $request)
     {
-        $this->get('contao.framework')->initialize();
         $data = $request->request->all();
         $endpoint = $data['endpoint'];
         $types = $data['types'];
         $types = $this->checkSubscriptionPermissions(intval($data['moduleId']), $types);
         if ((!$endpoint || !$types) || !is_array($types)) {
-            return JsonResponse::create()->setStatusCode(400);
+            return (new JsonResponse())->setStatusCode(400);
         }
-        $em = $this->get('doctrine.orm.default_entity_manager');
+        $em = $this->container->get('doctrine.orm.default_entity_manager');
         $subscription = $em->getRepository(PushSubscription::class)
             ->findOneBy(['endpoint' => $endpoint]);
         if (!$subscription) {
-            return JsonResponse::create()->setStatusCode(404);
+            return (new JsonResponse())->setStatusCode(404);
         }
+
         $subscription->setTypes($types);
+
+        if (($user = FrontendUser::getInstance()) !== null) {
+            if ($subscription->getMemberId() !== null && $subscription->getMemberId() !== $user->id) {
+                return (new JsonResponse())->setStatusCode(403);
+            } else {
+                $subscription->setMemberId($user->id);
+            }
+        }
+
         try {
             $em->persist($subscription);
             $em->flush();
         } catch (ORMException $e) {
             C4gLogModel::addLogEntry('pwa', $e->getMessage());
-            return JsonResponse::create()->setStatusCode(500);
+            return (new JsonResponse())->setStatusCode(500);
         }
-        return JsonResponse::create()->setStatusCode(200);
+        return (new JsonResponse())->setStatusCode(200);
     }
     
     /**
@@ -224,14 +252,20 @@ class PushController extends BaseController
     )]
     public function deleteSubscriptionAction(Request $request)
     {
-        $this->container->get('contao.framework')->initialize();
         /** @var EntityManager $entityManager */
-        $entityManager = System::getContainer()->get('doctrine.orm.default_entity_manager');
+        $entityManager = $this->container->get('doctrine.orm.default_entity_manager');
         $arrData = $request->request->all();
         $endpoint = $arrData['endpoint'];
         $subscription = $entityManager->getRepository(PushSubscription::class)
             ->findOneBy(['endpoint' => $endpoint]);
         if ($subscription) {
+            if ($subscription->getMemberId() !== null) {
+                $user = FrontendUser::getInstance();
+                if ($user === null || $subscription->getMemberId() !== $user->id) {
+                    // subscription can only be deleted by member that owns it
+                    return (new JsonResponse())->setStatusCode(403);
+                }
+            }
             try {
                 $entityManager->remove($subscription);
                 $entityManager->flush();

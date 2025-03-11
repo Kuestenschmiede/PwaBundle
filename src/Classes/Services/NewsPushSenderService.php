@@ -41,7 +41,7 @@ class NewsPushSenderService
                 $url = $parser->replace('{{news::' . $news['id'] . '}}');
 
                 //ToDo ask for url selection
-                if ($news['url']) {
+                if (!$url && $news['url']) {
                     $url = $news['url'];
                 }
 

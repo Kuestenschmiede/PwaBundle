@@ -17,6 +17,7 @@ use con4gis\PwaBundle\Entity\PushSubscription;
 use con4gis\PwaBundle\Entity\PushSubscriptionType;
 use con4gis\PwaBundle\Entity\WebPushConfiguration;
 use Contao\FilesModel;
+use Contao\MemberModel;
 use Doctrine\ORM\EntityManager;
 use Minishlink\WebPush\Subscription;
 use Minishlink\WebPush\WebPush;
@@ -105,9 +106,44 @@ class PushNotificationListener
                 foreach ($subscriptions as $subscription) {
                     if (array_intersect([$typeId], $subscription->getTypes())) {
                         if (count($types) > 0) {
-                            $subscription->setContent($arrContent);
-                            $subscription->setConfig($webpushConfig);
-                            $resSubscriptions[$subscription->getId()] = $subscription;
+
+                            if ($type->getPostals()) {
+                                if ($subscription->getMemberId()) {
+                                    $member = MemberModel::findById($subscription->getMemberId());
+                                    $arrPostals = explode(",", $type->getPostals());
+                                    $match = false;
+                                    foreach ($arrPostals as $postal) {
+                                        if (str_contains($postal, "*")) {
+                                            // wildcard postal
+                                            $postal = str_replace("*", "", $postal);
+                                            if (str_starts_with($member->postal, $postal)) {
+                                                $match = true;
+                                                // one match is enough
+                                                break;
+                                            }
+                                        } else {
+                                            if ($member->postal === $postal) {
+                                                $match = true;
+                                                // one match is enough
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    $match = false;
+                                }
+
+                                if ($match) {
+                                    $subscription->setContent($arrContent);
+                                    $subscription->setConfig($webpushConfig);
+                                    $resSubscriptions[$subscription->getId()] = $subscription;
+                                }
+                            } else {
+                                $subscription->setContent($arrContent);
+                                $subscription->setConfig($webpushConfig);
+                                $resSubscriptions[$subscription->getId()] = $subscription;
+                            }
+
                         }
                     }
                 }
