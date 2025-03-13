@@ -66,6 +66,12 @@ class PushSubscriptionType extends BaseEntity
      * @ORM\Column(type="string")
      */
     private $postals = "";
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $membersOnly = 0;
     
     /**
      * @return int
@@ -166,4 +172,15 @@ class PushSubscriptionType extends BaseEntity
     {
         $this->postals = $postals;
     }
+
+    public function getMembersOnly(): int
+    {
+        return $this->membersOnly;
+    }
+
+    public function setMembersOnly(int $membersOnly): void
+    {
+        $this->membersOnly = $membersOnly;
+    }
+
 }

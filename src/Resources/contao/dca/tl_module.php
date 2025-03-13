@@ -13,7 +13,7 @@ use con4gis\PwaBundle\Classes\Callbacks\PushNotificationCallback;
 use Contao\System;
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['pwa'] = "{title_legend},name,type,pwaConfiguration,cronActivation";
-$GLOBALS['TL_DCA']['tl_module']['palettes']['push-subscription'] = "{title_legend},name,type,subscribeText,unsubscribeText,subscriptionTypes,pushConfig,disableSelection";
+$GLOBALS['TL_DCA']['tl_module']['palettes']['push-subscription'] = "{title_legend},name,type,subscribeText,unsubscribeText,subscriptionTypes,pushConfig,disableSelection,membersOnly";
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['pwaConfiguration'] = [
     'label'             => &$GLOBALS['TL_LANG']['tl_module']['pwaConfiguration'],
@@ -79,6 +79,15 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['cronActivation'] = [
     'default'                 => '',
     'inputType'               => 'checkbox',
     'sql'                     => "char(1) NOT NULL default ''"
+];
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['membersOnly'] = [
+    'label'             => &$GLOBALS['TL_LANG']['tl_module']['membersOnly'],
+    'default'           => false,
+    'inputType'         => 'checkbox',
+    'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
+    'exclude'           => true,
+    'sql'               => "char(1) NOT NULL default ''"
 ];
 
 /**

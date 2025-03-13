@@ -64,7 +64,7 @@ class PushSubscriptionModule extends Module
         /** @var PushSubscriptionType $type */
         foreach ($types as $type) {
 
-            if ($type->getPostals()) {
+            if ($type->getMembersOnly() && $type->getPostals()) {
 
                 if (!$userLoggedIn) {
                     // postal restricted types are only available for authenticated members

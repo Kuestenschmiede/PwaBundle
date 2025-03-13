@@ -107,7 +107,7 @@ class PushNotificationListener
                     if (array_intersect([$typeId], $subscription->getTypes())) {
                         if (count($types) > 0) {
 
-                            if ($type->getPostals()) {
+                            if ($type->getMembersOnly() && $type->getPostals()) {
                                 if ($subscription->getMemberId()) {
                                     $member = MemberModel::findById($subscription->getMemberId());
                                     $arrPostals = explode(",", $type->getPostals());

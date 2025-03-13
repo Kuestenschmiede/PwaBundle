@@ -157,11 +157,12 @@ class PushController extends BaseController
             $subscriptionTypes = [];
         }
         $subscriptionTypes = $this->checkSubscriptionPermissions(intval($moduleId), $subscriptionTypes);
-        
+        $module = ModuleModel::findById($moduleId);
+
         $subsRepo = $entityManager->getRepository(PushSubscription::class);
         if ($subsRepo->findOneBy(['endpoint' => $endpoint]) === null) {
             // check user
-            if (($user = FrontendUser::getInstance()) !== null) {
+            if ($module->membersOnly && ($user = FrontendUser::getInstance()) !== null) {
                 $memberId = $user->id;
             } else {
                 $memberId = null;
@@ -218,7 +219,8 @@ class PushController extends BaseController
 
         $subscription->setTypes($types);
 
-        if (($user = FrontendUser::getInstance()) !== null) {
+        $module = ModuleModel::findById(intval($data['moduleId']));
+        if ($module->membersOnly && ($user = FrontendUser::getInstance()) !== null) {
             if ($subscription->getMemberId() !== null && $subscription->getMemberId() !== $user->id) {
                 return (new JsonResponse())->setStatusCode(403);
             } else {

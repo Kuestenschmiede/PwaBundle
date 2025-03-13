@@ -16,6 +16,7 @@ $GLOBALS['TL_LANG']['tl_module']['subscriptionTypes'] = ['Subscription-Typen', '
 $GLOBALS['TL_LANG']['tl_module']['pushConfig'] = ['Push-Konfiguration', 'Wählen Sie die zu verwendende Push-Konfiguration aus. Diese können im gleichnamigen Backend-Modul angelegt werden. Die Einstellung ist im Multidomain Betrieb zwingend erforderlich.'];
 $GLOBALS['TL_LANG']['tl_module']['disableSelection'] = ['Auswahl deaktivieren (Frontend)', 'Setzen Sie diese Checkbox, wenn der Nutzer sich im Frontend für alle im Modul ausgewählten Subscription-Typen registrieren soll, anstatt sie auswählen zu können.'];
 $GLOBALS['TL_LANG']['tl_module']['cronActivation'] = ['Contao Cron aufrufen', 'Wenn diese Checkbox gesetzt ist, wird ein JavaScript-Code generiert, der den Contao-Cron aufruft (für Events).'];
+$GLOBALS['TL_LANG']['tl_module']['membersOnly'] = ['Mitglieder-ID speichern', 'Wenn diese Checkbox gesetzt ist, wird die Mitglieder-ID an der Subscription gespeichert, sofern ein Mitglied eingeloggt ist.'];
 
 $GLOBALS['TL_LANG']['tl_module']['editSubscriptionType'] = ['Abonnement Typen bearbeiten.'];
 $GLOBALS['TL_LANG']['tl_module']['editPushConfigurations'] = ['Push-Konfiguration bearbeiten.'];

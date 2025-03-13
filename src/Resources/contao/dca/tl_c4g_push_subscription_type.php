@@ -93,7 +93,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,pushConfig,postals;'
+        'default'   =>  '{data_legend},name,pushConfig,postals,membersOnly;'
     ),
     
     //Fields
@@ -127,6 +127,13 @@ $GLOBALS['TL_DCA'][$strName] = array
             'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
             'exclude'           => true
         ],
+        'membersOnly' => [
+            'label'             => &$GLOBALS['TL_LANG'][$strName]['membersOnly'],
+            'default'           => false,
+            'inputType'         => 'checkbox',
+            'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
+            'exclude'           => true
+        ]
     )
 );
 
