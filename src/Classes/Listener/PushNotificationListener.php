@@ -100,51 +100,49 @@ class PushNotificationListener
                     
                     $arrContent['icon'] = $filePath;
                 }
-                
 
                 $subscriptions = $this->entityManager->getRepository(PushSubscription::class)->findAll();
                 foreach ($subscriptions as $subscription) {
+                    $this->logger->error(json_encode($subscription->getTypes()));
                     if (array_intersect([$typeId], $subscription->getTypes())) {
-                        if (count($types) > 0) {
 
-                            if ($type->getMembersOnly() && $type->getPostals()) {
-                                if ($subscription->getMemberId()) {
-                                    $member = MemberModel::findById($subscription->getMemberId());
-                                    $arrPostals = explode(",", $type->getPostals());
-                                    $match = false;
-                                    foreach ($arrPostals as $postal) {
-                                        if (str_contains($postal, "*")) {
-                                            // wildcard postal
-                                            $postal = str_replace("*", "", $postal);
-                                            if (str_starts_with($member->postal, $postal)) {
-                                                $match = true;
-                                                // one match is enough
-                                                break;
-                                            }
-                                        } else {
-                                            if ($member->postal === $postal) {
-                                                $match = true;
-                                                // one match is enough
-                                                break;
-                                            }
+                        if ($type->getMembersOnly() && $type->getPostals()) {
+                            if ($subscription->getMemberId()) {
+                                $member = MemberModel::findById($subscription->getMemberId());
+                                $arrPostals = explode(",", $type->getPostals());
+                                $match = false;
+                                foreach ($arrPostals as $postal) {
+                                    if (str_contains($postal, "*")) {
+                                        // wildcard postal
+                                        $postal = str_replace("*", "", $postal);
+                                        if (str_starts_with($member->postal, $postal)) {
+                                            $match = true;
+                                            // one match is enough
+                                            break;
+                                        }
+                                    } else {
+                                        if ($member->postal === $postal) {
+                                            $match = true;
+                                            // one match is enough
+                                            break;
                                         }
                                     }
-                                } else {
-                                    $match = false;
-                                }
-
-                                if ($match) {
-                                    $subscription->setContent($arrContent);
-                                    $subscription->setConfig($webpushConfig);
-                                    $resSubscriptions[$subscription->getId()] = $subscription;
                                 }
                             } else {
+                                $match = false;
+                            }
+
+                            if ($match) {
                                 $subscription->setContent($arrContent);
                                 $subscription->setConfig($webpushConfig);
                                 $resSubscriptions[$subscription->getId()] = $subscription;
                             }
-
+                        } else {
+                            $subscription->setContent($arrContent);
+                            $subscription->setConfig($webpushConfig);
+                            $resSubscriptions[$subscription->getId()] = $subscription;
                         }
+
                     }
                 }
             }

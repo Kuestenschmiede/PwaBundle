@@ -129,9 +129,10 @@ $GLOBALS['TL_DCA'][$strName] = array
         ],
         'membersOnly' => [
             'label'             => &$GLOBALS['TL_LANG'][$strName]['membersOnly'],
-            'default'           => false,
+            'default'           => 0,
             'inputType'         => 'checkbox',
             'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
+            'save_callback'     => [['tl_c4g_push_subscription_type', 'saveMembersOnly']],
             'exclude'           => true
         ]
     )
@@ -159,6 +160,11 @@ class tl_c4g_push_subscription_type extends \Contao\Backend
     public function showInfoMessage(Contao\DataContainer $dc)
     {
         \Contao\Message::addInfo($GLOBALS['TL_LANG']['tl_c4g_push_subscription_type']['infotext']);
+    }
+
+    public function saveMembersOnly($value)
+    {
+        return intval($value);
     }
 }
 
