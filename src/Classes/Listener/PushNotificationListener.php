@@ -210,12 +210,21 @@ class PushNotificationListener
     private function handleSendingForService(WebPush $webPushService, array $defaultOptions)
     {
         $webPushService->setDefaultOptions($defaultOptions);
-
+        $subscriptionRepo = $this->entityManager->getRepository(PushSubscription::class);
         try {
             foreach ($webPushService->flush() as $report) {
                 $endpoint = $report->getRequest()->getUri()->__toString();
 
-                if ($report->isSuccess()) {
+                if ($report->isSubscriptionExpired()) {
+                    $this->logger->error("[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}");
+                    C4gLogModel::addLogEntry('pwa', "[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}");
+                    $subscription = $subscriptionRepo->findOneBy(['endpoint' => $endpoint]);
+                    if ($subscription !== null) {
+                        $this->entityManager->remove($subscription);
+                        $this->entityManager->flush();
+                        $this->logger->error("Deleted inactive subscription with endpoint " . $endpoint . ".");
+                    }
+                } else if ($report->isSuccess()) {
                     $this->logger->error("[v] Message sent successfully for subscription {$endpoint}.");
                     C4gLogModel::addLogEntry('pwa', "[v] Message sent successfully for subscription {$endpoint}.");
                 } else {
