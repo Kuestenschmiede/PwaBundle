@@ -8,7 +8,7 @@
  * @copyright (c) 2010-2025, by Küstenschmiede GmbH Software & Design
  * @link https://www.con4gis.org
  */
-namespace con4gis\PwaBundle\Classes\Services;
+namespace con4gis\PwaBundle\Classes\Cron;
 
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
 use Contao\Controller;
@@ -21,7 +21,7 @@ class NewsPushSenderService
     /**
      * Gets all news that are not sent and should be sent, checks their date and sends them, if needed.
      */
-    public function sendUnsentNews()
+    public function onMinutely()
     {
         $currentTime = time();
         $db = Database::getInstance();

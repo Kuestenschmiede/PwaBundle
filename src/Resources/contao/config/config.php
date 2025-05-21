@@ -47,8 +47,5 @@ $GLOBALS['BE_MOD']['con4gis'] = array_merge($GLOBALS['BE_MOD']['con4gis'], [
 if (class_exists('Contao\CalendarBundle\ContaoCalendarBundle')) {
     $GLOBALS['BE_MOD']['content']['calendar']['resetSentFlag'] = [EventsCallback::class, 'resetPnSentFlag'];
     $GLOBALS['BE_MOD']['content']['calendar']['sendPn'] = [EventsCallback::class, 'forceSendPn'];
-    $GLOBALS['TL_CRON']['minutely'][] = ['con4gis\PwaBundle\Classes\Services\EventPushSenderService', 'sendUnsentEvents'];
 }
-if (class_exists('Contao\NewsBundle\ContaoNewsBundle')) {
-    $GLOBALS['TL_CRON']['minutely'][] = ['con4gis\PwaBundle\Classes\Services\NewsPushSenderService', 'sendUnsentNews'];
-}
+
