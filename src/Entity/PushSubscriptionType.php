@@ -44,10 +44,10 @@ class PushSubscriptionType extends BaseEntity
     protected $importId = 0;
 
     /**
-     * @var string
-     * @ORM\Column(type="text", options={"default":"-"})
+     * @var string|null
+     * @ORM\Column(type="text", nullable="true", options={"default":null})
      */
-    protected $gutesioEventTypes = "";
+    protected $gutesioEventTypes = null;
 
     /**
      * @var string
@@ -153,12 +153,12 @@ class PushSubscriptionType extends BaseEntity
         $this->pushConfig = $pushConfig;
     }
 
-    public function getGutesioEventTypes(): string
+    public function getGutesioEventTypes(): ?string
     {
         return $this->gutesioEventTypes;
     }
 
-    public function setGutesioEventTypes(string $gutesioEventTypes): void
+    public function setGutesioEventTypes(?string $gutesioEventTypes): void
     {
         $this->gutesioEventTypes = $gutesioEventTypes;
     }
