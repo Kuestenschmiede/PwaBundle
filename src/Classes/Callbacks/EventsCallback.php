@@ -17,6 +17,7 @@ use Contao\CalendarModel;
 use Contao\Controller;
 use Contao\Database;
 use Contao\DataContainer;
+use Contao\Date;
 use Contao\DC_Table;
 use Contao\Message;
 use Contao\StringUtil;
@@ -147,6 +148,10 @@ class EventsCallback extends Backend
 
     public function convertTimeStampToDateString($value, $dc)
     {
+        if ($value === 0) {
+            return "";
+        }
+        
         return date($GLOBALS['TL_CONFIG']['datimFormat'], $value);
     }
 }
