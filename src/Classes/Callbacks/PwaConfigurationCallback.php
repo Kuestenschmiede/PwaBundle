@@ -12,10 +12,30 @@ namespace con4gis\PwaBundle\Classes\Callbacks;
 
 use con4gis\PwaBundle\Entity\PwaConfiguration;
 use Contao\Backend;
+use Contao\Database;
+use Contao\DataContainer;
 use Contao\StringUtil;
+use Contao\System;
 
 class PwaConfigurationCallback extends Backend
 {
+    public function updateManifest(DataContainer $dc)
+    {
+        $config = System::getContainer()->get('doctrine.orm.default_entity_manager')
+            ->getRepository(PwaConfiguration::class)
+            ->findOneBy(['id' => $dc->activeRecord->id]);
+
+        // check if config is used in any page
+        $pageCount = Database::getInstance()
+            ->prepare("SELECT id FROM tl_page WHERE pwaConfig = ?")
+            ->execute($config->getId())->count();
+
+        if ($pageCount > 0) {
+            $manifestService = System::getContainer()->get('con4gis_pwa_manifest');
+            $manifestService->createManifestFile($config);
+        }
+    }
+
     public function showHint()
     {
         \Contao\Message::addInfo($GLOBALS['TL_LANG']['tl_c4g_pwa_configuration']['infotext']);

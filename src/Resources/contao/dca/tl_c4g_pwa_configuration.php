@@ -19,6 +19,8 @@ use Contao\DC_Table;
 
 $strName = 'tl_c4g_pwa_configuration';
 
+$cbClass = PwaConfigurationCallback::class;
+
 $GLOBALS['TL_DCA'][$strName] = array
 (
     //config
@@ -26,9 +28,10 @@ $GLOBALS['TL_DCA'][$strName] = array
     (
         'dataContainer'     => DC_Table::class,
         'enableVersioning'  => true,
+        'onsubmit_callback' => [[$cbClass, 'updateManifest']],
         'onload_callback'	=> array
         (
-            array('\con4gis\PwaBundle\Classes\Callbacks\PwaConfigurationCallback', 'showHint'),
+            array($cbClass, 'showHint'),
         )
     ),
     
@@ -162,7 +165,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['updateViaCache'],
             'default'           => 'imports',
             'inputType'         => 'select',
-            'options_callback'  => [PwaConfigurationCallback::class, 'getUpdateViaCacheOptions'],
+            'options_callback'  => [$cbClass, 'getUpdateViaCacheOptions'],
             'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => false),
             'exclude'           => true,
             'sql'               => null
@@ -193,7 +196,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['display'],
             'default'           => '0',
             'inputType'         => 'select',
-            'options_callback'  => [PwaConfigurationCallback::class, 'getDisplayOptions'],
+            'options_callback'  => [$cbClass, 'getDisplayOptions'],
             'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true),
             'exclude'           => true,
             'sql'               => null
@@ -204,7 +207,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['orientation'],
             'default'           => '0',
             'inputType'         => 'select',
-            'options_callback'  => [PwaConfigurationCallback::class, 'getOrientationOptions'],
+            'options_callback'  => [$cbClass, 'getOrientationOptions'],
             'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true),
             'exclude'           => true,
             'sql'               => null
@@ -225,7 +228,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['offlineHandling'],
             'default'           => 1,
             'inputType'         => 'select',
-            'options_callback'  => [PwaConfigurationCallback::class, 'getOfflineHandlingOptions'],
+            'options_callback'  => [$cbClass, 'getOfflineHandlingOptions'],
             'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true),
             'exclude'           => true,
             'sql'               => null
@@ -236,7 +239,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['icon192'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true],
             'exclude'           => true,
             'sql'               => null
@@ -247,7 +250,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['icon512'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true],
             'exclude'           => true,
             'sql'               => null
@@ -258,7 +261,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['maskableIcon'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>true],
             'exclude'           => true,
             'sql'               => null
@@ -299,7 +302,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['iosStyle'],
             'default'           => 'black',
             'inputType'         => 'select',
-            'options_callback'  => [PwaConfigurationCallback::class, 'getIosStyleOptions'],
+            'options_callback'  => [$cbClass, 'getIosStyleOptions'],
             'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
             'exclude'           => true,
             'sql'               => null
@@ -310,7 +313,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['appleIcon120'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
             'exclude'           => true,
             'sql'               => null
@@ -321,7 +324,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['appleIcon152'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=>PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
             'exclude'           => true,
             'sql'               => null
@@ -332,7 +335,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['appleIcon180'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
             'exclude'           => true,
             'sql'               => null
@@ -343,7 +346,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['appleIcon167'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
             'exclude'           => true,
             'sql'               => null
@@ -354,7 +357,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIphoneFirst'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
             'exclude'           => true,
             'sql'               => null
@@ -365,7 +368,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIphoneSecond'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
             'exclude'           => true,
             'sql'               => null
@@ -376,7 +379,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIphoneThird'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
             'exclude'           => true,
             'sql'               => null
@@ -387,7 +390,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIphoneFourth'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
             'exclude'           => true,
             'sql'               => null
@@ -398,7 +401,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIpadFirst'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
             'exclude'           => true,
             'sql'               => null
@@ -409,7 +412,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIpadSecond'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
             'exclude'           => true,
             'sql'               => null
@@ -420,7 +423,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['splashIpadThird'],
             'default'           => '',
             'inputType'         => 'fileTree',
-            'save_callback'     => [[PwaConfigurationCallback::class, 'convertBinToUuid']],
+            'save_callback'     => [[$cbClass, 'convertBinToUuid']],
             'eval'              => ['fieldType'=>'radio', 'files'=>true, 'extensions'=> PwaConfigurationCallback::getAllowedImageExtensions(), 'tl_class'=>'clr', 'mandatory'=>false],
             'exclude'           => true,
             'sql'               => null
