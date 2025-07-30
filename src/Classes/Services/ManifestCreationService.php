@@ -20,6 +20,18 @@ use Contao\System;
 class ManifestCreationService
 {
     private $webPath = '';
+
+    private $orientationStrings = [
+        PwaConfiguration::PWA_ORIENTATION_ANY => "any",
+        PwaConfiguration::PWA_ORIENTATION_NATURAL => "natural",
+        PwaConfiguration::PWA_ORIENTATION_LANDSCAPE => "landscape",
+        PwaConfiguration::PWA_ORIENTATION_LANDSCAPE_PRIMARY => "landscape-primary",
+        PwaConfiguration::PWA_ORIENTATION_LANDSCAPE_SECONDARY => "landscape-secondary",
+        PwaConfiguration::PWA_ORIENTATION_PORTRAIT => "portrait",
+        PwaConfiguration::PWA_ORIENTATION_PORTRAIT_PRIMARY => "portrait-primary",
+        PwaConfiguration::PWA_ORIENTATION_PORTRAIT_SECONDARY => "portrait-secondary",
+    ];
+
     /**
      * ManifestCreationService constructor.
      * @param $webPath
@@ -53,6 +65,7 @@ class ManifestCreationService
             'scope' => $pwaConfiguration->getScope(),
             'start_url' => $pwaConfiguration->getStartUrl(),
             'display' => '',
+            'orientation' => 'portrait',
             'background_color' => '',
             'theme_color' => '',
             'icons' => [],
@@ -74,6 +87,7 @@ class ManifestCreationService
         $arrJson['short_name'] = html_entity_decode($configuration->getShortName());
         $arrJson['description'] = html_entity_decode($configuration->getDescription());
         $arrJson['display'] = $this->convertDisplayIdToManifestString($configuration->getDisplay());
+        $arrJson['orientation'] = $this->orientationStrings[$configuration->getOrientation()];
         $arrJson['background_color'] = '#' . $configuration->getBackgroundColor();
         $arrJson['theme_color'] = '#' . $configuration->getThemeColor();
         $icon192 = FilesModel::findByUuid($configuration->getIcon192());
