@@ -38,7 +38,11 @@ services:
   con4gis\PwaBundle\Classes\Cron\NewsPushSenderService:
     tags:
       - { name: contao.cronjob, interval: minutely }
+    arguments:
+      - "@contao.framework"
 
   con4gis\PwaBundle\Classes\Cron\EventPushSenderService:
+    autowire: true
+    autoconfigure: true
     tags:
       - { name: contao.cronjob, interval: minutely }

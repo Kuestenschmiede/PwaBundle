@@ -12,17 +12,24 @@ namespace con4gis\PwaBundle\Classes\Cron;
 
 use con4gis\PwaBundle\Classes\Events\PushNotificationEvent;
 use Contao\Controller;
+use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\Database;
 use Contao\NewsArchiveModel;
 use Contao\System;
 
 class NewsPushSenderService
 {
+    public function __construct(private ContaoFramework $framework)
+    {
+    }
+
+
     /**
      * Gets all news that are not sent and should be sent, checks their date and sends them, if needed.
      */
     public function onMinutely()
     {
+        $this->framework->initialize();
         $currentTime = time();
         $db = Database::getInstance();
         $arrNews = $db->prepare('SELECT * FROM tl_news AS news WHERE news.pnSent = 0 AND news.published = 1 AND
