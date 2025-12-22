@@ -21,8 +21,8 @@
         "doctrine/orm": "^2.8.5",
         "doctrine/data-fixtures": "^1.4.4",
         "doctrine/persistence": "^2|^3",
-        "minishlink/web-push-bundle": "^6.3.0",
-        "minishlink/web-push": "^9.0.4",
+        "minishlink/web-push-bundle": "^6.3.2",
+        "minishlink/web-push": "^10.0.1",
         "contao-components/jquery": "^3.7"
     },
     "conflict": {
