@@ -17,60 +17,60 @@ use con4gis\CoreBundle\Entity\BaseEntity;
 /**
  * Class PushSubscriptionType
  *
- * @ORM\Entity
- * @ORM\Table(name="tl_c4g_push_subscription_type")
  * @package con4gis\PwaBundle\Entity
  */
+#[ORM\Table(name: 'tl_c4g_push_subscription_type')]
+#[ORM\Entity]
 class PushSubscriptionType extends BaseEntity
 {
     /**
      * @var int
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id = 0;
     
     /**
      * @var int
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: 'integer')]
     private $tstamp = 0;
 
     /**
      * @var int
-     * @ORM\Column(type="integer", options={"default":0})
      */
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
     protected $importId = 0;
 
     /**
      * @var string|null
-     * @ORM\Column(type="text", nullable="true", options={"default":null})
      */
+    #[ORM\Column(type: 'text', nullable: true, options: ['default' => null])]
     protected $gutesioEventTypes = null;
 
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $name = "";
 
     /**
      * @var int
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: 'integer')]
     protected $pushConfig = 0;
 
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $postals = "";
 
     /**
      * @var int
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: 'integer')]
     private $membersOnly = 0;
     
     /**

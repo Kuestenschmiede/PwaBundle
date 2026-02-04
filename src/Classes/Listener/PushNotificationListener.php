@@ -187,7 +187,9 @@ class PushNotificationListener
                 $defaultOptions = [
                     'TTL' => intval($webpushConfig->getTtl()), // defaults to 4 weeks
                     'urgency' => $webpushConfig->getUrgency(), // protocol defaults to "normal"
-                    'topic' => $webpushConfig->getTopic(), // not defined by default,
+                    // limit to 32 characters due to iOS specific requirements
+                    // see also: https://developer.apple.com/documentation/usernotifications/sending-web-push-notifications-in-web-apps-and-browsers
+                    'topic' => substr($webpushConfig->getTopic(), 0, 32), // not defined by default,
                     'batchSize' => intval($webpushConfig->getBatchSize()), // defaults to 1000
                 ];
                 

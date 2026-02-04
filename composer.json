@@ -18,7 +18,7 @@
         "php": "^8.1",
         "contao/core-bundle": "^4.13 || ^5.3",
         "con4gis/core": "^8.0",
-        "doctrine/orm": "^2.8.5",
+        "doctrine/orm": "^2.20",
         "doctrine/data-fixtures": "^1.4.4",
         "doctrine/persistence": "^2|^3",
         "minishlink/web-push-bundle": "^6.3.2",
@@ -47,6 +47,9 @@
         "preferred-install": "dist"
     },
     "extra": {
-        "contao-manager-plugin": "con4gis\\PwaBundle\\ContaoManager\\Plugin"
+        "contao-manager-plugin": "con4gis\\PwaBundle\\ContaoManager\\Plugin",
+        "branch-alias": {
+            "dev-main": "2.8.x-dev"
+        }
     }
 }

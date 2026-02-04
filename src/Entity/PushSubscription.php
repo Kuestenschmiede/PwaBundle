@@ -17,72 +17,72 @@ use con4gis\CoreBundle\Entity\BaseEntity;
 /**
  * Class PushSubscription
  *
- * @ORM\Entity
- * @ORM\Table(name="tl_c4g_push_subscription")
  * @package con4gis\PwaBundle\Entity
  */
+#[ORM\Table(name: 'tl_c4g_push_subscription')]
+#[ORM\Entity]
 class PushSubscription extends BaseEntity
 {
     /**
      * @var int
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id = 0;
     
     /**
      * @var int
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: 'integer')]
     private $tstamp = 0;
 
     /**
      * @var int
-     * @ORM\Column(type="integer", options={"default":0})
      */
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
     protected $importId = 0;
 
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $endpoint = "";
     
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $authKey = "";
     
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $p256dhKey = "";
     
     /**
      * @var array
-     * @ORM\Column(type="array")
      */
+    #[ORM\Column(type: 'array')]
     private $types = [];
 
     /**
      * @var array
-     * @ORM\Column(type="array")
      */
+    #[ORM\Column(type: 'array')]
     private $content = [];
 
     /**
      * @var object
-     * @ORM\Column(type="object")
      */
+    #[ORM\Column(type: 'object')]
     private $config = [];
 
     /**
      * @var int|null
-     * @ORM\Column(type="integer", nullable=true)
      */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $memberId = null;
     
     /**

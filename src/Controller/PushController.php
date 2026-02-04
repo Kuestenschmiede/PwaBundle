@@ -293,7 +293,7 @@ class PushController extends BaseController
         $resultingTypes = [];
         if ($module && $module->subscriptionTypes) {
             $allowedTypes = \Contao\StringUtil::deserialize($module->subscriptionTypes);
-            foreach ($subscriptionTypes as $key => $value) {
+            foreach ($subscriptionTypes as $value) {
                 if (in_array($value, $allowedTypes)) {
                     $resultingTypes[] = $value;
                 }

@@ -17,10 +17,10 @@ use con4gis\CoreBundle\Entity\BaseEntity;
 /**
  * Class PwaConfiguration
  *
- * @ORM\Entity
- * @ORM\Table(name="tl_c4g_pwa_configuration")
  * @package con4gis\PwaBundle\Entity
  */
+#[ORM\Table(name: 'tl_c4g_pwa_configuration')]
+#[ORM\Entity]
 class PwaConfiguration extends BaseEntity
 {
     const PWA_UPDATEVIACACHE_IMPORTS = 'imports';
@@ -49,202 +49,202 @@ class PwaConfiguration extends BaseEntity
     
     /**
      * @var int
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id = 0;
     
     /**
      * @var int
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: 'integer')]
     private $tstamp = 0;
 
     /**
      * @var int
-     * @ORM\Column(type="integer", options={"default":0})
      */
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
     protected $importId = 0;
     
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $name = "";
     
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $shortName = "";
 
     /**
      * @var int
-     * @ORM\Column(type="integer", options={"default":0})
      */
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private $display = 0;
 
     /**
      * @var int
-     * @ORM\Column(type="integer", options={"default":0})
      */
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private $orientation = 0;
     
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $offlinePage = "";
     
     /**
      * @var int
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: 'integer')]
     private $offlineHandling = 0;
     
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $backgroundColor = "";
     
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $themeColor = "";
     
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $description = "";
     
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $startUrl = "";
     
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $scope = "";
 
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $updateViaCache = "imports";
 
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $icon192 = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $icon512 = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $maskableIcon = null;
     
     /**
      * @var string
-     * @ORM\Column(type="string", length=50)
      */
+    #[ORM\Column(type: 'string', length: 50)]
     private $maskableIconSize = "";
     
     /**
      * @var string
-     * @ORM\Column(type="string", length=255)
      */
+    #[ORM\Column(type: 'string', length: 255)]
     private $additionalUrls = "";
     
     /**
      * @var string
-     * @ORM\Column(type="string", length=255)
      */
+    #[ORM\Column(type: 'string', length: 255)]
     private $blockedUrls = "";
     
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: 'string')]
     private $iosStyle = "";
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $appleIcon120 = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $appleIcon152 = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $appleIcon180 = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $appleIcon167 = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $splashIphoneFirst = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $splashIphoneSecond = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $splashIphoneThird = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $splashIphoneFourth = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $splashIpadFirst = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $splashIpadSecond = null;
     
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $splashIpadThird = null;
     
     /**
