@@ -64,20 +64,20 @@ class PushSubscription extends BaseEntity
     /**
      * @var array
      */
-    #[ORM\Column(type: 'array')]
+    #[ORM\Column(type: 'simple_array')]
     private $types = [];
 
     /**
      * @var array
      */
-    #[ORM\Column(type: 'array')]
+    #[ORM\Column(type: 'json')]
     private $content = [];
 
     /**
-     * @var object
+     * @var integer
      */
-    #[ORM\Column(type: 'object')]
-    private $config = [];
+    #[ORM\Column(type: 'integer')]
+    private $config = 0;
 
     /**
      * @var int|null
@@ -213,18 +213,12 @@ class PushSubscription extends BaseEntity
         $this->content = $content;
     }
 
-    /**
-     * @return object
-     */
-    public function getConfig(): object
+    public function getConfig(): int
     {
         return $this->config;
     }
 
-    /**
-     * @param object $config
-     */
-    public function setConfig(object $config): void
+    public function setConfig(int $config): void
     {
         $this->config = $config;
     }

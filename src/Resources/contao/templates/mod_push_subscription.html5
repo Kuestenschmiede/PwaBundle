@@ -15,7 +15,7 @@
         <span id="selection-disabled" style="display: none;"></span>
     <?php } ?>
 
-    <script>
+    <script type="application/javascript">
         window.moduleId = <?php echo $this->moduleId; ?>;
     </script>
 

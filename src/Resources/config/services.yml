@@ -46,3 +46,12 @@ services:
     autoconfigure: true
     tags:
       - { name: contao.cronjob, interval: minutely }
+
+  ## migrations
+
+  con4gis\PwaBundle\Migration\UpdateArraysMigration:
+    arguments:
+      - "@database_connection"
+      - "@logger"
+    tags:
+      - { name: contao.migration, priority: 0 }
