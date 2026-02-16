@@ -15,7 +15,7 @@ class UpdateArraysMigration implements MigrationInterface
     private array $pushSubscriptionFields = [
         'types', // simple_array
         'content', // json
-        'config', // json? TODO how to map old object type? just ID?
+        'config', // int
     ];
 
     public function __construct(
