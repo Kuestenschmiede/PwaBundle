@@ -22,7 +22,7 @@
         "doctrine/data-fixtures": "^1.4.4",
         "doctrine/persistence": "^2|^3",
         "minishlink/web-push-bundle": "^6.3.2",
-        "minishlink/web-push": "^10.0.1",
+        "minishlink/web-push": "^v10.1.0",
         "contao-components/jquery": "^3.7"
     },
     "conflict": {
