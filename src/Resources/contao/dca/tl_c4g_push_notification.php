@@ -25,12 +25,12 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
         'closed' => (\Contao\Input::get('id')),
         'onload_callback'			=> array
         (
-            array(PushNotificationCallback::class, 'loadDataset'),
+            array(PushNotificationCallback::class,'loadDataset'),
         ),
         'onsubmit_callback'			=> array
         (
-            array(PushNotificationCallback::class, 'sendNotification'),
-            array(PushNotificationCallback::class, 'truncateTable')
+            array(PushNotificationCallback::class,'sendNotification'),
+            array(PushNotificationCallback::class,'truncateTable')
         ),
         'sql'               => array
         (
@@ -53,7 +53,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
                 [
                     'href'                => 'key=back',
                     'class'               => 'header_back',
-                    'button_callback'     => ['\con4gis\CoreBundle\Classes\Helper\DcaHelper', 'back'],
+                    'button_callback'     => ['\con4gis\CoreBundle\Classes\Helper\DcaHelper','back'],
                     'icon'                => 'back.svg',
                     'label'               => &$GLOBALS['TL_LANG']['MSC']['backBT'],
                 ],
@@ -72,7 +72,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
     // Palettes
     'palettes' => array
     (
-        'default' => '{data_legend},messageTitle,messageContent,subscriptionTypes;'
+        'default' => '{data_legend},messageTitle,messageContent,subscriptionTypes'
     ),
     
     // Fields
@@ -96,7 +96,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['messageTitle'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'eval'              => array('mandatory' => true,'tl_class' => 'long'),
             'sql'               => "varchar(255) NOT NULL default ''",
             'exclude'           => true
         ),
@@ -105,7 +105,7 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['messageContent'],
             'default'           => '',
             'inputType'         => 'textarea',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'eval'              => array('mandatory' => true,'tl_class' => 'long'),
             'sql'               => "varchar(255) NOT NULL default ''",
             'exclude'           => true
         ),
@@ -114,8 +114,8 @@ $GLOBALS['TL_DCA']['tl_c4g_push_notification'] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['subscriptionTypes'],
             'default'           => [],
             'inputType'         => 'select',
-            'options_callback'  => [PushNotificationCallback::class, 'getSubscriptionTypes'],
-            'eval'              => array('mandatory' => false, 'tl_class' => 'long', 'includeBlankOption' => true, 'multiple' => true, 'chosen' => true),
+            'options_callback'  => [PushNotificationCallback::class,'getSubscriptionTypes'],
+            'eval'              => array('mandatory' => false,'tl_class' => 'long','includeBlankOption' => true,'multiple' => true,'chosen' => true),
             'sql'               => "blob NULL",
             'exclude'           => true
         )

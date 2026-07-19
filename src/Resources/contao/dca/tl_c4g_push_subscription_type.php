@@ -21,7 +21,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     (
         'dataContainer'     => DC_Table::class,
         'enableVersioning'  => true,
-        'onload_callback' => [['tl_c4g_push_subscription_type', 'showInfoMessage']],
+        'onload_callback' => [['tl_c4g_push_subscription_type','showInfoMessage']],
     ),
     
     //List
@@ -32,13 +32,13 @@ $GLOBALS['TL_DCA'][$strName] = array
             'mode'              => 2,
             'fields'            => array('name ASC'),
             'panelLayout'       => 'filter;sort,search,limit',
-            'headerFields'      => array('name', 'pushConfig'),
+            'headerFields'      => array('name','pushConfig'),
             'icon'              => 'bundles/con4giscore/images/be-icons/con4gis_blue.svg',
         ),
         
         'label' => array
         (
-            'fields'            => array('name', 'pushConfig:tl_c4g_webpush_configuration.name'),
+            'fields'            => array('name','pushConfig:tl_c4g_webpush_configuration.name'),
             'showColumns'       => true,
         ),
         
@@ -53,7 +53,7 @@ $GLOBALS['TL_DCA'][$strName] = array
             'back' => [
                 'href'                => 'key=back',
                 'class'               => 'header_back',
-                'button_callback'     => ['\con4gis\CoreBundle\Classes\Helper\DcaHelper', 'back'],
+                'button_callback'     => ['\con4gis\CoreBundle\Classes\Helper\DcaHelper','back'],
                 'icon'                => 'back.svg',
                 'label'               => &$GLOBALS['TL_LANG']['MSC']['backBT'],
             ],
@@ -92,7 +92,7 @@ $GLOBALS['TL_DCA'][$strName] = array
     //Palettes
     'palettes' => array
     (
-        'default'   =>  '{data_legend},name,pushConfig,postals,membersOnly;'
+        'default'   =>  '{data_legend},name,pushConfig,postals,membersOnly'
     ),
     
     //Fields
@@ -102,17 +102,17 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['name'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long'),
+            'eval'              => array('mandatory' => true,'tl_class' => 'long'),
             'exclude'           => true
         ],
         'pushConfig' => [
             'label'             => &$GLOBALS['TL_LANG'][$strName]['pushConfig'],
             'default'           => '0',
             'inputType'         => 'select',
-            'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\SubscriptionTypeCallback', 'getPushConfigOptions'],
-            'eval'              => array('mandatory' => true, 'tl_class' => 'long', 'includeBlankOption' => true),
+            'options_callback'  => ['con4gis\PwaBundle\Classes\Callbacks\SubscriptionTypeCallback','getPushConfigOptions'],
+            'eval'              => array('mandatory' => true,'tl_class' => 'long','includeBlankOption' => true),
             'sql'               => "int(10) unsigned NOT NULL default '0'",
-            'xlabel'            => [[$strName, 'pushConfigLink']],
+            'xlabel'            => [[$strName,'pushConfigLink']],
             'exclude'           => true
         ],
         'importId' =>
@@ -123,15 +123,15 @@ $GLOBALS['TL_DCA'][$strName] = array
             'label'             => &$GLOBALS['TL_LANG'][$strName]['postals'],
             'default'           => '',
             'inputType'         => 'text',
-            'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
+            'eval'              => array('mandatory' => false,'tl_class' => 'long'),
             'exclude'           => true
         ],
         'membersOnly' => [
             'label'             => &$GLOBALS['TL_LANG'][$strName]['membersOnly'],
             'default'           => 0,
             'inputType'         => 'checkbox',
-            'eval'              => array('mandatory' => false, 'tl_class' => 'long'),
-            'save_callback'     => [['tl_c4g_push_subscription_type', 'saveMembersOnly']],
+            'eval'              => array('mandatory' => false,'tl_class' => 'long'),
+            'save_callback'     => [['tl_c4g_push_subscription_type','saveMembersOnly']],
             'exclude'           => true
         ]
     )
@@ -150,7 +150,7 @@ class tl_c4g_push_subscription_type extends \Contao\Backend
     public function pushConfigLink(Contao\DataContainer $dc)
     {
         $requestToken = System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
-        return ' <a href="'.System::getContainer()->get('router')->generate('contao_backend').'?do=c4g_webpush_configuration&amp;table=tl_c4g_webpush_configuration&amp;id=' . $dc->activeRecord->pushConfig . '&amp;popup=1&amp;nb=1&amp;rt=' . $requestToken . '" title="' . Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['tl_c4g_push_subscription_type']['editPushConfigurations'][0]) . '" onclick="Backend.openModalIframe({\'title\':\'' . Contao\StringUtil::specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['tl_c4g_push_subscription_type']['editPushConfigurations'][0])) . '\',\'url\':this.href});return false">' . Contao\Image::getHtml('edit.svg') . '</a>';
+        return ' <a href="'.System::getContainer()->get('router')->generate('contao_backend').'?do=c4g_webpush_configuration&amp;table=tl_c4g_webpush_configuration&amp;id=' . $dc->activeRecord->pushConfig . '&amp;popup=1&amp;nb=1&amp;rt=' . $requestToken . '" title="' . Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['tl_c4g_push_subscription_type']['editPushConfigurations'][0]) . '" onclick="Backend.openModalIframe({\'title\':\'' . Contao\StringUtil::specialchars(str_replace("'","\\'", $GLOBALS['TL_LANG']['tl_c4g_push_subscription_type']['editPushConfigurations'][0])) . '\',\'url\':this.href});return false">' . Contao\Image::getHtml('edit.svg') . '</a>';
     }
 
     /**
