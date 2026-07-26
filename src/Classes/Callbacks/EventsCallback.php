@@ -30,7 +30,12 @@ class EventsCallback extends Backend
         $pid = $activeRecord->pid;
         //$calendar = CalendarModel::findByPk($pid);
         $parser = System::getContainer()->get('contao.insert_tag.parser');
-        $url = $parser->replace('{{event_url::' . $activeRecord->id . '}}');
+        $url = '';
+        try {
+            $url = $parser->replace('{{event_url::' . $activeRecord->id . '}}');
+        } catch (\Throwable $e) {
+            // ignore if page not found
+        }
         if ($activeRecord->url) {
             $url = $activeRecord->url;
         }
@@ -96,7 +101,12 @@ class EventsCallback extends Backend
         ) {
             $pid = $calendarEvent->pid;
             $parser = System::getContainer()->get('contao.insert_tag.parser');
-            $url = $parser->replace('{{event::' . $calendarEvent->id . '}}');
+            $url = '';
+            try {
+                $url = $parser->replace('{{event::' . $calendarEvent->id . '}}');
+            } catch (\Throwable $e) {
+                // ignore
+            }
             if ($calendarEvent->url) {
                 $url = $calendarEvent->url;
             }
