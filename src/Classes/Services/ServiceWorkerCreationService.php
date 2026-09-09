@@ -101,6 +101,27 @@ class ServiceWorkerCreationService
             $blockedUrls = explode(',', $pwaConfiguration->getBlockedUrls());
         }
 
+        // check for published audiotours with offline caching enabled in con4gis/maps
+        if (Database::getInstance()->tableExists('tl_c4g_maps')) {
+            $tours = Database::getInstance()->prepare("SELECT * FROM tl_c4g_maps WHERE published = '1' AND tour_offline_cache = '1'")->execute();
+            while ($tours->next()) {
+                if ($tours->map_audio_src) {
+                    $objFile = \Contao\FilesModel::findByUuid($tours->map_audio_src);
+                    if ($objFile) {
+                        $arrPagenames[] = '/' . ltrim($objFile->path, '/');
+                    }
+                }
+                if ($tours->singleSRC) {
+                    $objFile = \Contao\FilesModel::findByUuid($tours->singleSRC);
+                    if ($objFile) {
+                        $arrPagenames[] = '/' . ltrim($objFile->path, '/');
+                    }
+                }
+            }
+        }
+
+        $arrPagenames = array_values(array_unique($arrPagenames));
+
         $cacheName = 'pwa-con4gis-v' . $intVersion;
 
         $path = $this->webPath . '/sw' . str_pad($pwaConfiguration->getId(), 3, '0', STR_PAD_LEFT);

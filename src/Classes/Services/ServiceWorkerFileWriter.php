@@ -36,19 +36,19 @@ class ServiceWorkerFileWriter
     public function createServiceWorkerFile($fileNames, $cacheName, $webPath, $strOfflinePage, $intOfflineHandling, $blockedUrls)
     {
         $this->createCachingCode($fileNames, $cacheName, $webPath);
-        //$this->createActivationListener($cacheName);
+        $this->createActivationListener($cacheName);
         $urlFilterString = $this->createUrlFilterString($blockedUrls);
         if ($strOfflinePage) {
             if ($strOfflinePage && $intOfflineHandling === PwaConfiguration::PWA_OFFLINE_HANDLING_FALLBACK) {
                 // fallback offline mode
-                $this->createFetchCodeWithOfflinePage($strOfflinePage, $urlFilterString);
+                $this->createFetchCodeWithOfflinePage($strOfflinePage, $urlFilterString, $cacheName);
             } else {
                 // always offlinePage mode
-                $this->createFetchCodeForOfflineFallback($strOfflinePage, $urlFilterString);
+                $this->createFetchCodeForOfflineFallback($strOfflinePage, $urlFilterString, $cacheName);
             }
         } else {
             // no offline page => no fallback when request failes and no cache matches
-            $this->createFetchCode($urlFilterString);
+            $this->createFetchCode($urlFilterString, $cacheName);
         }
         $this->createPushCode();
         $this->createNotificationClickCode();
@@ -126,17 +126,37 @@ JS;
      * Creates an event listener on the fetch event and tries to serve the desired request from the cache with the
      * given name.
      * @param $urlFilterString
+     * @param $cacheName
      */
-    public function createFetchCode($urlFilterString)
+    public function createFetchCode($urlFilterString, $cacheName = '')
     {
         // should fail when no cache match happens
         $this->strContent .= <<< JS
 self.addEventListener('fetch', event => {
+  const url = event.request.url;
   if (event.request.mode === 'navigate') {
    $urlFilterString
    return event.respondWith(
         fetch(event.request).catch(() => caches.match(event.request.url))
    );
+  }
+  if (event.request.method === 'GET' && (url.match(/\.(mp3|ogg|wav|m4a|png|jpg|jpeg|webp|geojson)(\?.*)?$/i) || url.includes('/files/') || url.includes('/con4gis/'))) {
+    event.respondWith(
+      caches.match(event.request).then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        return fetch(event.request).then(networkResponse => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open('$cacheName').then(cache => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return networkResponse;
+        }).catch(() => cachedResponse);
+      })
+    );
   }
 });
 
@@ -148,12 +168,14 @@ JS;
      * if no cache matches.
      * @param $offlinePage
      * @param $urlFilterString
+     * @param $cacheName
      */
-    public function createFetchCodeWithOfflinePage($offlinePage, $urlFilterString)
+    public function createFetchCodeWithOfflinePage($offlinePage, $urlFilterString, $cacheName = '')
     {
         // should return offline page when everything else failes
         $this->strContent .= <<< JS
 self.addEventListener('fetch', event => {
+  const url = event.request.url;
   if (event.request.mode === 'navigate') {
     $urlFilterString
     return event.respondWith(
@@ -168,6 +190,24 @@ self.addEventListener('fetch', event => {
       })
     );
   }
+  if (event.request.method === 'GET' && (url.match(/\.(mp3|ogg|wav|m4a|png|jpg|jpeg|webp|geojson)(\?.*)?$/i) || url.includes('/files/') || url.includes('/con4gis/'))) {
+    event.respondWith(
+      caches.match(event.request).then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        return fetch(event.request).then(networkResponse => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open('$cacheName').then(cache => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return networkResponse;
+        }).catch(() => cachedResponse);
+      })
+    );
+  }
 });
 
 JS;
@@ -177,15 +217,35 @@ JS;
      * Creates a fetch listener that always serves the offline page, when a request fails due to connection issues.
      * @param $offlinePageName
      * @param $urlFilterString
+     * @param $cacheName
      */
-    public function createFetchCodeForOfflineFallback($offlinePageName, $urlFilterString)
+    public function createFetchCodeForOfflineFallback($offlinePageName, $urlFilterString, $cacheName = '')
     {
         $this->strContent .= <<< JS
 self.addEventListener('fetch', event => {
+  const url = event.request.url;
   if (event.request.mode === 'navigate') {
     $urlFilterString
     return event.respondWith(
       fetch(event.request).catch(() => caches.match('$offlinePageName'))
+    );
+  }
+  if (event.request.method === 'GET' && (url.match(/\.(mp3|ogg|wav|m4a|png|jpg|jpeg|webp|geojson)(\?.*)?$/i) || url.includes('/files/') || url.includes('/con4gis/'))) {
+    event.respondWith(
+      caches.match(event.request).then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        return fetch(event.request).then(networkResponse => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open('$cacheName').then(cache => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return networkResponse;
+        }).catch(() => cachedResponse);
+      })
     );
   }
 });
